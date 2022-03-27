@@ -1,0 +1,16 @@
+D:\DeliveryOriginal\DeliveryOriginal\DeliveryOriginal.DAL\bin\Debug\DeliveryOriginal.DAL.dll.config
+D:\DeliveryOriginal\DeliveryOriginal\DeliveryOriginal.DAL\bin\Debug\DeliveryOriginal.DAL.dll
+D:\DeliveryOriginal\DeliveryOriginal\DeliveryOriginal.DAL\bin\Debug\DeliveryOriginal.DAL.pdb
+D:\DeliveryOriginal\DeliveryOriginal\DeliveryOriginal.DAL\bin\Debug\EntityFramework.dll
+D:\DeliveryOriginal\DeliveryOriginal\DeliveryOriginal.DAL\bin\Debug\EntityFramework.SqlServer.dll
+D:\DeliveryOriginal\DeliveryOriginal\DeliveryOriginal.DAL\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+D:\DeliveryOriginal\DeliveryOriginal\DeliveryOriginal.DAL\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\DeliveryOriginal\DeliveryOriginal\DeliveryOriginal.DAL\bin\Debug\EntityFramework.xml
+D:\DeliveryOriginal\DeliveryOriginal\DeliveryOriginal.DAL\bin\Debug\EntityFramework.SqlServer.xml
+D:\DeliveryOriginal\DeliveryOriginal\DeliveryOriginal.DAL\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+D:\DeliveryOriginal\DeliveryOriginal\DeliveryOriginal.DAL\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\DeliveryOriginal\DeliveryOriginal\DeliveryOriginal.DAL\obj\Debug\DeliveryOriginal.DAL.csproj.AssemblyReference.cache
+D:\DeliveryOriginal\DeliveryOriginal\DeliveryOriginal.DAL\obj\Debug\DeliveryOriginal.DAL.csproj.CoreCompileInputs.cache
+D:\DeliveryOriginal\DeliveryOriginal\DeliveryOriginal.DAL\obj\Debug\DeliveryOriginal.DAL.csproj.CopyComplete
+D:\DeliveryOriginal\DeliveryOriginal\DeliveryOriginal.DAL\obj\Debug\DeliveryOriginal.DAL.dll
+D:\DeliveryOriginal\DeliveryOriginal\DeliveryOriginal.DAL\obj\Debug\DeliveryOriginal.DAL.pdb
