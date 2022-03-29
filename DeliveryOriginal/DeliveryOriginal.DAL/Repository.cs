@@ -9,19 +9,17 @@ namespace DeliveryOriginal.DAL
     public class Repository<T> : IRepository<T>
         where T : class
     {
-        internal IDbSet<T> DbSet;
         internal DbContext Context;
         public Repository(DbContext context)
         {
             Context = context;
-            DbSet = context.Set<T>();
         }
 
         public void Insert(T entity)
         {
             if (entity != null)
             {
-                DbSet.Add(entity);
+                // add entity to database
             }
             else
             {
@@ -31,11 +29,10 @@ namespace DeliveryOriginal.DAL
 
         public void Delete(int id)
         {
-            var entity = DbSet.Find(id);
+            var entity = id; // find entity by id at database
             if (entity != null)
             {
-                DbSet.Attach(entity);
-                DbSet.Remove(entity);
+                // remove entity from database
             }
             else
             {
@@ -47,7 +44,7 @@ namespace DeliveryOriginal.DAL
         {
             if (entity != null)
             {
-                DbSet.Attach(entity);
+                // update entity at database
                 Context.Entry(entity).State = EntityState.Modified;
             }
             else
@@ -58,34 +55,14 @@ namespace DeliveryOriginal.DAL
 
         public T Get(int id)
         {
-            return DbSet.Find(id);
+            // find entity by id at database
+            return null;
         }
 
         public IQueryable<T> GetAll()
         {
-            return DbSet;
-        }
-
-        public IQueryable<T> GetAll(params string[] navigationProperties)
-        {
-            var query = Context.Set<T>().AsQueryable();
-
-            foreach (var navProp in navigationProperties)
-            {
-                query = query.Include(navProp);
-            }
-
-            return query;
-        }
-
-        public void DeleteRange(IEnumerable<T> items)
-        {
-            Context.Set<T>().RemoveRange(items);
-        }
-
-        public void CreateRange(IEnumerable<T> items)
-        {
-            Context.Set<T>().AddRange(items);
+            // get all entities of current class from database
+            return null;
         }
     }
 
