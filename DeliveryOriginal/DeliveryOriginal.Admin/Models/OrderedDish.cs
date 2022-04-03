@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DeliveryOriginal.DAL.Models
+﻿namespace DeliveryOriginal.Admin.Models
 {
     public class OrderedDish
     {

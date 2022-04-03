@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DeliveryOriginal.Admin.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace DeliveryOriginal.DAL.Models
+namespace DeliveryOriginal.Admin.Models
 {
     public class User
     {

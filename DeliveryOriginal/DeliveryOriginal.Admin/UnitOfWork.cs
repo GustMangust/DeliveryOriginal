@@ -1,68 +1,28 @@
-﻿using DeliveryOriginal.DAL.Interfaces;
-using DeliveryOriginal.DAL.Models;
+﻿using DeliveryOriginal.Admin.Interfaces;
+using DeliveryOriginal.Admin.Models;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
-namespace DeliveryOriginal.DAL
+namespace DeliveryOriginal.Admin
 {
     public class UnitOfWork : IUnitOfWork
     {
-        public UnitOfWork(DbContext context)
-        {
-            Context = context;
-        }
+        public UnitOfWork()
+        { }
 
-        private DbContext Context { get; set; }
+        private UserRepository _userRepository;
+        public IRepository<User> UserRepository => _userRepository ?? (_userRepository = new UserRepository());
 
-        public void Commit()
-        {
-            try
-            {
-                Context.SaveChanges();
-            }
-            catch (DbEntityValidationException dbEx)
-            {
-                foreach (var validationErrors in dbEx.EntityValidationErrors)
-                {
-                    foreach (var validationError in validationErrors.ValidationErrors)
-                    {
-                        Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
-                    }
-                }
-            }
-        }
+        //private Repository<Dish> _dishRepository;
+        //public IRepository<Dish> DishRepository => _dishRepository ?? (_dishRepository = new Repository<Dish>(Context));
 
-        public async Task CommitAsync()
-        {
-            try
-            {
-                await Context.SaveChangesAsync();
-            }
-            catch (DbEntityValidationException dbEx)
-            {
-                foreach (var validationErrors in dbEx.EntityValidationErrors)
-                {
-                    foreach (var validationError in validationErrors.ValidationErrors)
-                    {
-                        Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
-                    }
-                }
-            }
-        }
+        //private Repository<OrderedDish> _orderedDishRepository;
+        //public IRepository<OrderedDish> OrderedDishRepository => _orderedDishRepository ?? (_orderedDishRepository = new Repository<OrderedDish>(Context));
 
-        private Repository<User> _userRepository;
-        public IRepository<User> UserRepository => _userRepository ?? (_userRepository = new Repository<User>(Context));
-
-        private Repository<Dish> _dishRepository;
-        public IRepository<Dish> DishRepository => _dishRepository ?? (_dishRepository = new Repository<Dish>(Context));
-
-        private Repository<OrderedDish> _orderedDishRepository;
-        public IRepository<OrderedDish> OrderedDishRepository => _orderedDishRepository ?? (_orderedDishRepository = new Repository<OrderedDish>(Context));
-
-        private Repository<Order> _orderRepository;
-        public IRepository<Order> OrderRepository => _orderRepository ?? (_orderRepository = new Repository<Order>(Context));
+        //private Repository<Order> _orderRepository;
+        //public IRepository<Order> OrderRepository => _orderRepository ?? (_orderRepository = new Repository<Order>(Context));
 
     }
 
