@@ -84,3 +84,4 @@ D:\DeliveryOriginal\DeliveryOriginal\DeliveryOriginal.Admin\bin\EntityFramework.
 D:\DeliveryOriginal\DeliveryOriginal\DeliveryOriginal.Admin\bin\EntityFramework.SqlServer.xml
 D:\DeliveryOriginal\DeliveryOriginal\DeliveryOriginal.Admin\bin\Microsoft.AspNet.Identity.Core.xml
 D:\DeliveryOriginal\DeliveryOriginal\DeliveryOriginal.Admin\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\DeliveryOriginal\DeliveryOriginal\DeliveryOriginal.Admin\obj\Debug\DeliveryOriginal.Admin.csproj.AssemblyReference.cache
