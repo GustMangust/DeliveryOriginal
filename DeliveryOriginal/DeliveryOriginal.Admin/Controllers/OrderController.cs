@@ -15,41 +15,23 @@ namespace DeliveryOriginal.Admin.Controllers
             UnitOfWork = new UnitOfWork();
         }
 
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            //await UnitOfWork.UserRepository.Insert(new User
-            //{
-            //    Login = "GOD",
-            //    Password = "TestPass123505050505050505050505050505050",
-            //    FullName = "Aliaksei",
-            //    Role = "StringRole"
-            //});
-
-            List<User> users = await UnitOfWork.UserRepository.GetAll();
-
-            var user = users.FirstOrDefault();
-
-            user.FullName = "ДИМОС ОБНОВЛЁН";
-
-            await UnitOfWork.UserRepository.Update(user);
-
-            users = await UnitOfWork.UserRepository.GetAll();
-
             return View();
         }
 
-        public ActionResult About()
+        public async Task<ActionResult> OrderDashboard(int? defaultOrderId, OrderOrderBy orderBy = OrderOrderBy.OrderNumberDesc)
         {
-            ViewBag.Message = "Your application description page.";
+            var orders = await UnitOfWork.OrderRepository.GetAll();
 
-            return View();
-        }
+            var model = new OrderDashboardVM
+            {
+                Orders = orders,
+                SelectedOrder = defaultOrderId.HasValue ? orders.Where(order => order.Id == default).FirstOrDefault() : null,
+                OrderOrderBy = orderBy
+            };
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            return View(model);
         }
     }
 }

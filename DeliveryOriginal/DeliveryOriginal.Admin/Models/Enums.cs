@@ -21,4 +21,12 @@ namespace DeliveryOriginal.Admin.Models
         [Display(Name = "Deliverymens")]
         Deliverymens = 5
     }
+
+    public enum OrderOrderBy
+    {
+        SubmittedAtAsc = 0,
+        SubmittedAtDesc = 1,
+        OrderNumberAsc = 2,
+        OrderNumberDesc = 3
+    }
 }

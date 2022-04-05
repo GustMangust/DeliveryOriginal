@@ -7,7 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace DeliveryOriginal.Admin
+namespace DeliveryOriginal.Admin.Repositories
 {
     public class UserRepository : IRepository<User>
     {

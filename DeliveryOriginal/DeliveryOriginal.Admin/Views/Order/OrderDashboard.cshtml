@@ -1,0 +1,13 @@
+﻿@using DeliveryOriginal.Admin.Models
+
+@model OrderDashboardVM
+
+
+<div class="dashboard-container">
+    <div class="left-side-container">
+        @{ Html.RenderPartial("_OrderList"); }
+    </div>
+    <div class="right-side-container">
+        @{ Html.RenderPartial("_OrderDetails"); }
+    </div>
+</div>
