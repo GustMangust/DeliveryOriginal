@@ -7,16 +7,16 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace DeliveryOriginal.Admin
+namespace DeliveryOriginal.Admin.Repositories
 {
-    public class UserRepository : IRepository<User>
+    public class DishRepository : IRepository<Dish>
     {
-        public UserRepository()
+        public DishRepository()
         { }
 
-        public async Task Insert(User entity)
+        public async Task Insert(Dish entity)
         {
-            var apiRoute = DeliveryOriginalSettings.ApiUrl + "User/Add";
+            var apiRoute = DeliveryOriginalSettings.ApiUrl + "Dish/Add";
 
             var httpWebRequest = (HttpWebRequest)WebRequest.Create(apiRoute);
             httpWebRequest.ContentType = "application/json";
@@ -33,12 +33,12 @@ namespace DeliveryOriginal.Admin
 
         public async Task Delete(int id)
         {
-            var apiRoute = DeliveryOriginalSettings.ApiUrl + "User/Delete";
+            var apiRoute = DeliveryOriginalSettings.ApiUrl + "Dish/Delete";
 
             var httpWebRequest = (HttpWebRequest)WebRequest.Create(apiRoute);
             httpWebRequest.ContentType = "application/json";
-            httpWebRequest.Method = "DELETE"; 
-                
+            httpWebRequest.Method = "DELETE";
+
             var values = new Dictionary<string, string>
             {
                 { "Id", id.ToString() }
@@ -53,9 +53,9 @@ namespace DeliveryOriginal.Admin
             await httpWebRequest.GetResponseAsync();
         }
 
-        public async Task Update(User entity)
+        public async Task Update(Dish entity)
         {
-            var apiRoute = DeliveryOriginalSettings.ApiUrl + "User/Update";
+            var apiRoute = DeliveryOriginalSettings.ApiUrl + "Dish/Update";
 
             var httpWebRequest = (HttpWebRequest)WebRequest.Create(apiRoute);
             httpWebRequest.ContentType = "application/json";
@@ -70,21 +70,20 @@ namespace DeliveryOriginal.Admin
             await httpWebRequest.GetResponseAsync();
         }
 
-        public User Get(int id)
+        public Dish Get(int id)
         {
             // find entity by id at database
             return null;
         }
 
-        public async Task<List<User>> GetAll()
+        public async Task<List<Dish>> GetAll()
         {
             using (HttpClient client = new HttpClient())
             {
-                var apiRoute = DeliveryOriginalSettings.ApiUrl + "User/Get";
+                var apiRoute = DeliveryOriginalSettings.ApiUrl + "Dish/Get";
                 var responseString = await client.GetStringAsync(apiRoute);
-                return JsonConvert.DeserializeObject<List<User>>(responseString);
+                return JsonConvert.DeserializeObject<List<Dish>>(responseString);
             }
         }
     }
-
 }
