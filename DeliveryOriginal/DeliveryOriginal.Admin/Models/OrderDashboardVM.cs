@@ -7,8 +7,8 @@ namespace DeliveryOriginal.Admin.Models
 {
     public class OrderDashboardVM
     {
-        public List<Order> Orders { get; set; }
-        public Order SelectedOrder { get; set; }
+        public List<OrderDetailsVM> Orders { get; set; }
+        public OrderDetailsVM SelectedOrder { get; set; }
         public OrderOrderBy OrderOrderBy { get; set; }
     }
 }

@@ -29,4 +29,22 @@ namespace DeliveryOriginal.Admin.Models
         OrderNumberAsc = 2,
         OrderNumberDesc = 3
     }
+
+    public enum OrderStatus
+    {
+        [Display(Name = "New")]
+        New = 0,
+        [Display(Name = "Ready For Cooking")]
+        ReadyForCooking = 1,
+        [Display(Name = "Cooking")]
+        Cooking = 2,
+        [Display(Name = "Ready For Delivery")]
+        ReadyForDelivery = 3,
+        [Display(Name = "In Delivery")]
+        InDelivery = 4,
+        [Display(Name = "Delivered")]
+        Delivered = 5,
+        [Display(Name = "Declined")]
+        Declined = 6
+    }
 }
