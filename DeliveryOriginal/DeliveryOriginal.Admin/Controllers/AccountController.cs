@@ -59,7 +59,7 @@ namespace DeliveryOriginal.Admin.Controllers
                         string userData = JsonConvert.SerializeObject(userModel);
                         FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket
                             (
-                                1, model.Login, DateTime.Now, DateTime.Now.AddMinutes(15), false, userData
+                                1, model.Login, DateTime.Now, DateTime.Now.AddMinutes(60), false, userData
                             );
 
                         string enTicket = FormsAuthentication.Encrypt(authTicket);
@@ -73,7 +73,7 @@ namespace DeliveryOriginal.Admin.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Index");
+                        return RedirectToAction("OrderDashboard", "Order");
                     }
                 }
             }
@@ -110,7 +110,8 @@ namespace DeliveryOriginal.Admin.Controllers
                 {
                     Login = model.Login,
                     FullName = model.FullName,
-                    Password = model.Password
+                    Password = model.Password,
+                    Role = RoleGroup.Regulars
                 };
 
                 await UnitOfWork.UserRepository.Insert(newUser);

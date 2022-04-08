@@ -6,7 +6,6 @@ namespace DeliveryOriginal.Admin.Models
     {
         [Required]
         [Display(Name = "Login")]
-        [EmailAddress]
         public string Login { get; set; }
 
         [Required]

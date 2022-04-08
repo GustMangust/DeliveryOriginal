@@ -18,9 +18,7 @@ namespace DeliveryOriginal.Admin.Identity
                 return false;
             }
 
-            var users = UnitOfWork.UserRepository.GetAll().Result;
-
-            var user = users?.Where(u => u.Login == login && u.Password == password)?.FirstOrDefault();
+            var user = Task.Run(() => UnitOfWork.UserRepository.GetAll())?.Result?.Where(u => u.Login == login && u.Password == password)?.FirstOrDefault();
 
             return (user != null) ? true : false;
         }
@@ -32,9 +30,7 @@ namespace DeliveryOriginal.Admin.Identity
 
         public override MembershipUser GetUser(string login, bool userIsOnline)
         {
-            var users = UnitOfWork.UserRepository.GetAll().Result;
-
-            var user = users?.Where(u => u.Login == login)?.FirstOrDefault();
+            var user = Task.Run(() => UnitOfWork.UserRepository.GetAll())?.Result?.Where(u => u.Login == login)?.FirstOrDefault();
 
             if (user == null)
             {

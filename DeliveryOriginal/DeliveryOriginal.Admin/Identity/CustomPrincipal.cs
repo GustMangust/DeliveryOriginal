@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DeliveryOriginal.Admin.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
@@ -13,7 +14,7 @@ namespace DeliveryOriginal.Admin.Identity
         public int Id { get; set; }
         public string Login { get; set; }
         public string FullName { get; set; }
-        public string Role { get; set; }
+        public RoleGroup Role { get; set; }
         #endregion
 
         public IIdentity Identity
@@ -22,6 +23,11 @@ namespace DeliveryOriginal.Admin.Identity
         }
 
         public bool IsInRole(string role)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsInRole(RoleGroup role)
         {
             if (Role == role)
             {

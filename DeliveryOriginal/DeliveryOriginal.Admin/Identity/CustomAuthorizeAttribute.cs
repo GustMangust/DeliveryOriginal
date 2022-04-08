@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DeliveryOriginal.Admin.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,9 +14,11 @@ namespace DeliveryOriginal.Admin.Identity
             get { return HttpContext.Current.User as CustomPrincipal; }
         }
 
+        public RoleGroup Role { get; set; }
+
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            return ((CurrentUser != null && !CurrentUser.IsInRole(Roles)) || CurrentUser == null) ? false : true;
+            return ((CurrentUser != null && !CurrentUser.IsInRole(Role)) || CurrentUser == null) ? false : true;
         }
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)

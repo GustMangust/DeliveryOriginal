@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace DeliveryOriginal.Admin.Controllers
 {
-    [CustomAuthorize]
+    [CustomAuthorize(Role = RoleGroup.Regulars)]
     public class OrderController : Controller
     {
         protected readonly IUnitOfWork UnitOfWork;
