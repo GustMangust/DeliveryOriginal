@@ -1,18 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using DeliveryOriginal.Admin.Identity;
+using DeliveryOriginal.Admin.Interfaces;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace DeliveryOriginal.Admin.Controllers
 {
+    [CustomAuthorize]
     public class UserController : Controller
     {
-        public ActionResult Index()
+        protected readonly IUnitOfWork UnitOfWork;
+        public UserController()
         {
-            ViewBag.Message = "Your application description page.";
+            UnitOfWork = new UnitOfWork();
+        }
 
-            return View();
+        public async Task<ActionResult> Index()
+        {
+            var users = await UnitOfWork.UserRepository.GetAll();
+
+            return View(users);
         }
     }
 }

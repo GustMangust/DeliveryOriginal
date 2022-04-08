@@ -80,7 +80,7 @@ namespace DeliveryOriginal.Admin.Repositories
         {
             using (HttpClient client = new HttpClient())
             {
-                var apiRoute = DeliveryOriginalSettings.ApiUrl + "Dish/Get";
+                var apiRoute = DeliveryOriginalSettings.ApiUrl + "Dish/GetAll";
                 var responseString = await client.GetStringAsync(apiRoute);
                 return JsonConvert.DeserializeObject<List<Dish>>(responseString);
             }

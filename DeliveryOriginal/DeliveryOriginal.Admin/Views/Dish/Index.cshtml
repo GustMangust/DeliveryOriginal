@@ -1,0 +1,55 @@
+﻿@using DeliveryOriginal.Admin.Models
+
+@model List<Dish>
+
+<div class="dish-container col-md-12">
+    <div class="row panel-container">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default">
+                <div class="text-center">
+                    <a href="@Url.Action("CreateDish")" class="provider-panel">
+                        <h4>
+                            Create new Dish
+                        </h4>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <tr>
+                <th class="col-sm-3">
+                    Id
+                </th>
+                <th class="col-sm-3">
+                    Name
+                </th>
+                <th class="col-sm-3">
+                    Cost
+                </th>
+                <th class="col-sm-3">
+                    Actions
+                </th>
+            </tr>
+            @foreach (Dish dish in Model)
+            {
+                <tr id="_@dish.Id">
+                    <td class="col-sm-3">
+                        @dish.Id
+                    </td>
+                    <td class="col-sm-3">
+                        @dish.Name
+                    </td>
+                    <td class="col-sm-3">
+                        @dish.Cost
+                    </td>
+                    <td class="col-sm-3">
+                        @Html.ActionLink("Edit", "EditDish", new { id = dish.Id })<text>&nbsp;</text>
+                        <a class="list-delete-button" onClick="deleteDish(event, @dish.Id)" >Delete</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

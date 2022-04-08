@@ -5,9 +5,9 @@ namespace DeliveryOriginal.Admin.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "UserName")]
+        [Display(Name = "Login")]
         [EmailAddress]
-        public string UserName { get; set; }
+        public string Login { get; set; }
 
         [Required]
         [DataType(DataType.Password)]

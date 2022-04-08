@@ -18,4 +18,11 @@ namespace DeliveryOriginal.Admin.Models
     {
         public decimal TotalCost { get; set; }
     }
+
+    public class OrderDashboardVM
+    {
+        public List<OrderDetailsVM> Orders { get; set; }
+        public OrderDetailsVM SelectedOrder { get; set; }
+        public OrderOrderBy OrderOrderBy { get; set; }
+    }
 }

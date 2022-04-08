@@ -1,7 +1,55 @@
-﻿@{
-    ViewBag.Title = "User";
-}
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+﻿@using DeliveryOriginal.Admin.Models
 
-<p>Use this area to provide additional information.</p>
+@model List<User>
+
+<div class="dish-container col-md-12">
+    <div class="row panel-container">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default">
+                <div class="text-center">
+                    <a href="@Url.Action("CreateDish")" class="provider-panel">
+                        <h4>
+                            Create new Dish
+                        </h4>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <tr>
+                <th class="col-sm-3">
+                    Id
+                </th>
+                <th class="col-sm-3">
+                    Login
+                </th>
+                <th class="col-sm-3">
+                    Role
+                </th>
+                <th class="col-sm-3">
+                    Actions
+                </th>
+            </tr>
+            @foreach (User user in Model)
+            {
+                <tr id="_@user.Id">
+                    <td class="col-sm-3">
+                        @user.Id
+                    </td>
+                    <td class="col-sm-3">
+                        @user.Login
+                    </td>
+                    <td class="col-sm-3">
+                        @user.Role
+                    </td>
+                    <td class="col-sm-3">
+                        @Html.ActionLink("Edit", "EditDish", new { id = user.Id })<text>&nbsp;</text>
+                        <a class="list-delete-button" onClick="deleteDish(event, @user.Id)">Delete</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

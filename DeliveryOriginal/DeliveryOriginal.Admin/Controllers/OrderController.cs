@@ -1,4 +1,5 @@
-﻿using DeliveryOriginal.Admin.Interfaces;
+﻿using DeliveryOriginal.Admin.Identity;
+using DeliveryOriginal.Admin.Interfaces;
 using DeliveryOriginal.Admin.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Web.Mvc;
 
 namespace DeliveryOriginal.Admin.Controllers
 {
+    [CustomAuthorize]
     public class OrderController : Controller
     {
         protected readonly IUnitOfWork UnitOfWork;
@@ -29,7 +31,7 @@ namespace DeliveryOriginal.Admin.Controllers
             var model = new OrderDashboardVM
             {
                 Orders = dashboardOrders,
-                SelectedOrder = defaultOrderId.HasValue ? dashboardOrders.Where(order => order.Id == defaultOrderId).FirstOrDefault() : null,
+                SelectedOrder = defaultOrderId.HasValue ? dashboardOrders?.Where(order => order.Id == defaultOrderId)?.FirstOrDefault() : null,
                 OrderOrderBy = orderBy
             };
 
@@ -43,7 +45,7 @@ namespace DeliveryOriginal.Admin.Controllers
             {
                 var orders = await UnitOfWork.OrderRepository.GetAll();
                 var dashboardOrders = GetDashboardOrders(orders);
-                var order = dashboardOrders.Where(o => o.Id == orderId).FirstOrDefault();
+                var order = dashboardOrders?.Where(o => o.Id == orderId)?.FirstOrDefault();
 
                 if (order != null)
                 {

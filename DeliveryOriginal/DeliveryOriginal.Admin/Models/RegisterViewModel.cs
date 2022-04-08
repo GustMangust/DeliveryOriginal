@@ -5,9 +5,11 @@ namespace DeliveryOriginal.Admin.Models
     public class RegisterViewModel
     {
         [Required]
-        [EmailAddress]
-        [Display(Name = "UserName")]
-        public string UserName { get; set; }
+        [Display(Name = "Login")]
+        public string Login { get; set; }
+        [Required]
+        [Display(Name = "Full Name")]
+        public string FullName { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 8)]
