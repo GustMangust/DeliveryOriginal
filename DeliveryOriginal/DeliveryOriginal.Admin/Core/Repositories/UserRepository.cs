@@ -1,4 +1,4 @@
-﻿using DeliveryOriginal.Admin.Interfaces;
+﻿using DeliveryOriginal.Admin.Core.Interfaces;
 using DeliveryOriginal.Admin.Models;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace DeliveryOriginal.Admin.Repositories
+namespace DeliveryOriginal.Admin.Core.Repositories
 {
     public class UserRepository : IRepository<User>
     {

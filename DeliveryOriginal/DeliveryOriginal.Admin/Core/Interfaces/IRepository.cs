@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace DeliveryOriginal.Admin.Interfaces
+namespace DeliveryOriginal.Admin.Core.Interfaces
 {
     public interface IRepository<T> where T : class
     {

@@ -1,4 +1,4 @@
-﻿using DeliveryOriginal.Admin.Interfaces;
+﻿using DeliveryOriginal.Admin.Core.Interfaces;
 using DeliveryOriginal.Admin.Models;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -7,16 +7,16 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace DeliveryOriginal.Admin.Repositories
+namespace DeliveryOriginal.Admin.Core.Repositories
 {
-    public class OrderedDishRepository : IRepository<OrderedDish>
+    public class OrderRepository : IRepository<Order>
     {
-        public OrderedDishRepository()
+        public OrderRepository()
         { }
 
-        public async Task Insert(OrderedDish entity)
+        public async Task Insert(Order entity)
         {
-            var apiRoute = DeliveryOriginalSettings.ApiUrl + "OrderedDish/Add";
+            var apiRoute = DeliveryOriginalSettings.ApiUrl + "Order/Add";
 
             var httpWebRequest = (HttpWebRequest)WebRequest.Create(apiRoute);
             httpWebRequest.ContentType = "application/json";
@@ -33,7 +33,7 @@ namespace DeliveryOriginal.Admin.Repositories
 
         public async Task Delete(int id)
         {
-            var apiRoute = DeliveryOriginalSettings.ApiUrl + "OrderedDish/Delete";
+            var apiRoute = DeliveryOriginalSettings.ApiUrl + "Order/Delete";
 
             var httpWebRequest = (HttpWebRequest)WebRequest.Create(apiRoute);
             httpWebRequest.ContentType = "application/json";
@@ -53,9 +53,9 @@ namespace DeliveryOriginal.Admin.Repositories
             await httpWebRequest.GetResponseAsync();
         }
 
-        public async Task Update(OrderedDish entity)
+        public async Task Update(Order entity)
         {
-            var apiRoute = DeliveryOriginalSettings.ApiUrl + "OrderedDish/Update";
+            var apiRoute = DeliveryOriginalSettings.ApiUrl + "Order/Update";
 
             var httpWebRequest = (HttpWebRequest)WebRequest.Create(apiRoute);
             httpWebRequest.ContentType = "application/json";
@@ -70,19 +70,19 @@ namespace DeliveryOriginal.Admin.Repositories
             await httpWebRequest.GetResponseAsync();
         }
 
-        public OrderedDish Get(int id)
+        public Order Get(int id)
         {
             // find entity by id at database
             return null;
         }
 
-        public async Task<List<OrderedDish>> GetAll()
+        public async Task<List<Order>> GetAll()
         {
             using (HttpClient client = new HttpClient())
             {
-                var apiRoute = DeliveryOriginalSettings.ApiUrl + "OrderedDish/GetAll";
+                var apiRoute = DeliveryOriginalSettings.ApiUrl + "Order/GetAll";
                 var responseString = await client.GetStringAsync(apiRoute);
-                return JsonConvert.DeserializeObject<List<OrderedDish>>(responseString);
+                return JsonConvert.DeserializeObject<List<Order>>(responseString);
             }
         }
     }

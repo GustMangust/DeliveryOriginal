@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace DeliveryOriginal.Admin.Identity
+namespace DeliveryOriginal.Admin.Core.Identity
 {
     public class CustomAuthorizeAttribute : AuthorizeAttribute
     {

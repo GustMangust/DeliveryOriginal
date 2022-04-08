@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 
-namespace DeliveryOriginal.Admin.Extensions
+namespace DeliveryOriginal.Admin.Core.Extensions
 {
     public static class EnumExtensions
     {

@@ -249,16 +249,16 @@
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DeliveryOriginalSettings.cs" />
-    <Compile Include="Extensions\EnumExtensions.cs" />
+    <Compile Include="Core\Extensions\EnumExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Identity\CustomAuthorizeAttribute.cs" />
-    <Compile Include="Identity\CustomMembership.cs" />
-    <Compile Include="Identity\CustomMembershipUser.cs" />
-    <Compile Include="Identity\CustomPrincipal.cs" />
-    <Compile Include="Interfaces\IRepository.cs" />
-    <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Core\Identity\CustomAuthorizeAttribute.cs" />
+    <Compile Include="Core\Identity\CustomMembership.cs" />
+    <Compile Include="Core\Identity\CustomMembershipUser.cs" />
+    <Compile Include="Core\Identity\CustomPrincipal.cs" />
+    <Compile Include="Core\Interfaces\IRepository.cs" />
+    <Compile Include="Core\Interfaces\IUnitOfWork.cs" />
     <Compile Include="Models\Dish.cs" />
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
@@ -267,10 +267,10 @@
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\DishRepository.cs" />
-    <Compile Include="Repositories\OrderedDishRepository.cs" />
-    <Compile Include="Repositories\OrderRepository.cs" />
-    <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Core\Repositories\DishRepository.cs" />
+    <Compile Include="Core\Repositories\OrderedDishRepository.cs" />
+    <Compile Include="Core\Repositories\OrderRepository.cs" />
+    <Compile Include="Core\Repositories\UserRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>

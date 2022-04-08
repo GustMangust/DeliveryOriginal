@@ -1,9 +1,7 @@
-﻿using DeliveryOriginal.Admin.Identity;
+﻿using DeliveryOriginal.Admin.Core.Identity;
 using DeliveryOriginal.Admin.Models;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;

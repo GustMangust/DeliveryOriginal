@@ -5,7 +5,7 @@ using System.Linq;
 using System.Security.Principal;
 using System.Web;
 
-namespace DeliveryOriginal.Admin.Identity
+namespace DeliveryOriginal.Admin.Core.Identity
 {
     public class CustomPrincipal : IPrincipal
     {

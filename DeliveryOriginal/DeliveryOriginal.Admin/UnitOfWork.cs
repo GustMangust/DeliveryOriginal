@@ -1,6 +1,6 @@
-﻿using DeliveryOriginal.Admin.Interfaces;
+﻿using DeliveryOriginal.Admin.Core.Interfaces;
 using DeliveryOriginal.Admin.Models;
-using DeliveryOriginal.Admin.Repositories;
+using DeliveryOriginal.Admin.Core.Repositories;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Diagnostics;

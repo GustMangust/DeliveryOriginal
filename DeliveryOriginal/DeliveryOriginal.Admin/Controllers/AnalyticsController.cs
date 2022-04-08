@@ -1,8 +1,4 @@
-﻿using DeliveryOriginal.Admin.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using DeliveryOriginal.Admin.Core.Identity;
 using System.Web.Mvc;
 
 namespace DeliveryOriginal.Admin.Controllers

@@ -2,7 +2,7 @@
 using System;
 using System.Web.Security;
 
-namespace DeliveryOriginal.Admin.Identity
+namespace DeliveryOriginal.Admin.Core.Identity
 {
     public class CustomMembershipUser : MembershipUser
     {

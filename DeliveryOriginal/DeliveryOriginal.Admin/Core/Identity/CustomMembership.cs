@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Security;
 
-namespace DeliveryOriginal.Admin.Identity
+namespace DeliveryOriginal.Admin.Core.Identity
 {
     public class CustomMembership : MembershipProvider
     {

@@ -1,7 +1,6 @@
 ﻿using DeliveryOriginal.Admin.Models;
-using System.Threading.Tasks;
 
-namespace DeliveryOriginal.Admin.Interfaces
+namespace DeliveryOriginal.Admin.Core.Interfaces
 {
     public interface IUnitOfWork
     {

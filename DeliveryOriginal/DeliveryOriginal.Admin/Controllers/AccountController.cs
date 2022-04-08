@@ -1,5 +1,5 @@
-﻿using DeliveryOriginal.Admin.Identity;
-using DeliveryOriginal.Admin.Interfaces;
+﻿using DeliveryOriginal.Admin.Core.Identity;
+using DeliveryOriginal.Admin.Core.Interfaces;
 using DeliveryOriginal.Admin.Models;
 using Newtonsoft.Json;
 using System;
