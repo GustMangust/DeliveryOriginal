@@ -2,14 +2,14 @@
 
 @model List<User>
 
-<div class="dish-container col-md-12">
+<div class="user-container col-md-12">
     <div class="row panel-container">
         <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-default">
                 <div class="text-center">
-                    <a href="@Url.Action("CreateDish")" class="provider-panel">
+                    <a href="@Url.Action("CreateUser")" class="provider-panel">
                         <h4>
-                            Create new Dish
+                            Create new User
                         </h4>
                     </a>
                 </div>
@@ -45,8 +45,8 @@
                         @user.Role
                     </td>
                     <td class="col-sm-3">
-                        @Html.ActionLink("Edit", "EditDish", new { id = user.Id })<text>&nbsp;</text>
-                        <a class="list-delete-button" onClick="deleteDish(event, @user.Id)">Delete</a>
+                        @Html.ActionLink("Edit", "EditUser", new { id = user.Id })<text>&nbsp;</text>
+                        <a class="list-delete-button" onClick="deleteUser(event, @user.Id)">Delete</a>
                     </td>
                 </tr>
             }
