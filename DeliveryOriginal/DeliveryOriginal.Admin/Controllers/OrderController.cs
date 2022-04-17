@@ -1,10 +1,14 @@
-﻿using DeliveryOriginal.Admin.Interfaces;
+﻿using DeliveryOriginal.Admin.Core.Identity;
+using DeliveryOriginal.Admin.Core.Interfaces;
 using DeliveryOriginal.Admin.Models;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace DeliveryOriginal.Admin.Controllers
 {
+    [CustomAuthorize(Role = RoleGroup.Regulars)]
     public class OrderController : Controller
     {
         protected readonly IUnitOfWork UnitOfWork;
@@ -13,33 +17,94 @@ namespace DeliveryOriginal.Admin.Controllers
             UnitOfWork = new UnitOfWork();
         }
 
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            await UnitOfWork.UserRepository.Insert(new User
+            return View();
+        }
+
+        public async Task<ActionResult> OrderDashboard(int? defaultOrderId, OrderOrderBy orderBy = OrderOrderBy.OrderNumberDesc)
+        {
+            var orders = await UnitOfWork.OrderRepository.GetAll();
+
+            var dashboardOrders = GetDashboardOrders(orders);
+
+            var model = new OrderDashboardVM
             {
-                Login = "GOD",
-                FullName = "Aliaksei Mukavozchyk",
-                Password = "TestPassword123",
-                Role = "StringRole"
-            });
+                Orders = dashboardOrders,
+                SelectedOrder = defaultOrderId.HasValue ? dashboardOrders?.Where(order => order.Id == defaultOrderId)?.FirstOrDefault() : null,
+                OrderOrderBy = orderBy
+            };
 
-            var users = await UnitOfWork.UserRepository.GetAll();
-
-            return View();
+            return View(model);
         }
 
-        public ActionResult About()
+        [HttpGet]
+        public async Task<ActionResult> RenderDashboardOrderDetailsPartial(int? orderId = null)
         {
-            ViewBag.Message = "Your application description page.";
+            if (orderId.HasValue)
+            {
+                var order = await UnitOfWork.OrderRepository.Get(orderId.Value);
 
-            return View();
+                if (order != null)
+                {
+                    var model = GetDashboardOrder(order);
+                    return PartialView("_OrderDetails", model);
+                }
+            }
+
+            return PartialView("_OrderDetails", null);
         }
 
-        public ActionResult Contact()
+        private OrderDetailsVM GetDashboardOrder(Order order)
         {
-            ViewBag.Message = "Your contact page.";
+            var dashboardOrder = new OrderDetailsVM
+            {
+                Id = order.Id,
+                Address = order.Address,
+                CurrentEmployee = order.CurrentEmployee,
+                Customer = order.Customer,
+                Dishes = order.Dishes,
+                Status = order.Status,
+                SubmittedAt = order.SubmittedAt
+            };
+            if (dashboardOrder?.Dishes != null)
+            {
+                foreach (var dish in dashboardOrder?.Dishes)
+                {
+                    dashboardOrder.TotalCost += dish.Cost;
+                }
+            }
 
-            return View();
+            return dashboardOrder;
+        }
+
+        private List<OrderDetailsVM> GetDashboardOrders(List<Order> orders)
+        {
+            var dashboardOrders = new List<OrderDetailsVM>();
+            foreach (var order in orders)
+            {
+                var dashboardOrder = new OrderDetailsVM
+                {
+                    Id = order.Id,
+                    Address = order.Address,
+                    CurrentEmployee = order.CurrentEmployee,
+                    Customer = order.Customer,
+                    Dishes = order.Dishes,
+                    Status = order.Status,
+                    SubmittedAt = order.SubmittedAt
+                };
+                if (dashboardOrder?.Dishes != null)
+                {
+                    foreach (var dish in dashboardOrder?.Dishes)
+                    {
+                        dashboardOrder.TotalCost += dish.Cost;
+                    }
+                }
+
+                dashboardOrders.Add(dashboardOrder);
+            }
+
+            return dashboardOrders;
         }
     }
 }

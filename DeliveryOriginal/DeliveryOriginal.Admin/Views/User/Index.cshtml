@@ -1,7 +1,76 @@
-﻿@{
-    ViewBag.Title = "User";
-}
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+﻿@using DeliveryOriginal.Admin.Models
 
-<p>Use this area to provide additional information.</p>
+@model List<User>
+
+<div class="user-container col-md-12">
+    <div class="row panel-container">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default">
+                <div class="text-center">
+                    <a href="@Url.Action("CreateUser")" class="provider-panel">
+                        <h4>
+                            Create new User
+                        </h4>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <tr>
+                <th class="col-sm-3">
+                    Id
+                </th>
+                <th class="col-sm-3">
+                    Login
+                </th>
+                <th class="col-sm-3">
+                    Role
+                </th>
+                <th class="col-sm-3">
+                    Actions
+                </th>
+            </tr>
+            @foreach (User user in Model)
+            {
+                <tr id="_@user.Id">
+                    <td class="col-sm-3">
+                        @user.Id
+                    </td>
+                    <td class="col-sm-3">
+                        @user.Login
+                    </td>
+                    <td class="col-sm-3">
+                        @user.Role
+                    </td>
+                    <td class="col-sm-3">
+                        @Html.ActionLink("Edit", "EditUser", new { id = user.Id })<text>&nbsp;</text>
+                        <a class="list-delete-button" onClick="deleteUser(event, @user.Id)">Delete</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+<script>
+    var deleteUser = function (event, id) {
+        if (event && ($(event.target).hasClass('tooltip-button') || $(event.target).hasClass('glyphicon-wrench') || $(event.target).hasClass('fa'))) {
+            return true;
+        }
+
+        let deleteUserUrl = '@Url.Action("DeleteUser", "User")';
+
+        $.ajax({
+            type: 'GET',
+            url: deleteUserUrl,
+            data: '&userId=' + id,
+            success: function (data, textstatus) {
+                $(`#_${id}`).empty();
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert(errorThrown);
+            }
+        });
+    }
+</script>

@@ -1,0 +1,78 @@
+﻿@using DeliveryOriginal.Admin.Models
+@using DeliveryOriginal.Admin.Core.Extensions
+@model OrderDetailsVM
+
+<div id="_@Model.Id" class="bordered-content order-list-item-container" onClick="loadDashboardOrderDetails(event, @Model.Id)">
+    <div class="row">
+        <div class="col-xs-8 col-sm-8 col-md-8 restaurant-number-link">
+            <label>Order Number:</label>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 text-right pull-right">
+            <div class="restaurant-id-link" value="@Model.Id">#@Model.Id</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-4 col-sm-4 col-md-4">
+            <label class="submission-time">Status:</label>
+        </div>
+        <div class="col-xs-8 col-sm-8 col-md-8 text-right pull-right">
+            @{
+                switch (Model.Status)
+                {
+                    case OrderStatus.New:
+                        <div class="order-status order-status-new">@Model.Status.GetDisplayName()</div>
+                        break;
+                    case OrderStatus.Declined:
+                        <div class="order-status order-status-declined">@Model.Status.GetDisplayName()</div>
+                        break;
+                    case OrderStatus.Delivered:
+                        <div class="order-status order-status-delivered">@Model.Status.GetDisplayName()</div>
+                        break;
+                    default:
+                        <div class="order-status order-status">@Model.Status.GetDisplayName()</div>
+                        break;
+                }
+            }
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6">
+            <label>Total Cost:</label>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 text-right pull-right">
+            @Model.TotalCost
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 text-left pull-right">
+            <div class="submission-time">@Model.SubmittedAt</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            @Model.Address
+        </div>
+    </div>
+</div>
+<script>
+    var loadDashboardOrderDetails = function (event, id) {
+        if (event && ($(event.target).hasClass('tooltip-button') || $(event.target).hasClass('glyphicon-wrench') || $(event.target).hasClass('fa'))) {
+            return true;
+        }
+
+        let orderDetailsUrl = '@Url.Action("RenderDashboardOrderDetailsPartial", "Order")';
+
+        $.ajax({
+            type: 'GET',
+            url: orderDetailsUrl,
+            data: '&orderId=' + id,
+            success: function (data, textstatus) {
+                $('.details-partial').empty();
+                $('.details-partial').append(data);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert(errorThrown);
+            }
+        });
+    }
+</script>

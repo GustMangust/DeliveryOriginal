@@ -9,6 +9,6 @@ namespace DeliveryOriginal.Admin.Models
         public string Login { get; set; }
         public string Password { get; set; }
         public string FullName { get; set; }
-        public string Role { get; set; }
+        public RoleGroup Role { get; set; }
     }
 }
