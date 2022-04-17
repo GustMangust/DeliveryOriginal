@@ -6,7 +6,7 @@ namespace DeliveryOriginal.Admin.Core.Interfaces
     {
         IRepository<User> UserRepository { get; }
         IRepository<Dish> DishRepository { get; }
-        IRepository<OrderedDish> OrderedDishRepository { get; }
+        IRepository<Category> CategoryRepository { get; }
         IRepository<Order> OrderRepository { get; }
     }
 }

@@ -21,5 +21,43 @@ namespace DeliveryOriginal.Admin.Controllers
 
             return View(users);
         }
+
+        [HttpGet]
+        public ActionResult CreateUser()
+        {
+            var user = new User();
+
+            return View(user);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> CreateUser(User user)
+        {
+            await UnitOfWork.UserRepository.Insert(user);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> EditUser(int id)
+        {
+            var user = await UnitOfWork.UserRepository.Get(id);
+
+            return View(user);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> EditUser(User user)
+        {
+            await UnitOfWork.UserRepository.Update(user);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task DeleteUser(int userId)
+        {
+            await UnitOfWork.UserRepository.Delete(userId);
+        }
     }
 }

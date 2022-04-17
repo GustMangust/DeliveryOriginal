@@ -53,3 +53,24 @@
         </table>
     </div>
 </div>
+<script>
+    var deleteUser = function (event, id) {
+        if (event && ($(event.target).hasClass('tooltip-button') || $(event.target).hasClass('glyphicon-wrench') || $(event.target).hasClass('fa'))) {
+            return true;
+        }
+
+        let deleteUserUrl = '@Url.Action("DeleteUser", "User")';
+
+        $.ajax({
+            type: 'GET',
+            url: deleteUserUrl,
+            data: '&userId=' + id,
+            success: function (data, textstatus) {
+                $(`#_${id}`).empty();
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert(errorThrown);
+            }
+        });
+    }
+</script>

@@ -43,17 +43,39 @@ namespace DeliveryOriginal.Admin.Controllers
         {
             if (orderId.HasValue)
             {
-                var orders = await UnitOfWork.OrderRepository.GetAll();
-                var dashboardOrders = GetDashboardOrders(orders);
-                var order = dashboardOrders?.Where(o => o.Id == orderId)?.FirstOrDefault();
+                var order = await UnitOfWork.OrderRepository.Get(orderId.Value);
 
                 if (order != null)
                 {
-                    return PartialView("_OrderDetails", order);
+                    var model = GetDashboardOrder(order);
+                    return PartialView("_OrderDetails", model);
                 }
             }
 
             return PartialView("_OrderDetails", null);
+        }
+
+        private OrderDetailsVM GetDashboardOrder(Order order)
+        {
+            var dashboardOrder = new OrderDetailsVM
+            {
+                Id = order.Id,
+                Address = order.Address,
+                CurrentEmployee = order.CurrentEmployee,
+                Customer = order.Customer,
+                Dishes = order.Dishes,
+                Status = order.Status,
+                SubmittedAt = order.SubmittedAt
+            };
+            if (dashboardOrder?.Dishes != null)
+            {
+                foreach (var dish in dashboardOrder?.Dishes)
+                {
+                    dashboardOrder.TotalCost += dish.Cost;
+                }
+            }
+
+            return dashboardOrder;
         }
 
         private List<OrderDetailsVM> GetDashboardOrders(List<Order> orders)
@@ -67,15 +89,15 @@ namespace DeliveryOriginal.Admin.Controllers
                     Address = order.Address,
                     CurrentEmployee = order.CurrentEmployee,
                     Customer = order.Customer,
-                    OrderedDishes = order.OrderedDishes,
+                    Dishes = order.Dishes,
                     Status = order.Status,
                     SubmittedAt = order.SubmittedAt
                 };
-                if (dashboardOrder?.OrderedDishes != null)
+                if (dashboardOrder?.Dishes != null)
                 {
-                    foreach (var dish in dashboardOrder?.OrderedDishes)
+                    foreach (var dish in dashboardOrder?.Dishes)
                     {
-                        dashboardOrder.TotalCost += dish.Dish.Cost;
+                        dashboardOrder.TotalCost += dish.Cost;
                     }
                 }
 

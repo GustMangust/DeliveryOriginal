@@ -8,7 +8,7 @@ namespace DeliveryOriginal.Admin.Core.Interfaces
         Task Insert(T entity);
         Task Delete(int id);
         Task Update(T entity);
-        T Get(int id);
+        Task<T> Get(int id);
         Task<List<T>> GetAll();
     }
 }

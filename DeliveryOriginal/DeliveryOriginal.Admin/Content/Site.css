@@ -87,3 +87,13 @@ textarea {
     padding: 10px;
     margin-bottom: 10px;
 }
+
+/*#region DishLogo*/
+#dishLogoContainer {
+    display: inline-block;
+}
+
+#removeDishLogoIcon {
+    font-size: 40px;
+    margin-left: 5px;
+}

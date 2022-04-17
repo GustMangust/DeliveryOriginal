@@ -33,22 +33,11 @@ namespace DeliveryOriginal.Admin.Core.Repositories
 
         public async Task Delete(int id)
         {
-            var apiRoute = DeliveryOriginalSettings.ApiUrl + "Order/Delete";
+            var apiRoute = DeliveryOriginalSettings.ApiUrl + "Order/Delete?Id=" + id;
 
             var httpWebRequest = (HttpWebRequest)WebRequest.Create(apiRoute);
             httpWebRequest.ContentType = "application/json";
             httpWebRequest.Method = "DELETE";
-
-            var values = new Dictionary<string, string>
-            {
-                { "Id", id.ToString() }
-            };
-
-            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
-            {
-                string json = JsonConvert.SerializeObject(values);
-                streamWriter.Write(json);
-            }
 
             await httpWebRequest.GetResponseAsync();
         }
@@ -70,10 +59,14 @@ namespace DeliveryOriginal.Admin.Core.Repositories
             await httpWebRequest.GetResponseAsync();
         }
 
-        public Order Get(int id)
+        public async Task<Order> Get(int id)
         {
-            // find entity by id at database
-            return null;
+            using (HttpClient client = new HttpClient())
+            {
+                var apiRoute = DeliveryOriginalSettings.ApiUrl + "Order/Get?Id=" + id;
+                var responseString = await client.GetStringAsync(apiRoute);
+                return JsonConvert.DeserializeObject<Order>(responseString);
+            }
         }
 
         public async Task<List<Order>> GetAll()

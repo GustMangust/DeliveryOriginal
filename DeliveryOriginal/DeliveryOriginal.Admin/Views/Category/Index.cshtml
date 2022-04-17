@@ -1,15 +1,15 @@
 ﻿@using DeliveryOriginal.Admin.Models
 
-@model List<Dish>
+@model List<Category>
 
-<div class="dish-container col-md-12">
+<div class="Category-container col-md-12">
     <div class="row panel-container">
         <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-default">
                 <div class="text-center">
-                    <a href="@Url.Action("CreateDish")" class="provider-panel">
+                    <a href="@Url.Action("CreateCategory")" class="provider-panel">
                         <h4>
-                            Create new Dish
+                            Create new Category
                         </h4>
                     </a>
                 </div>
@@ -26,27 +26,21 @@
                     Name
                 </th>
                 <th class="col-sm-3">
-                    Cost
-                </th>
-                <th class="col-sm-3">
                     Actions
                 </th>
             </tr>
-            @foreach (Dish dish in Model)
+            @foreach (Category category in Model)
             {
-                <tr id="_@dish.Id">
+                <tr id="_@category.Id">
                     <td class="col-sm-3">
-                        @dish.Id
+                        @category.Id
                     </td>
                     <td class="col-sm-3">
-                        @dish.Name
+                        @category.Name
                     </td>
                     <td class="col-sm-3">
-                        @dish.Cost
-                    </td>
-                    <td class="col-sm-3">
-                        @Html.ActionLink("Edit", "EditDish", new { id = dish.Id })<text>&nbsp;</text>
-                        <a class="list-delete-button" onClick="deleteDish(event, @dish.Id)" >Delete</a>
+                        @Html.ActionLink("Edit", "EditCategory", new { id = category.Id })<text>&nbsp;</text>
+                        <a class="list-delete-button" onClick="deleteCategory(event, @category.Id)" >Delete</a>
                     </td>
                 </tr>
             }
@@ -54,17 +48,17 @@
     </div>
 </div>
 <script>
-    var deleteDish = function (event, id) {
+    var deleteCategory = function (event, id) {
         if (event && ($(event.target).hasClass('tooltip-button') || $(event.target).hasClass('glyphicon-wrench') || $(event.target).hasClass('fa'))) {
             return true;
         }
 
-        let deleteDishUrl = '@Url.Action("DeleteDish", "Dish")';
+        let deleteCategoryUrl = '@Url.Action("DeleteCategory", "Category")';
 
         $.ajax({
             type: 'GET',
-            url: deleteDishUrl,
-            data: '&dishId=' + id,
+            url: deleteCategoryUrl,
+            data: '&CategoryId=' + id,
             success: function (data, textstatus) {
                 $(`#_${id}`).empty();
             },

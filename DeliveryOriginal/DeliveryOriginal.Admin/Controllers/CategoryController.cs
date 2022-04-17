@@ -12,37 +12,32 @@ using System.Web.Mvc;
 namespace DeliveryOriginal.Admin.Controllers
 {
     [CustomAuthorize(Role = RoleGroup.Regulars)]
-    public class DishController : Controller
+    public class CategoryController : Controller
     {
         protected readonly IUnitOfWork UnitOfWork;
-        public DishController()
+        public CategoryController()
         {
             UnitOfWork = new UnitOfWork();
         }
 
         public async Task<ActionResult> Index()
         {
-            var dishes = await UnitOfWork.DishRepository.GetAll();
+            var categories = await UnitOfWork.CategoryRepository.GetAll();
 
-            return View(dishes);
+            return View(categories);
         }
 
         [HttpGet]
-        public async Task<ActionResult> CreateDish()
+        public ActionResult CreateCategory()
         {
-            var dish = GetDishVMFromDish(new Dish());
+            var category = new Category();
 
-            SelectList categories = new SelectList(await UnitOfWork.CategoryRepository.GetAll(), "Id", "Name", dish.CategoryId);
-            ViewBag.Categories = categories;
-
-            return View(dish);
+            return View(category);
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateDish(DishVM model)
+        public async Task<ActionResult> CreateCategory(Category model)
         {
-            var newDish = await GetDishFromDishVM(model);
-
             var file = GetRequestFirstFile(Request);
             if (file != null)
             {
@@ -60,9 +55,9 @@ namespace DeliveryOriginal.Admin.Controllers
                     try
                     {
                         var imageUrl = await ImageResizer.ScaleImageCrop(file.InputStream, 
-                                                                        Int32.Parse(DeliveryOriginalSettings.DishImageWidth), 
-                                                                        Int32.Parse(DeliveryOriginalSettings.DishImageHeight));
-                        newDish.ImageUrl = imageUrl;
+                                                                        Int32.Parse(DeliveryOriginalSettings.CategoryImageWidth), 
+                                                                        Int32.Parse(DeliveryOriginalSettings.CategoryImageHeight));
+                        model.ImageUrl = imageUrl;
                     }
                     catch (Exception ex)
                     {
@@ -75,27 +70,22 @@ namespace DeliveryOriginal.Admin.Controllers
                 return View();
             }
 
-            await UnitOfWork.DishRepository.Insert(newDish);
+            await UnitOfWork.CategoryRepository.Insert(model);
 
             return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public async Task<ActionResult> EditDish(int id)
+        public async Task<ActionResult> EditCategory(int id)
         {
-            var dish = GetDishVMFromDish(await UnitOfWork.DishRepository.Get(id));
+            var category = await UnitOfWork.CategoryRepository.Get(id);
 
-            SelectList categories = new SelectList(await UnitOfWork.CategoryRepository.GetAll(), "Id", "Name", dish.CategoryId);
-            ViewBag.Categories = categories;
-
-            return View(dish);
+            return View(category);
         }
 
         [HttpPost]
-        public async Task<ActionResult> EditDish(DishVM dish)
+        public async Task<ActionResult> EditCategory(Category model)
         {
-            var updatedDish = await GetDishFromDishVM(dish);
-
             var file = GetRequestFirstFile(Request);
             if (file != null)
             {
@@ -113,9 +103,9 @@ namespace DeliveryOriginal.Admin.Controllers
                     try
                     {
                         var imageUrl = await ImageResizer.ScaleImageCrop(file.InputStream,
-                                                                        Int32.Parse(DeliveryOriginalSettings.DishImageWidth),
-                                                                        Int32.Parse(DeliveryOriginalSettings.DishImageHeight));
-                        updatedDish.ImageUrl = imageUrl;
+                                                                        Int32.Parse(DeliveryOriginalSettings.CategoryImageWidth),
+                                                                        Int32.Parse(DeliveryOriginalSettings.CategoryImageHeight));
+                        model.ImageUrl = imageUrl;
                     }
                     catch (Exception ex)
                     {
@@ -128,63 +118,28 @@ namespace DeliveryOriginal.Admin.Controllers
                 return View();
             }
 
-            await UnitOfWork.DishRepository.Update(updatedDish);
+            await UnitOfWork.CategoryRepository.Update(model);
 
             return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public async Task DeleteDish(int dishId)
+        public async Task DeleteCategory(int categoryId)
         {
-            await UnitOfWork.DishRepository.Delete(dishId);
+            await UnitOfWork.CategoryRepository.Delete(categoryId);
         }
 
         [HttpPost]
-        public async Task<ActionResult> DeleteDishLogo(int dishId)
+        public async Task<ActionResult> DeleteCategoryLogo(int categoryId)
         {
-            var dish = await UnitOfWork.DishRepository.Get(dishId);
+            var category = await UnitOfWork.CategoryRepository.Get(categoryId);
 
-            await MediaStorageHelper.DeleteFromCloudStorageAsync(dish.ImageUrl);
-            dish.ImageUrl = "";
+            await MediaStorageHelper.DeleteFromCloudStorageAsync(category.ImageUrl);
+            category.ImageUrl = "";
 
-            await UnitOfWork.DishRepository.Update(dish);
+            await UnitOfWork.CategoryRepository.Update(category);
 
             return new HttpStatusCodeResult(200);
-        }
-
-        private DishVM GetDishVMFromDish(Dish dish)
-        {
-            var newDish = new DishVM
-            {
-                Id = dish.Id,
-                Name = dish.Name,
-                Category = dish?.Category,
-                Description = dish.Description,
-                ImageUrl = dish.ImageUrl,
-                Cost = dish.Cost
-            };
-
-            if (dish?.Category?.Id != null)
-            {
-                newDish.CategoryId = dish.Category.Id;
-            }
-
-            return newDish;
-        }
-
-        private async Task<Dish> GetDishFromDishVM(DishVM dish)
-        {
-            var category = await UnitOfWork.CategoryRepository.Get(dish.CategoryId);
-
-            return new Dish
-            {
-                Id = dish.Id,
-                Name = dish.Name,
-                Category = category,
-                Description = dish.Description,
-                ImageUrl = dish.ImageUrl,
-                Cost = dish.Cost
-            };
         }
 
         public HttpPostedFileBase GetRequestFirstFile(HttpRequestBase request)

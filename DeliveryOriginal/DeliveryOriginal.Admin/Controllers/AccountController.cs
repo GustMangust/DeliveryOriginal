@@ -93,6 +93,11 @@ namespace DeliveryOriginal.Admin.Controllers
             bool statusRegistration = false;
             string messageRegistration = string.Empty;
 
+            if (model.Password != model.ConfirmPassword)
+            {
+                ModelState.AddModelError("Warning Password", "The password and confirmation password do not match.");
+            }
+
             if (ModelState.IsValid)
             {
                 // Email Verification
