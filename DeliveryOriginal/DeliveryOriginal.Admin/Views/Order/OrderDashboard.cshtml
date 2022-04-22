@@ -4,9 +4,23 @@
 
 
 <div class="dashboard-container col-md-12">
-    <div class="left-side-container col-xs-12 col-md-4">
-        <hr class="dashboard-top-separator">
-        @{ Html.RenderPartial("_OrderList", new ViewDataDictionary(Model.Orders)); }
+    <div class="left-side-container col-xs-12 col-sm-12 col-md-4">
+        <div class="filter-section col-xs-12 col-sm-12 col-md-12">
+            <div class="sort-options col-xs-12 col-xs-12 col-sm-12 col-md-12 no-padding-right no-padding-left">
+                <div class="col-xs-4 col-sm-4 col-sm-4 no-padding-left">
+                    <div class="col-xs-12 col-xs-12 col-sm-12 col-md-12 btn btn-default default-sort-icon sort-btn" onclick="sortClickHandler(event, orderBy = 1)" id="byIdSort">Order #</div>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 no-side-padding">
+                    <div class="col-xs-12 col-xs-12 col-sm-12 col-md-12 btn btn-default default-sort-icon sort-btn" onclick="sortClickHandler(event, orderBy = 3)" id="byStatusSort">Status</div>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 no-side-padding">
+                    <div class="col-xs-12 col-xs-12 col-sm-12 col-md-12 btn btn-danger reset-filters-button" onclick="sortClickHandler(event, orderBy = 0)" id="filtersReset">Clear Filters</div>
+                </div>
+            </div>
+        </div>
+        <div id="order-list-container">
+            @{ Html.RenderPartial("_OrderList", new ViewDataDictionary(Model.Orders)); }
+        </div>
     </div>
     <div class="right-side-container col-xs-12 col-md-8">
         <hr class="dashboard-top-separator">
@@ -16,3 +30,72 @@
         @{ Html.RenderPartial("_OrderDetails", new ViewDataDictionary(Model.SelectedOrder)); }
     </div>
 </div>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+    $('#byIdSort').addClass('arrowDown-sort-icon');
+
+    function sortClickHandler(event, orderBy) {
+        var element = $('#' + event.target.id);
+
+        $(window).scrollTop(0);
+
+        switch (orderBy) {
+            case 1:
+                if (element.hasClass('arrowUp-sort-icon')) {
+                    orderBy = 2;
+                }
+                break;
+            case 3:
+                if (element.hasClass('arrowUp-sort-icon')) {
+                    orderBy = 4;
+                }
+                break;
+        }
+
+        loadOrdersListWithSort(orderBy);
+        removeSortDirection();
+
+        if (orderBy !== 0) {
+            if (orderBy % 2 !== 0) {
+                element.addClass('arrowUp-sort-icon');
+                element.removeClass('arrowDown-sort-icon');
+                return;
+            }
+
+            if (orderBy % 2 === 0) {
+                element.addClass('arrowDown-sort-icon');
+                element.removeClass('arrowUp-sort-icon');
+                return;
+            }
+        }
+    }
+
+    function loadOrdersListWithSort(orderBy) {
+        let ordersListWithSortUrl = '@Url.Action("RenderOrdersListWithSort", "Order")';
+
+        $.ajax({
+            type: 'GET',
+            url: ordersListWithSortUrl,
+            data: '&defaultOrderId=' + orderBy + '&orderBy=' + orderBy,
+            success: function (data, textstatus) {
+                $('#order-list-container').empty();
+                $('#order-list-container').append(data);
+
+                let selectedOrderId = $('#orderDetailsIdValue')?.html()?.slice(1, 2);
+                $(`#_${selectedOrderId}`).addClass('order-list-item-container-selected');
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert(errorThrown);
+            }
+        });
+    }
+
+    function removeSortDirection() {
+        $('.sort-btn').each(function (index) {
+            $(this).removeClass('arrowDown-sort-icon');
+            $(this).removeClass('arrowUp-sort-icon');
+            $(this).removeClass('default-sort-icon');
+            $(this).addClass('default-sort-icon');
+        });
+    }
+</script>

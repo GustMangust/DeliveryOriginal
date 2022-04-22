@@ -1,7 +1,7 @@
 ﻿@using DeliveryOriginal.Admin.Models
 @model List<OrderDetailsVM>
 
-<div>
+<div id="order-list-inner-container" class="col-xs-12 col-sm-12 col-md-12">
     @if (Model != null && Model.Count > 0)
     {
         foreach (OrderDetailsVM order in Model)
