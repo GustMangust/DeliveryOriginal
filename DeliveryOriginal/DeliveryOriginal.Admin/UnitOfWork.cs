@@ -1,5 +1,6 @@
-﻿using DeliveryOriginal.Admin.Interfaces;
+﻿using DeliveryOriginal.Admin.Core.Interfaces;
 using DeliveryOriginal.Admin.Models;
+using DeliveryOriginal.Admin.Core.Repositories;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
@@ -15,14 +16,14 @@ namespace DeliveryOriginal.Admin
         private UserRepository _userRepository;
         public IRepository<User> UserRepository => _userRepository ?? (_userRepository = new UserRepository());
 
-        //private Repository<Dish> _dishRepository;
-        //public IRepository<Dish> DishRepository => _dishRepository ?? (_dishRepository = new Repository<Dish>(Context));
+        private DishRepository _dishRepository;
+        public IRepository<Dish> DishRepository => _dishRepository ?? (_dishRepository = new DishRepository());
 
-        //private Repository<OrderedDish> _orderedDishRepository;
-        //public IRepository<OrderedDish> OrderedDishRepository => _orderedDishRepository ?? (_orderedDishRepository = new Repository<OrderedDish>(Context));
+        private CategoryRepository _categoryRepository;
+        public IRepository<Category> CategoryRepository => _categoryRepository ?? (_categoryRepository = new CategoryRepository());
 
-        //private Repository<Order> _orderRepository;
-        //public IRepository<Order> OrderRepository => _orderRepository ?? (_orderRepository = new Repository<Order>(Context));
+        private OrderRepository _orderRepository;
+        public IRepository<Order> OrderRepository => _orderRepository ?? (_orderRepository = new OrderRepository());
 
     }
 

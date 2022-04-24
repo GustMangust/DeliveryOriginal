@@ -20,5 +20,80 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width: 100%;
+}
+
+.nav-pills {
+    margin-bottom: 10px !important;
+}
+
+textarea {
+    min-height: 150px;
+}
+
+.panel-container {
+    padding-top: 40px;
+}
+
+.no-side-margin {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+.no-margin-right {
+    margin-right: 0 !important;
+}
+
+.no-margin-left {
+    margin-left: 0 !important;
+}
+
+.no-side-padding {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.no-padding-right {
+    padding-right: 0 !important;
+}
+
+.no-padding-left {
+    padding-left: 0 !important;
+}
+
+.bold-td, .bold {
+    font-weight: bold;
+}
+
+.form-answer-creation {
+    padding-left: 40px;
+}
+
+.space {
+    height: 20px;
+}
+
+.location-wizard-header {
+    padding: 0 15px;
+}
+
+.checkbox input[type=checkbox] {
+    margin-left: 0 !important;
+}
+
+.bordered-content {
+    border: 2px solid #eee;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/*#region DishLogo*/
+#dishLogoContainer {
+    display: inline-block;
+}
+
+#removeDishLogoIcon {
+    font-size: 40px;
+    margin-left: 5px;
 }

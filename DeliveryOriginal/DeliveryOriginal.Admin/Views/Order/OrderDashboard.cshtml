@@ -1,0 +1,18 @@
+﻿@using DeliveryOriginal.Admin.Models
+
+@model OrderDashboardVM
+
+
+<div class="dashboard-container col-md-12">
+    <div class="left-side-container col-xs-12 col-md-4">
+        <hr class="dashboard-top-separator">
+        @{ Html.RenderPartial("_OrderList", new ViewDataDictionary(Model.Orders)); }
+    </div>
+    <div class="right-side-container col-xs-12 col-md-8">
+        <hr class="dashboard-top-separator">
+        <div class="text-center">
+            <h4 class="details-header">Order Details</h4>
+        </div>
+        @{ Html.RenderPartial("_OrderDetails", new ViewDataDictionary(Model.SelectedOrder)); }
+    </div>
+</div>

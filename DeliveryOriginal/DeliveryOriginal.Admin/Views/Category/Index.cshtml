@@ -1,0 +1,70 @@
+﻿@using DeliveryOriginal.Admin.Models
+
+@model List<Category>
+
+<div class="Category-container col-md-12">
+    <div class="row panel-container">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default">
+                <div class="text-center">
+                    <a href="@Url.Action("CreateCategory")" class="provider-panel">
+                        <h4>
+                            Create new Category
+                        </h4>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <tr>
+                <th class="col-sm-3">
+                    Id
+                </th>
+                <th class="col-sm-3">
+                    Name
+                </th>
+                <th class="col-sm-3">
+                    Actions
+                </th>
+            </tr>
+            @foreach (Category category in Model)
+            {
+                <tr id="_@category.Id">
+                    <td class="col-sm-3">
+                        @category.Id
+                    </td>
+                    <td class="col-sm-3">
+                        @category.Name
+                    </td>
+                    <td class="col-sm-3">
+                        @Html.ActionLink("Edit", "EditCategory", new { id = category.Id })<text>&nbsp;</text>
+                        <a class="list-delete-button" onClick="deleteCategory(event, @category.Id)" >Delete</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+<script>
+    var deleteCategory = function (event, id) {
+        if (event && ($(event.target).hasClass('tooltip-button') || $(event.target).hasClass('glyphicon-wrench') || $(event.target).hasClass('fa'))) {
+            return true;
+        }
+
+        let deleteCategoryUrl = '@Url.Action("DeleteCategory", "Category")';
+
+        $.ajax({
+            type: 'GET',
+            url: deleteCategoryUrl,
+            data: '&CategoryId=' + id,
+            success: function (data, textstatus) {
+                $(`#_${id}`).empty();
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert(errorThrown);
+            }
+        });
+    }
+</script>
