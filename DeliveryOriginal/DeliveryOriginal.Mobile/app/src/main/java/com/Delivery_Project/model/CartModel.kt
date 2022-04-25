@@ -1,10 +1,13 @@
 package com.Delivery_Project.model
 
-data class OrderModel(
+import com.Delivery_Project.pojo.Category
+
+data class CartModel(
+    var dishId: Int,
     var name: String,
     var image :String,
     var description :String,
-    var amount: Int,
+    var category : Category?,
     var cost: Double
 
 )

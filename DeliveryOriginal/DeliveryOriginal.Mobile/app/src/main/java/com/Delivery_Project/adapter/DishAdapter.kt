@@ -20,9 +20,10 @@ import com.bumptech.glide.Glide
 
 class DishAdapter : RecyclerView.Adapter<DishViewHolder>() {
     var dishes = mutableListOf<Dish>()
+
     fun setDishList(dishes: List<Dish>, categoryId: Int) {
-        var dishesByCategory = dishes.filter {p -> p.CategoryId == categoryId}
-        this.dishes = dishesByCategory.toMutableList()
+        //var dishesByCategory = dishes.filter {p -> p.CategoryId == categoryId}
+        this.dishes = dishes.toMutableList()//dishesByCategory.toMutableList()
         notifyDataSetChanged()
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DishViewHolder {
