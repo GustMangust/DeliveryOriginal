@@ -15,6 +15,7 @@ class RandomDishAdapter : RecyclerView.Adapter<RandomDishViewHolder>() {
     var dishes = mutableListOf<Dish>()
     fun setRandomDishList(dishes: List<Dish>) {
         this.dishes = dishes.toMutableList()
+
         notifyDataSetChanged()
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RandomDishViewHolder {
@@ -35,8 +36,6 @@ class RandomDishAdapter : RecyclerView.Adapter<RandomDishViewHolder>() {
             intent.putExtra("Dish",dishes)
             ContextCompat.startActivity(context, intent, null)
         }
-
-
     }
     override fun getItemCount(): Int {
         return dishes.size

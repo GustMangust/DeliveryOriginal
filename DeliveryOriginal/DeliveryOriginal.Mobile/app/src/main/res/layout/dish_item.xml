@@ -18,7 +18,7 @@
             android:id="@+id/dish_image"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:background="@drawable/round_bg"
+            android:background="@android:color/transparent"
             android:scaleType="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

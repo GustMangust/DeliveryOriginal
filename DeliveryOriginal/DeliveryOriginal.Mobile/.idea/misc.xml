@@ -34,6 +34,8 @@
         <entry key="..\:/Unic/CP DB/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/nav_header_main.xml" value="0.20520833333333333" />
         <entry key="..\:/Unic/CP DB/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/order_item.xml" value="0.33140655105973027" />
         <entry key="..\:/Unic/CP DB/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/menu/activity_main_drawer.xml" value="0.20520833333333333" />
+        <entry key="..\:/Univer/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/activity_login.xml" value="0.11979166666666667" />
+        <entry key="..\:/Univer/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/dish_item.xml" value="0.16259057971014493" />
         <entry key="..\:/Univer/Delivery_Project/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/drawable/sheet_bg.xml" value="0.26666666666666666" />
         <entry key="..\:/Univer/Delivery_Project/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/activity_login.xml" value="0.12760416666666666" />
         <entry key="..\:/Univer/Delivery_Project/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/activity_registration.xml" value="0.16259057971014493" />
@@ -44,6 +46,10 @@
         <entry key="..\:/Univer/Delivery_Project/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/fragment_home.xml" value="0.16893115942028986" />
         <entry key="..\:/Univer/Delivery_Project/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/sheet_layout.xml" value="0.264" />
         <entry key="..\:/Univer/Delivery_Project/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/menu/activity_main_drawer.xml" value="0.12760416666666666" />
+        <entry key="..\:/Work/Kursach/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/drawable/ic_baseline_local_phone_24.xml" value="0.1825" />
+        <entry key="..\:/Work/Kursach/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/drawable/ic_baseline_location_city_24.xml" value="0.1825" />
+        <entry key="..\:/Work/Kursach/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/activity_checkout.xml" value="0.14855072463768115" />
+        <entry key="..\:/Work/Kursach/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/fragment_cart.xml" value="0.33" />
       </map>
     </option>
   </component>

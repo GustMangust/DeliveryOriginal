@@ -25,6 +25,8 @@ interface InterfaceAPI {
     @GET("Dish/GetDayDishes")
     fun getRandomDish():Call<List<Dish>>
 
+    @POST("Order/Add")
+    suspend fun addOrder(@Body requestBody: RequestBody): Response<ResponseBody>
 
     @POST("User/Add")
     suspend fun addUser(@Body requestBody: RequestBody): Response<ResponseBody>

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">DeliveryOriginal</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -21,4 +22,10 @@
     <string name="cart">Cart</string>
     <string name="log_out">Log Out</string>
     <string name="login">Login</string>
+    <string name="CheckoutName">Name</string>
+    <string name="PhoneNumber">Phone number</string>
+    <string name="city">City</string>
+    <string name="street">Street</string>
+    <string name="checkout">Checkout</string>
+    <string name="house">House</string>
 </resources>
