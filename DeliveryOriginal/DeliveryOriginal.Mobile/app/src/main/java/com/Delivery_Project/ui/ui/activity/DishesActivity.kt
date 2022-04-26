@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.Delivery_Project.R
 import com.Delivery_Project.adapter.DishAdapter
+import com.Delivery_Project.database.DatabaseHelper
 import com.Delivery_Project.databinding.ActivityDishesBinding
 import com.Delivery_Project.factory.DishViewModelFactory
 import com.Delivery_Project.repository.DishRepository
@@ -21,6 +22,7 @@ class DishesActivity : AppCompatActivity() {
     private val TAG = "DishesActivity"
     private lateinit var binding: ActivityDishesBinding
     lateinit var viewModel: DishViewModel
+    lateinit var db: DatabaseHelper
     private val retrofitService = InterfaceAPI.getInstance()
     val adapter = DishAdapter()
 
@@ -31,15 +33,18 @@ class DishesActivity : AppCompatActivity() {
         getWindow().setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
         binding = ActivityDishesBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel = ViewModelProvider(this, DishViewModelFactory(DishRepository(retrofitService))).get(DishViewModel::class.java)
+
+        //viewModel = ViewModelProvider(this, DishViewModelFactory(DishRepository(retrofitService))).get(DishViewModel::class.java)
         binding.recyclerviewDishes.adapter = adapter
-        viewModel.dishList.observe(this, Observer {
+        /*viewModel.dishList.observe(this, Observer {
             Log.d(TAG, "onCreate: $it")
             adapter.setDishList(it, categoryId)
         })
         viewModel.errorMessage.observe(this, Observer {
         })
-        viewModel.getDish()
+        viewModel.getDish()*/
+        db = DatabaseHelper(this);
+        adapter.setDishList(db.getAllDishes(),categoryId)
     }
 
 

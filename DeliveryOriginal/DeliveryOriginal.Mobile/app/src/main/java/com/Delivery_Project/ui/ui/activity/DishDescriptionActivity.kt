@@ -30,10 +30,9 @@ class DishDescriptionActivity : AppCompatActivity() {
         val dish = intent.getSerializableExtra("Dish") as Dish
         val dishId = dish.Id
         val name  = dish.Name
-        val image = dish.ImageUrl
+        val image: String? = dish.ImageUrl
         val description = dish.Description
         val category = dish.Category
-        val amount = 1;
         val cost = dish.Cost
 
         val order = CartModel(dishId = dishId,name = name, image = image, description = description,category = category,  cost = cost)

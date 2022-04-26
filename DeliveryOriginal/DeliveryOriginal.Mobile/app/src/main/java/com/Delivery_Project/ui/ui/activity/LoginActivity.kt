@@ -24,8 +24,8 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         var button = findViewById<Button>(R.id.signBtn)
             button.setOnClickListener {
-                var login = binding.loginLogin.text.toString().trim()
-                var password = binding.passwordLogin.text.toString().trim()
+                var login = "Aliaksei"//binding.loginLogin.text.toString().trim()
+                var password = "testpass"//binding.passwordLogin.text.toString().trim()
                 viewModel = ViewModelProvider(this, UserViewModelFactory(UserRepository(retrofitService))).get(UserViewModel::class.java)
                 viewModel.getUser(login,password,applicationContext)
 

@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.Delivery_Project.MenuAdapter
 import com.Delivery_Project.R
+import com.Delivery_Project.database.DatabaseHelper
 import com.Delivery_Project.databinding.FragmentMenuBinding
 import com.Delivery_Project.factory.MenuViewModelFactory
 import com.Delivery_Project.repository.MenuRepository
@@ -26,17 +27,21 @@ class MenuFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root: View = inflater.inflate(R.layout.fragment_menu, container, false)
+        var databaseHelper = DatabaseHelper(requireContext());
         binding = FragmentMenuBinding.inflate(layoutInflater, container, false)
         viewModel = ViewModelProvider(this, MenuViewModelFactory(MenuRepository(categoryAPI))).get(MenuViewModel::class.java)
         binding.recyclerview.adapter = adapter
+        /*
         viewModel.categoryList.observe(viewLifecycleOwner, Observer {
             Log.d(TAG, "onCreate: $it")
+            databaseHelper.insertCategories(ArrayList(it))
             adapter.setCategoryList(it)
         })
         viewModel.errorMessage.observe(viewLifecycleOwner, Observer {
         })
         viewModel.getCategory()
-
+        */
+        adapter.setCategoryList(databaseHelper.getAllCategories())
         return binding.root
     }
 

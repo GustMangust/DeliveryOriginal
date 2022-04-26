@@ -22,8 +22,8 @@ class DishAdapter : RecyclerView.Adapter<DishViewHolder>() {
     var dishes = mutableListOf<Dish>()
 
     fun setDishList(dishes: List<Dish>, categoryId: Int) {
-        //var dishesByCategory = dishes.filter {p -> p.CategoryId == categoryId}
-        this.dishes = dishes.toMutableList()//dishesByCategory.toMutableList()
+        var dishesByCategory = dishes.filter {p -> p.Category?.Id == categoryId}
+        this.dishes = dishesByCategory.toMutableList()
         notifyDataSetChanged()
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DishViewHolder {

@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteOpenHelper
 import com.Delivery_Project.model.CartModel
 import com.Delivery_Project.pojo.Category
 import com.Delivery_Project.pojo.Dish
-import org.jetbrains.annotations.Nullable
 import java.lang.Exception
 
 class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
@@ -72,8 +71,10 @@ class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME,
 
         val contentValues = ContentValues()
         contentValues.put(NAME, cart.name)
+        contentValues.put(DISH_ID, cart.dishId)
         contentValues.put(IMAGE, cart.image)
         contentValues.put(DESCRIPTION, cart.description)
+        contentValues.put(CATEGORY_ID, cart.category?.Id)
         contentValues.put(COST, cart.cost)
         val success = db.insert(CART, null, contentValues)
         db.close()
@@ -87,18 +88,31 @@ class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME,
             contentValues.put(ID, dish.Id)
             contentValues.put(NAME, dish.Name)
             contentValues.put(IMAGE, dish.ImageUrl)
-            contentValues.put(CATEGORY_ID, dish.Category.Id)
+            contentValues.put(CATEGORY_ID, dish.Category?.Id)
             contentValues.put(DESCRIPTION, dish.Description)
             contentValues.put(COST, dish.Cost)
             db.insert(DISH, null, contentValues)
         }
         db.close()
     }
+    fun insertCategories(categoryList: ArrayList<Category>){
+        val db = this.writableDatabase
+
+        val contentValues = ContentValues()
+        for(category in categoryList){
+            contentValues.put(ID, category.Id)
+            contentValues.put(NAME, category.Name)
+            contentValues.put(IMAGE, category.ImageUrl)
+            db.insert(CATEGORY, null, contentValues)
+        }
+        db.close()
+    }
+
     fun getAllOrders(context:Context):ArrayList<CartModel>{
         val cartList: ArrayList<CartModel> = ArrayList()
         val selectQuery = "SELECT * FROM $CART"
         val db = this.readableDatabase
-        val categoryDb = CategoryHelper(context);
+        val categoryDb = DatabaseHelper(context);
         val cursor: Cursor?
         try {
             cursor = db.rawQuery(selectQuery, null)
@@ -109,7 +123,7 @@ class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME,
         }
 
         var name: String
-        var image :String
+        var image :String?
         var description :String
         var categoryId : Int
         var dishId: Int
@@ -118,7 +132,11 @@ class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME,
         if(cursor.moveToFirst()){
             do {
                 name = cursor.getString(cursor.getColumnIndexOrThrow("name"))
-                image = cursor.getString(cursor.getColumnIndexOrThrow("image"))
+                image = try{
+                    cursor.getString(cursor.getColumnIndexOrThrow("imageUrl"))
+                } catch (err: Error){
+                    null
+                }
                 description = cursor.getString(cursor.getColumnIndexOrThrow("description"))
                 categoryId = cursor.getInt(cursor.getColumnIndexOrThrow("categoryId"))
                 dishId = cursor.getInt(cursor.getColumnIndexOrThrow("dishId"))
@@ -180,8 +198,8 @@ class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME,
     }
 
 
-    fun getAllDishes():ArrayList<CartModel>{
-        val cartList: ArrayList<CartModel> = ArrayList()
+    fun getAllDishes():ArrayList<Dish>{
+        val dishList: ArrayList<Dish> = ArrayList()
         val selectQuery = "SELECT * FROM $DISH"
         val db = this.readableDatabase
 
@@ -195,23 +213,30 @@ class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME,
         }
 
         var name: String
-        var image :String
+        var image :String?
         var description :String
         var dishId: Int
         var cost: Double
+        var categoryId: Int
 
         if(cursor.moveToFirst()){
             do {
                 name = cursor.getString(cursor.getColumnIndexOrThrow("name"))
-                image = cursor.getString(cursor.getColumnIndexOrThrow("image"))
+                image = try{
+                    cursor.getString(cursor.getColumnIndexOrThrow("imageUrl"))
+                } catch (err: Error){
+                    null;
+                }
                 description = cursor.getString(cursor.getColumnIndexOrThrow("description"))
                 dishId = cursor.getInt(cursor.getColumnIndexOrThrow("id"))
                 cost = cursor.getDouble(cursor.getColumnIndexOrThrow("cost"))
+                categoryId = cursor.getInt(cursor.getColumnIndexOrThrow("categoryId"))
 
-                val order = CartModel(dishId = dishId,name = name, image = image, description = description, category = null, cost = cost)
-                cartList.add(order)
+                val category = this.getAllCategories().filter { x -> x.Id == categoryId }[0];
+                val dish = Dish(Id = dishId,Name = name, ImageUrl = image, Description = description, Category = category, Cost = cost)
+                dishList.add(dish)
             }while(cursor.moveToNext())
         }
-        return cartList
+        return dishList
     }
 }
