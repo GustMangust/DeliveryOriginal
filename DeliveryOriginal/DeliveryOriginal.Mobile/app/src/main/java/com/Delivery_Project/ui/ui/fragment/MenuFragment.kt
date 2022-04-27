@@ -31,16 +31,15 @@ class MenuFragment : Fragment() {
         binding = FragmentMenuBinding.inflate(layoutInflater, container, false)
         viewModel = ViewModelProvider(this, MenuViewModelFactory(MenuRepository(categoryAPI))).get(MenuViewModel::class.java)
         binding.recyclerview.adapter = adapter
-        /*
+
         viewModel.categoryList.observe(viewLifecycleOwner, Observer {
             Log.d(TAG, "onCreate: $it")
             databaseHelper.insertCategories(ArrayList(it))
-            adapter.setCategoryList(it)
         })
         viewModel.errorMessage.observe(viewLifecycleOwner, Observer {
         })
         viewModel.getCategory()
-        */
+
         adapter.setCategoryList(databaseHelper.getAllCategories())
         return binding.root
     }

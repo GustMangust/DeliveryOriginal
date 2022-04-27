@@ -1,7 +1,10 @@
 package com.Delivery_Project.viewModel
 
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
+import android.content.SharedPreferences
+import android.os.ParcelFileDescriptor.MODE_WORLD_WRITEABLE
 import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.MutableLiveData
@@ -9,12 +12,11 @@ import androidx.lifecycle.ViewModel
 import com.Delivery_Project.pojo.User
 import com.Delivery_Project.pojo.UserRole
 import com.Delivery_Project.repository.UserRepository
-import com.Delivery_Project.ui.ui.activity.DishDescriptionActivity
 import com.Delivery_Project.ui.ui.activity.MainActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.lang.IllegalStateException
+
 
 class UserViewModel constructor(private val repository: UserRepository): ViewModel(){
 
@@ -50,7 +52,11 @@ class UserViewModel constructor(private val repository: UserRepository): ViewMod
         val regularIntent = Intent(context, MainActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         regularIntent.putExtra("User",user)
         when(UserRole.fromInt(user.Role)){
-            UserRole.Regulars -> startActivity(context,regularIntent, null)
+            UserRole.Regulars -> {
+                //val mPrefs: SharedPreferences = context.getSharedPreferences(getSizeInt().toString(),Context.MODE_WORLD_WRITEABLE)
+                startActivity(context,regularIntent, null)
+            }
+
             else -> throw IllegalStateException()
         }
     }

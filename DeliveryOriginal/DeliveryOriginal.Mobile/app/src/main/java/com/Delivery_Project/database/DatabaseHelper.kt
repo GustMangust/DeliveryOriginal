@@ -13,6 +13,7 @@ import java.lang.Exception
 class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object{
+
         private val DATABASE_VERSION = 3
         private const val  DATABASE_NAME = "orders.db"
 
@@ -47,7 +48,7 @@ class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME,
 
         val createCartTable = ("CREATE TABLE " + " IF NOT EXISTS "+ CART +  "("
                 + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + DISH_ID + " INTEGER"
+                + DISH_ID + " INTEGER,"
                 + NAME + " TEXT,"
                 + IMAGE + " TEXT,"
                 + DESCRIPTION + " TEXT,"
@@ -66,7 +67,7 @@ class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME,
         onCreate(db)
     }
 
-    fun insertOrder(context: Context, cart: CartModel): Long{
+    fun insertOrder(cart: CartModel): Long{
         val db = this.writableDatabase
 
         val contentValues = ContentValues()
@@ -108,7 +109,7 @@ class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME,
         db.close()
     }
 
-    fun getAllOrders(context:Context):ArrayList<CartModel>{
+    fun getAllOrders(context: Context):ArrayList<CartModel>{
         val cartList: ArrayList<CartModel> = ArrayList()
         val selectQuery = "SELECT * FROM $CART"
         val db = this.readableDatabase
@@ -238,5 +239,35 @@ class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME,
             }while(cursor.moveToNext())
         }
         return dishList
+    }
+
+    fun amountIdenticalDishes(cartDish: CartModel) : Int{
+        val dishId = cartDish.dishId;
+        val selectQuery = "SELECT * FROM $CART WHERE $DISH_ID = $dishId"
+        val db = this.readableDatabase
+
+        var dishAmount = 0
+        try {
+            dishAmount = db.rawQuery(selectQuery, null).count
+        }catch (e: Exception){
+            e.printStackTrace()
+            db.execSQL(selectQuery)
+        }
+
+        db.close()
+
+        return dishAmount
+    }
+
+    fun cleanCart(){
+        val db = this.writableDatabase
+        db.delete(CART, null, null);
+    }
+
+    fun deleteOrder(order: CartModel) {
+        val db = this.writableDatabase
+        val dishId = order.dishId
+        db.execSQL("DELETE FROM $CART WHERE $ID = (SELECT $ID FROM $CART WHERE $DISH_ID = $dishId LIMIT 1 )")
+        db.close()
     }
 }

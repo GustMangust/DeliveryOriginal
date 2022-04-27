@@ -1,12 +1,18 @@
 package com.Delivery_Project.ui.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
+import com.Delivery_Project.database.DatabaseHelper
 import com.Delivery_Project.databinding.ActivityCheckoutBinding
 import com.Delivery_Project.pojo.Dish
 import com.Delivery_Project.pojo.User
 import com.Delivery_Project.retrofit.InterfaceAPI
+import com.Delivery_Project.utility.ConnectionUtility
 import com.google.gson.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -22,6 +28,7 @@ import kotlin.collections.ArrayList
 
 class CheckoutActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCheckoutBinding
+    private lateinit var cartHelper: DatabaseHelper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCheckoutBinding.inflate(layoutInflater)
@@ -42,7 +49,18 @@ class CheckoutActivity : AppCompatActivity() {
             val address  = "$city, $street $house, $apartment"
             val sdf = SimpleDateFormat("yyyy-MM-dd hh:mm")
             val currentDate = sdf.format(Date())
-            requestOrder(currentDate, status, address, customer,dishes)
+
+            if(ConnectionUtility.isOnline(this)){
+                requestOrder(currentDate, status, address, customer,dishes)
+                cartHelper = DatabaseHelper(this)
+                val intent = Intent(this, MainActivity::class.java)
+                intent.putExtra("User", user)
+                cartHelper.cleanCart()
+                Toast.makeText(this, "Your order have been submitted successfully!", Toast.LENGTH_LONG).show()
+                ContextCompat.startActivity(this, intent, null)
+            } else {
+                Toast.makeText(this, "Check your internet connection, pidor!", Toast.LENGTH_LONG).show()
+            }
 
         }
     }

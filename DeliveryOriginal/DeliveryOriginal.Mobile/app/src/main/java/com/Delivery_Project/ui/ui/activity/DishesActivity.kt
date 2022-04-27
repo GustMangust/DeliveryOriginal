@@ -33,16 +33,8 @@ class DishesActivity : AppCompatActivity() {
         getWindow().setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
         binding = ActivityDishesBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        //viewModel = ViewModelProvider(this, DishViewModelFactory(DishRepository(retrofitService))).get(DishViewModel::class.java)
         binding.recyclerviewDishes.adapter = adapter
-        /*viewModel.dishList.observe(this, Observer {
-            Log.d(TAG, "onCreate: $it")
-            adapter.setDishList(it, categoryId)
-        })
-        viewModel.errorMessage.observe(this, Observer {
-        })
-        viewModel.getDish()*/
+
         db = DatabaseHelper(this);
         adapter.setDishList(db.getAllDishes(),categoryId)
     }

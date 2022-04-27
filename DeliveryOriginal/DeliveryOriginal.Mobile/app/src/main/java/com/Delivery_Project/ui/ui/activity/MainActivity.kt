@@ -42,10 +42,10 @@ class MainActivity : AppCompatActivity() {
 
         user  = intent.getSerializableExtra("User") as User
 
-        /*
+
         val viewHeader = binding.navView.getHeaderView(0)
         val navViewHeaderBinding : NavHeaderMainBinding = NavHeaderMainBinding.bind(viewHeader)
-        navViewHeaderBinding.regularName.text = dish.Login*/
+        navViewHeaderBinding.regularName.text = user.Login
     }
     fun getUser() : User{
         return user;

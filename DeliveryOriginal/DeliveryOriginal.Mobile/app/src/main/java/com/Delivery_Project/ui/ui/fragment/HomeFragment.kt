@@ -19,6 +19,7 @@ import com.Delivery_Project.factory.RandomDishViewModelFactory
 import com.Delivery_Project.repository.DishRepository
 import com.Delivery_Project.repository.RandomDishRepository
 import com.Delivery_Project.retrofit.InterfaceAPI
+import com.Delivery_Project.utility.ConnectionUtility
 import com.Delivery_Project.viewModel.DishViewModel
 import com.Delivery_Project.viewModel.RandomDishViewModel
 
@@ -31,7 +32,6 @@ class HomeFragment : Fragment() {
     private val retrofitService = InterfaceAPI.getInstance()
     private val interfaceAPI = InterfaceAPI.getInstance()
     val adapter = RandomDishAdapter()
-    val dishAdapter = DishAdapter();
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -44,13 +44,16 @@ class HomeFragment : Fragment() {
         viewModel = ViewModelProvider(this, RandomDishViewModelFactory(RandomDishRepository(interfaceAPI))).get(
             RandomDishViewModel::class.java)
         binding.recyclerviewRandomDishes.adapter = adapter
-        viewModel.randomDishList.observe(viewLifecycleOwner, Observer {
-            Log.d(TAG, "onCreate: $it")
-            adapter.setRandomDishList(it)
-        })
-        viewModel.errorMessage.observe(viewLifecycleOwner, Observer {
-        })
-        viewModel.getRandomDish()
+
+        if(ConnectionUtility.isOnline(requireContext())) {
+            viewModel.randomDishList.observe(viewLifecycleOwner, Observer {
+                Log.d(TAG, "onCreate: $it")
+                adapter.setRandomDishList(it)
+            })
+            viewModel.errorMessage.observe(viewLifecycleOwner, Observer {
+            })
+            viewModel.getRandomDish()
+        }
 
         return binding.root
     }
@@ -59,16 +62,16 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         var databaseHelper = DatabaseHelper(requireContext());
-        dishViewModel = ViewModelProvider(this, DishViewModelFactory(DishRepository(retrofitService))).get(DishViewModel::class.java)
-        dishViewModel.dishList.observe(this as LifecycleOwner, Observer {
-            Log.d(TAG, "onCreate: $it")
-            //databaseHelper.insertDishes(ArrayList(it))
-        })
-        dishViewModel.errorMessage.observe(this as LifecycleOwner, Observer {
-        })
-        dishViewModel.getDish()
 
-
-
+        if(ConnectionUtility.isOnline(requireContext())){
+            dishViewModel = ViewModelProvider(this, DishViewModelFactory(DishRepository(retrofitService))).get(DishViewModel::class.java)
+            dishViewModel.dishList.observe(this as LifecycleOwner, Observer {
+                Log.d(TAG, "onCreate: $it")
+                databaseHelper.insertDishes(ArrayList(it))
+            })
+            dishViewModel.errorMessage.observe(this as LifecycleOwner, Observer {
+            })
+            dishViewModel.getDish()
+        }
     }
 }
