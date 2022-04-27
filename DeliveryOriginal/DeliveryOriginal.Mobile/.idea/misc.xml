@@ -49,7 +49,9 @@
         <entry key="..\:/Work/Kursach/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/drawable/ic_baseline_local_phone_24.xml" value="0.1825" />
         <entry key="..\:/Work/Kursach/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/drawable/ic_baseline_location_city_24.xml" value="0.1825" />
         <entry key="..\:/Work/Kursach/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/activity_checkout.xml" value="0.14855072463768115" />
+        <entry key="..\:/Work/Kursach/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/dish_item.xml" value="0.223731884057971" />
         <entry key="..\:/Work/Kursach/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/fragment_cart.xml" value="0.33" />
+        <entry key="..\:/Work/Kursach/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/order_item.xml" value="0.5" />
       </map>
     </option>
   </component>

@@ -36,7 +36,7 @@ class DishDescriptionActivity : AppCompatActivity() {
         val cost = dish.Cost
 
         val order = CartModel(dishId = dishId,name = name, image = image, description = description,category = category,  cost = cost)
-        val status = cartHelper.insertOrder(applicationContext,order)
+        val status = cartHelper.insertOrder(order)
 
         if(status > -1){
             Toast.makeText(this, "Order added!", Toast.LENGTH_SHORT).show()

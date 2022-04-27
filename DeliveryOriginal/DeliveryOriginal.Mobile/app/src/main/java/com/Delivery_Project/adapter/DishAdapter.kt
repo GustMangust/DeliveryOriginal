@@ -1,21 +1,14 @@
 package com.Delivery_Project.adapter
 
 import android.content.Intent
-import android.content.Intent.getIntent
-import android.content.Intent.parseIntent
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.Delivery_Project.databinding.CategoryItemBinding
 import com.Delivery_Project.databinding.DishItemBinding
-import com.Delivery_Project.pojo.Category
 import com.Delivery_Project.pojo.Dish
 import com.Delivery_Project.ui.ui.activity.DishDescriptionActivity
-import com.Delivery_Project.ui.ui.activity.DishesActivity
-import com.Delivery_Project.ui.ui.activity.LoginActivity
 import com.bumptech.glide.Glide
 
 class DishAdapter : RecyclerView.Adapter<DishViewHolder>() {

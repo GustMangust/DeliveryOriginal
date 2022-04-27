@@ -26,10 +26,10 @@ class LoginActivity : AppCompatActivity() {
 
         var button = findViewById<Button>(R.id.signBtn)
             button.setOnClickListener {
-                //var login = "Aliaksei"
-                //var password = "testpass"
-              val login =  binding.loginLogin.text.toString().trim()
-              val password =  binding.passwordLogin.text.toString().trim()
+                var login = "Aliaksei"
+                var password = "testpass"
+              //val login =  binding.loginLogin.text.toString().trim()
+              //val password =  binding.passwordLogin.text.toString().trim()
                 val login_element = findViewById<EditText>(R.id.login_login)
                 val password_element = findViewById<EditText>(R.id.password_login)
                 if (login.isEmpty()) {

@@ -35,14 +35,6 @@ class DishesActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.recyclerviewDishes.adapter = adapter
 
-        //viewModel = ViewModelProvider(this, DishViewModelFactory(DishRepository(retrofitService))).get(DishViewModel::class.java)
-        /*viewModel.dishList.observe(this, Observer {
-            Log.d(TAG, "onCreate: $it")
-            adapter.setDishList(it, categoryId)
-        })
-        viewModel.errorMessage.observe(this, Observer {
-        })
-        viewModel.getDish()*/
         db = DatabaseHelper(this);
         adapter.setDishList(db.getAllDishes(),categoryId)
     }

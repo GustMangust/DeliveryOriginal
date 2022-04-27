@@ -12,6 +12,7 @@ import com.Delivery_Project.databinding.ActivityCheckoutBinding
 import com.Delivery_Project.pojo.Dish
 import com.Delivery_Project.pojo.User
 import com.Delivery_Project.retrofit.InterfaceAPI
+import com.Delivery_Project.utility.ConnectionUtility
 import com.google.gson.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -48,13 +49,18 @@ class CheckoutActivity : AppCompatActivity() {
             val address  = "$city, $street $house, $apartment"
             val sdf = SimpleDateFormat("yyyy-MM-dd hh:mm")
             val currentDate = sdf.format(Date())
-            requestOrder(currentDate, status, address, customer,dishes)
-            cartHelper = DatabaseHelper(this)
-            val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("User", user)
-            cartHelper.cleanCart()
-            Toast.makeText(this, "Your order have been submitted successfully!", Toast.LENGTH_LONG).show()
-            ContextCompat.startActivity(this, intent, null)
+
+            if(ConnectionUtility.isOnline(this)){
+                requestOrder(currentDate, status, address, customer,dishes)
+                cartHelper = DatabaseHelper(this)
+                val intent = Intent(this, MainActivity::class.java)
+                intent.putExtra("User", user)
+                cartHelper.cleanCart()
+                Toast.makeText(this, "Your order have been submitted successfully!", Toast.LENGTH_LONG).show()
+                ContextCompat.startActivity(this, intent, null)
+            } else {
+                Toast.makeText(this, "Check your internet connection, pidor!", Toast.LENGTH_LONG).show()
+            }
 
         }
     }
