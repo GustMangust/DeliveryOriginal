@@ -25,6 +25,4 @@ class DishViewModel constructor(private val repository: DishRepository): ViewMod
             }
         })
     }
-
-
 }

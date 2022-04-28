@@ -51,7 +51,7 @@ class CheckoutActivity : AppCompatActivity() {
             val currentDate = sdf.format(Date())
 
             if(ConnectionUtility.isOnline(this)){
-                requestOrder(currentDate, status, address, customer,dishes)
+                requestOrder(currentDate, status, address, phoneNumber, customer,dishes)
                 cartHelper = DatabaseHelper(this)
                 val intent = Intent(this, MainActivity::class.java)
                 intent.putExtra("User", user)
@@ -59,15 +59,17 @@ class CheckoutActivity : AppCompatActivity() {
                 Toast.makeText(this, "Your order have been submitted successfully!", Toast.LENGTH_LONG).show()
                 ContextCompat.startActivity(this, intent, null)
             } else {
-                Toast.makeText(this, "Check your internet connection, pidor!", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Check your internet connection!", Toast.LENGTH_LONG).show()
             }
 
         }
     }
-    private fun requestOrder(dateTime: String, status: Int, address: String, customer: User,  dishes: ArrayList<Dish>){
+    private fun requestOrder(dateTime: String, status: Int, address: String, phoneNumber:String, customer: User,  dishes: ArrayList<Dish>){
         val jsonObject = JSONObject()
         val jsonDish =  Gson().toJsonTree(dishes) as JsonArray
         val jsonCustomer = Gson().toJsonTree(customer)
+
+        jsonObject.put("PhoneNumber", phoneNumber)
         jsonObject.put("SubmittedAt", dateTime)
         jsonObject.put("Status", status)
         jsonObject.put("Address", address)
@@ -85,20 +87,16 @@ class CheckoutActivity : AppCompatActivity() {
 
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
-
                     val gson = GsonBuilder().setPrettyPrinting().create()
                     val prettyJson = gson.toJson(
                         JsonParser.parseString(
                             response.code().toString()
                         )
                     )
-
                     Log.d("Pretty Printed JSON :", prettyJson)
 
                 } else {
-
                     Log.e("RETROFIT_ERROR", response.code().toString())
-
                 }
             }
         }

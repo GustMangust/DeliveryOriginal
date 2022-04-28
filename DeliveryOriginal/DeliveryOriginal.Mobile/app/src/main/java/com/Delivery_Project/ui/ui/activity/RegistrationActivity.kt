@@ -5,11 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
-import android.widget.Toast
 import com.Delivery_Project.R
 import com.Delivery_Project.databinding.ActivityRegistrationBinding
-import com.Delivery_Project.pojo.DefaultResponse
 import com.Delivery_Project.retrofit.InterfaceAPI
+import com.Delivery_Project.utility.EncryptionUtility
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonParser
 import kotlinx.coroutines.CoroutineScope
@@ -19,10 +18,6 @@ import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
-import retrofit2.Call
-import retrofit2.Response
-import retrofit2.Retrofit
-import javax.security.auth.callback.Callback
 
 class RegistrationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegistrationBinding
@@ -69,29 +64,28 @@ class RegistrationActivity : AppCompatActivity() {
 
         private fun requestRegistration(login: String, password: String, full_name: String, role: Int){
         val jsonObject = JSONObject()
+        val encryptedPassword = EncryptionUtility.encryptString(password);
+
         jsonObject.put("Login", login)
-        jsonObject.put("Password", password)
+        jsonObject.put("Password", encryptedPassword)
         jsonObject.put("FullName", full_name)
         jsonObject.put("Role", role)
 
         val jsonObjectString = jsonObject.toString()
 
-        // Create RequestBody ( We're not using any converter, like GsonConverter, MoshiConverter e.t.c, that's why we use RequestBody )
         val requestBody = jsonObjectString.toRequestBody("application/json".toMediaTypeOrNull())
 
         CoroutineScope(Dispatchers.IO).launch {
-            // Do the POST request and get response
             val response = InterfaceAPI.getInstance().addUser(requestBody)
 
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
 
-                    // Convert raw JSON to pretty JSON using GSON library
                     val gson = GsonBuilder().setPrettyPrinting().create()
                     val prettyJson = gson.toJson(
                         JsonParser.parseString(
                             response.body()
-                                ?.string() // About this thread blocking annotation : https://github.com/square/retrofit/issues/3255
+                                ?.string()
                         )
                     )
 

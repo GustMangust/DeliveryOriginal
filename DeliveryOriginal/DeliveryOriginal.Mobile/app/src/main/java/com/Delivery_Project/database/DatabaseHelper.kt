@@ -270,4 +270,20 @@ class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME,
         db.execSQL("DELETE FROM $CART WHERE $ID = (SELECT $ID FROM $CART WHERE $DISH_ID = $dishId LIMIT 1 )")
         db.close()
     }
+
+    fun updateDishes(dishList:ArrayList<Dish>){
+        val db = this.writableDatabase
+
+        db.execSQL("DELETE FROM $DISH")
+
+        insertDishes(dishList);
+    }
+
+    fun updateCategories(categoryList: ArrayList<Category>){
+        val db = this.writableDatabase
+
+        db.execSQL("DELETE FROM $CATEGORY")
+
+        insertCategories(categoryList)
+    }
 }

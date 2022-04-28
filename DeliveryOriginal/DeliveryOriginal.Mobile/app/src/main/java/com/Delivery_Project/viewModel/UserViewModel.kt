@@ -13,6 +13,7 @@ import com.Delivery_Project.pojo.User
 import com.Delivery_Project.pojo.UserRole
 import com.Delivery_Project.repository.UserRepository
 import com.Delivery_Project.ui.ui.activity.MainActivity
+import com.Delivery_Project.utility.SharedPreferencesUtility
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -36,31 +37,31 @@ class UserViewModel constructor(private val repository: UserRepository): ViewMod
             }
         })
     }
-    fun validateUser(login: String, password: String, list: List<User>, context: Context): User {
+    fun validateUser(login: String, password: String, list: List<User>, context: Context): User? {
         var newUser: User ?= null
         if(login.isEmpty() || password.isEmpty()){
-            Toast.makeText(context, "Fill in all fields!" , Toast.LENGTH_LONG)
+            Toast.makeText(context, "Fill in all fields!" , Toast.LENGTH_LONG).show()
         }else{
-            var user = list!!.firstOrNull { p -> p.Login == login && p.Password == password }
-            newUser = user
+            newUser = list!!.firstOrNull { p -> p.Login == login && p.Password == password }
         }
-        return newUser!!
+        return newUser
     }
 
     fun getActivity(login: String, password: String,list: List<User>, context: Context){
-        var user = validateUser(login, password, list, context)
-        val regularIntent = Intent(context, MainActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        regularIntent.putExtra("User",user)
-        when(UserRole.fromInt(user.Role)){
-            UserRole.Regulars -> {
-                //val mPrefs: SharedPreferences = context.getSharedPreferences(getSizeInt().toString(),Context.MODE_WORLD_WRITEABLE)
-                startActivity(context,regularIntent, null)
-            }
+        val user = validateUser(login, password, list, context)
+        if(user!=null){
+            val regularIntent = Intent(context, MainActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            regularIntent.putExtra("User",user)
+            SharedPreferencesUtility.saveUser(user,context)
 
-            else -> throw IllegalStateException()
+            when(UserRole.fromInt(user.Role)){
+                UserRole.Regulars -> {
+                    startActivity(context,regularIntent, null)
+                }
+                else -> throw IllegalStateException()
+            }
+        } else {
+            Toast.makeText(context, "User is not found!", Toast.LENGTH_LONG).show()
         }
     }
-
-
-
 }
