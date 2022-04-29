@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DeliveryOriginal"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ui.ui.activity.CookOrderDescription"
+            android:exported="true"
+            />
         <activity android:name=".ui.ui.activity.CookActivity"
             android:exported="true"
             />
