@@ -54,18 +54,23 @@ class LoginActivity : AppCompatActivity() {
         val user = SharedPreferencesUtility.getUser(this)
 
         if(user != null){
-            val regularIntent = Intent(this, MainActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            regularIntent.putExtra("User",user)
-            val cookIntent = Intent(this, CookActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            cookIntent.putExtra("User",user)
             SharedPreferencesUtility.saveUser(user,this)
 
             when(UserRole.fromInt(user.Role)){
                 UserRole.Regulars -> {
+                    val regularIntent = Intent(this, MainActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    regularIntent.putExtra("User",user)
                     ContextCompat.startActivity(this, regularIntent, null)
                 }
                 UserRole.Cooks->{
+                    val cookIntent = Intent(this, CookActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    cookIntent.putExtra("User",user)
                     ContextCompat.startActivity(this, cookIntent, null)
+                }
+                UserRole.Deliveries->{
+                    val deliveryIntent = Intent(this, DeliveryActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    deliveryIntent.putExtra("User",user)
+                    ContextCompat.startActivity(this, deliveryIntent, null)
                 }
 
                 else -> throw IllegalStateException()

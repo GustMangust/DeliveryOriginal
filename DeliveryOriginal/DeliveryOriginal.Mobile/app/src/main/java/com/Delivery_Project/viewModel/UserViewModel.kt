@@ -1,10 +1,7 @@
 package com.Delivery_Project.viewModel
 
 import android.content.Context
-import android.content.Context.MODE_PRIVATE
 import android.content.Intent
-import android.content.SharedPreferences
-import android.os.ParcelFileDescriptor.MODE_WORLD_WRITEABLE
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
@@ -14,6 +11,7 @@ import com.Delivery_Project.pojo.User
 import com.Delivery_Project.pojo.UserRole
 import com.Delivery_Project.repository.UserRepository
 import com.Delivery_Project.ui.ui.activity.CookActivity
+import com.Delivery_Project.ui.ui.activity.DeliveryActivity
 import com.Delivery_Project.ui.ui.activity.MainActivity
 import com.Delivery_Project.utility.RegistrationUtility
 import com.Delivery_Project.utility.SharedPreferencesUtility
@@ -78,19 +76,27 @@ class UserViewModel constructor(private val repository: UserRepository): ViewMod
     fun getActivity(login: String, password: String,list: List<User>, context: Context){
         val user = validateUser(login, password, list, context)
         if(user!=null){
-            val regularIntent = Intent(context, MainActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            regularIntent.putExtra("User",user)
+
             SharedPreferencesUtility.saveUser(user,context)
-            val cookIntent = Intent(context, CookActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            cookIntent.putExtra("User",user)
+
 
             when(UserRole.fromInt(user.Role)){
                 UserRole.Regulars -> {
+                    val regularIntent = Intent(context, MainActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    regularIntent.putExtra("User",user)
                     startActivity(context,regularIntent, null)
                 }
                 UserRole.Cooks->{
+                    val cookIntent = Intent(context, CookActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    cookIntent.putExtra("User",user)
                     ContextCompat.startActivity(context, cookIntent, null)
                 }
+                UserRole.Deliveries->{
+                    val deliveryIntent = Intent(context, DeliveryActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    deliveryIntent.putExtra("User",user)
+                    ContextCompat.startActivity(context, deliveryIntent, null)
+                }
+
                 else -> throw IllegalStateException()
             }
         } else {
