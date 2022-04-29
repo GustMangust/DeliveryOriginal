@@ -71,10 +71,10 @@ class HomeFragment : Fragment() {
                 ViewModelProvider(this, DishViewModelFactory(DishRepository(interfaceAPI))).get(
                     DishViewModel::class.java
                 )
-            dishViewModel.dishList.observe(this, Observer {
+            dishViewModel.dishList.observe(viewLifecycleOwner, Observer {
                 db.updateDishes(ArrayList(it))
             })
-            dishViewModel.errorMessage.observe(this, Observer {
+            dishViewModel.errorMessage.observe(viewLifecycleOwner, Observer {
             })
             dishViewModel.getDish()
 
@@ -82,10 +82,10 @@ class HomeFragment : Fragment() {
                 ViewModelProvider(this, MenuViewModelFactory(MenuRepository(interfaceAPI))).get(
                     MenuViewModel::class.java
                 )
-            menuViewModel.categoryList.observe(this, Observer {
+            menuViewModel.categoryList.observe(viewLifecycleOwner, Observer {
                 db.updateCategories(ArrayList(it))
             })
-            menuViewModel.errorMessage.observe(this, Observer {
+            menuViewModel.errorMessage.observe(viewLifecycleOwner, Observer {
             })
             menuViewModel.getCategory()
         }

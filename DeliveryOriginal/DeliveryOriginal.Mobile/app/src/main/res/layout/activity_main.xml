@@ -32,7 +32,8 @@
             android:layout_gravity="bottom"
             android:textAllCaps="false"
             android:padding="15dp"
-            android:onClick="log_out"/>
+            android:onClick="log_out"
+            />
 
     </com.google.android.material.navigation.NavigationView>
 
