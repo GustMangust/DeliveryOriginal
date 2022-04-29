@@ -31,6 +31,9 @@ interface InterfaceAPI {
     @POST("User/Add")
     suspend fun addUser(@Body requestBody: RequestBody): Response<ResponseBody>
 
+    @PUT("Order/Update")
+    suspend fun updateOrder(@Body requestBody: RequestBody): Response<ResponseBody>
+
 
     companion object {
         var interfaceAPI: InterfaceAPI? = null
