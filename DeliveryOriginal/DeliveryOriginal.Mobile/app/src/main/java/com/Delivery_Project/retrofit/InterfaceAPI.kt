@@ -1,9 +1,6 @@
 package com.Delivery_Project.retrofit
 
-import com.Delivery_Project.pojo.Category
-import com.Delivery_Project.pojo.DefaultResponse
-import com.Delivery_Project.pojo.Dish
-import com.Delivery_Project.pojo.User
+import com.Delivery_Project.pojo.*
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -24,6 +21,9 @@ interface InterfaceAPI {
 
     @GET("Dish/GetDayDishes")
     fun getRandomDish():Call<List<Dish>>
+
+    @GET("Order/GetAll")
+    fun getOrder():Call<List<Order>>
 
     @POST("Order/Add")
     suspend fun addOrder(@Body requestBody: RequestBody): Response<ResponseBody>

@@ -6,12 +6,14 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.ParcelFileDescriptor.MODE_WORLD_WRITEABLE
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.Delivery_Project.pojo.User
 import com.Delivery_Project.pojo.UserRole
 import com.Delivery_Project.repository.UserRepository
+import com.Delivery_Project.ui.ui.activity.CookActivity
 import com.Delivery_Project.ui.ui.activity.MainActivity
 import com.Delivery_Project.utility.SharedPreferencesUtility
 import retrofit2.Call
@@ -53,10 +55,15 @@ class UserViewModel constructor(private val repository: UserRepository): ViewMod
             val regularIntent = Intent(context, MainActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             regularIntent.putExtra("User",user)
             SharedPreferencesUtility.saveUser(user,context)
+            val cookIntent = Intent(context, CookActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            cookIntent.putExtra("User",user)
 
             when(UserRole.fromInt(user.Role)){
                 UserRole.Regulars -> {
                     startActivity(context,regularIntent, null)
+                }
+                UserRole.Cooks->{
+                    ContextCompat.startActivity(context, cookIntent, null)
                 }
                 else -> throw IllegalStateException()
             }
