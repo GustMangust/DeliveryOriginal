@@ -3,7 +3,7 @@ package com.Delivery_Project.pojo
 data class Order(
     val Address: String,
     val CurrentEmployee: Any,
-    val Customer: Customer,
+    val Customer: User,
     val Dishes: List<Dish>,
     val Id: Int,
     val PhoneNumber: String,
