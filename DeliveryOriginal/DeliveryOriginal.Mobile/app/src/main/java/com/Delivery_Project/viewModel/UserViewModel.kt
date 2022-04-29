@@ -13,6 +13,7 @@ import com.Delivery_Project.pojo.User
 import com.Delivery_Project.pojo.UserRole
 import com.Delivery_Project.repository.UserRepository
 import com.Delivery_Project.ui.ui.activity.MainActivity
+import com.Delivery_Project.utility.RegistrationUtility
 import com.Delivery_Project.utility.SharedPreferencesUtility
 import retrofit2.Call
 import retrofit2.Callback
@@ -36,6 +37,31 @@ class UserViewModel constructor(private val repository: UserRepository): ViewMod
                 errorMessage.postValue(t.message)
             }
         })
+    }
+    fun checkUser(login: String, password: String, full_name: String, context: Context){
+        val errorMessage = MutableLiveData<String>()
+        var userList: List<User> ? = null
+        val response = repository.getUser()
+        response.enqueue(object : Callback<List<User>> {
+            override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
+                if (response.isSuccessful)  {
+                    userList = response.body()
+
+                    if(isUserExists(userList,login)!!){
+                        Toast.makeText(context, "User already exists!", Toast.LENGTH_LONG).show()
+                    } else {
+                        RegistrationUtility.requestRegistration(login,password,full_name, context)
+                    }
+                }
+            }
+            override fun onFailure(call: Call<List<User>>, t: Throwable) {
+                errorMessage.postValue(t.message)
+            }
+        })
+    }
+
+    fun isUserExists(userList:List<User>?, login: String):Boolean?{
+        return userList?.any{it.Login == login}
     }
     fun validateUser(login: String, password: String, list: List<User>, context: Context): User? {
         var newUser: User ?= null

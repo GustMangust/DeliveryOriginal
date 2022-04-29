@@ -1,26 +1,22 @@
 package com.Delivery_Project.ui.ui.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.Delivery_Project.R
 import com.Delivery_Project.databinding.ActivityRegistrationBinding
+import com.Delivery_Project.factory.UserViewModelFactory
+import com.Delivery_Project.repository.UserRepository
 import com.Delivery_Project.retrofit.InterfaceAPI
-import com.Delivery_Project.utility.EncryptionUtility
-import com.google.gson.GsonBuilder
-import com.google.gson.JsonParser
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody.Companion.toRequestBody
-import org.json.JSONObject
+import com.Delivery_Project.viewModel.UserViewModel
 
 class RegistrationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegistrationBinding
+    lateinit var viewModel: UserViewModel
+    private val retrofitService = InterfaceAPI.getInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegistrationBinding.inflate(layoutInflater)
@@ -55,48 +51,10 @@ class RegistrationActivity : AppCompatActivity() {
                 repeat_password_element.requestFocus()
                 return@setOnClickListener
             }
+            viewModel = ViewModelProvider(this, UserViewModelFactory(UserRepository(retrofitService))).get(
+                UserViewModel::class.java)
 
-            requestRegistration(login, password, full_name, role)
-            startActivity(Intent(this, LoginActivity::class.java))
-        }
-    }
-
-
-        private fun requestRegistration(login: String, password: String, full_name: String, role: Int){
-        val jsonObject = JSONObject()
-        val encryptedPassword = EncryptionUtility.encryptString(password);
-
-        jsonObject.put("Login", login)
-        jsonObject.put("Password", encryptedPassword)
-        jsonObject.put("FullName", full_name)
-        jsonObject.put("Role", role)
-
-        val jsonObjectString = jsonObject.toString()
-
-        val requestBody = jsonObjectString.toRequestBody("application/json".toMediaTypeOrNull())
-
-        CoroutineScope(Dispatchers.IO).launch {
-            val response = InterfaceAPI.getInstance().addUser(requestBody)
-
-            withContext(Dispatchers.Main) {
-                if (response.isSuccessful) {
-
-                    val gson = GsonBuilder().setPrettyPrinting().create()
-                    val prettyJson = gson.toJson(
-                        JsonParser.parseString(
-                            response.body()
-                                ?.string()
-                        )
-                    )
-
-                    Log.d("Pretty Printed JSON :", prettyJson)
-
-                } else {
-
-                    Log.e("RETROFIT_ERROR", response.code().toString())
-
-                }
-            }
+            viewModel.checkUser(login, password, full_name, this)
         }
     }
 }
