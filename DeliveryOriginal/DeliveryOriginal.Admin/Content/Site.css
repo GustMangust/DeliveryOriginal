@@ -97,3 +97,83 @@ textarea {
     font-size: 40px;
     margin-left: 5px;
 }
+
+.order-list-item-container-selected {
+    background: #EEEEEE;
+}
+
+.filter-section {
+    margin: 20px 0;
+}
+
+.sort-options {
+    display: inline-block;
+}
+
+.sort-btn {
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+    background-repeat: no-repeat;
+    background-position: 70px, 5px;
+}
+
+.reset-filters-button {
+    height: 33px;
+    width: 95px;
+}
+
+.default-sort-icon {
+    background-image: url(images/sort_both.png);
+    background-repeat: no-repeat;
+    background-position: 70px;
+    height: 33px;
+    width: 90px;
+}
+
+.arrowUp-sort-icon {
+    background-image: url('images/sort_asc.png');
+    background-repeat: no-repeat;
+    background-position: 70px;
+    height: 33px;
+    width: 90px;
+}
+
+.arrowDown-sort-icon {
+    background-image: url('images/sort_desc.png');
+    background-repeat: no-repeat;
+    background-position: 70px;
+    height: 33px;
+    width: 90px;
+}
+
+@media (max-width: 1200px) {
+    .arrowUp-sort-icon {
+        width: 95%;
+    }
+
+    .arrowDown-sort-icon {
+        width: 95%;
+    }
+
+    .default-sort-icon {
+        width: 95%;
+    }
+
+    .sort-btn {
+        background-position-x: 100%;
+    }
+
+    .reset-filters-button {
+        width: 100%;
+        padding: 5px 0 !important;
+    }
+}
+
+.dashboard-menu-item {
+    height: 30px;
+    width: 35px;
+    font-size: 20px;
+    color: #000000;
+    cursor: pointer;
+}

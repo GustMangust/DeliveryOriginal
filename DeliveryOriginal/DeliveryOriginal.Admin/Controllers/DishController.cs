@@ -125,7 +125,9 @@ namespace DeliveryOriginal.Admin.Controllers
             }
             else
             {
-                return View();
+                SelectList categories = new SelectList(await UnitOfWork.CategoryRepository.GetAll(), "Id", "Name", dish.CategoryId);
+                ViewBag.Categories = categories;
+                return View(dish);
             }
 
             await UnitOfWork.DishRepository.Update(updatedDish);

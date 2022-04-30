@@ -29,13 +29,59 @@
 
                             <div class="col-xs-12 col-sm-12 col-md-12 no-padding-right text-left">
                                 <label>Status:</label>
-                                <span class="details-status">@Model.Status.GetDisplayName()</span>
+                                <span id="details-status-@Model.Id" class="details-status">@Model.Status.GetDisplayName()</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12 no-padding-left no-padding-right empty-line"></div>
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th class="col-sm-3">
+                                        Id
+                                    </th>
+                                    <th class="col-sm-3">
+                                        Name
+                                    </th>
+                                    <th class="col-sm-3">
+                                        Cost
+                                    </th>
+                                </tr>
+                                @foreach (Dish dish in Model.Dishes)
+                                {
+                                    <tr id="_table-row-@dish.Id">
+                                        <td class="col-sm-3">
+                                            @dish.Id
+                                        </td>
+                                        <td class="col-sm-3">
+                                            @dish.Name
+                                        </td>
+                                        <td class="col-sm-3">
+                                            @dish.Cost
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+                    </div>
                     <div class="col-xs-12 col-sm-12 col-md-12 no-padding-left no-padding-right overflow-ellipsis">Other Information</div>
                 </div>
+                @if (Model.Status == OrderStatus.New)
+                {
+                    <div class="col-xs-12 col-sm-12 col-md-12 details-buttons">
+                        <div class="col-xs-6 col-sm-6 col-md-6 no-padding-left">
+                            <div class="btn btn-danger col-xs-8 col-sm-8 col-md-8" onClick="declineOrder(event, @Model.Id)">
+                                Decline
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 no-padding-right">
+                            <div class="btn btn-primary col-xs-8 col-sm-8 col-md-8 pull-right" onClick="acceptOrder(event, @Model.Id)">
+                                Accept
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     }
@@ -44,3 +90,48 @@
         <div class="details-partial text-center">Select a Order to View</div>
     }
 </div>
+<script>
+    var declineOrder = function (event, id) {
+        if (event && ($(event.target).hasClass('tooltip-button') || $(event.target).hasClass('glyphicon-wrench') || $(event.target).hasClass('fa'))) {
+            return true;
+        }
+
+        let declineOrderUrl = '@Url.Action("DeclineOrder", "Order")';
+
+        $.ajax({
+            type: 'GET',
+            url: declineOrderUrl,
+            data: '&orderId=' + id,
+            success: function (data, textstatus) {
+                $(`#details-status-${id}`).html(data);
+                $(`#_${id} .order-status`).html(data);
+                $('.details-buttons').hide();
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert(errorThrown);
+            }
+        });
+    }
+
+    var acceptOrder = function (event, id) {
+        if (event && ($(event.target).hasClass('tooltip-button') || $(event.target).hasClass('glyphicon-wrench') || $(event.target).hasClass('fa'))) {
+            return true;
+        }
+
+        let acceptOrderUrl = '@Url.Action("AcceptOrder", "Order")';
+
+        $.ajax({
+            type: 'GET',
+            url: acceptOrderUrl,
+            data: '&orderId=' + id,
+            success: function (data, textstatus) {
+                $(`#details-status-${id}`).html(data);
+                $(`#_${id} .order-status`).html(data);
+                $('.details-buttons').hide();
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert(errorThrown);
+            }
+        });
+    }
+</script>
