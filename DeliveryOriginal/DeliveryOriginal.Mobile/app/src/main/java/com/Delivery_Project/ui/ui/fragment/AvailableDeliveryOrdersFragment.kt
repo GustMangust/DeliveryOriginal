@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.Delivery_Project.R
 import com.Delivery_Project.adapter.AvailableCookOrderAdapter
+import com.Delivery_Project.adapter.AvailableDeliveryOrderAdapter
 import com.Delivery_Project.adapter.RandomDishAdapter
 import com.Delivery_Project.databinding.FragmentAvailableCookOrdersBinding
 import com.Delivery_Project.databinding.FragmentAvailableDeliveryOrdersBinding
@@ -36,7 +37,7 @@ class AvailableDeliveryOrdersFragment : Fragment() {
     private lateinit var binding: FragmentAvailableDeliveryOrdersBinding
     lateinit var viewModel: OrderViewModel
     private val interfaceAPI = InterfaceAPI.getInstance()
-    val adapter = AvailableCookOrderAdapter()
+    val adapter = AvailableDeliveryOrderAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
