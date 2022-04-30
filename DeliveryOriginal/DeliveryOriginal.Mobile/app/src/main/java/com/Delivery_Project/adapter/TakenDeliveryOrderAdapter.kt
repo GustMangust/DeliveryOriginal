@@ -2,7 +2,6 @@ package com.Delivery_Project.adapter
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.SharedPreferences
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,19 +9,18 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.Delivery_Project.databinding.CookOrderItemBinding
-import com.Delivery_Project.databinding.DishItemBinding
-import com.Delivery_Project.pojo.Customer
+import com.Delivery_Project.databinding.CookOrderTakenItemBinding
+import com.Delivery_Project.databinding.DeliveryOrderTakenItemBinding
 import com.Delivery_Project.pojo.Dish
 import com.Delivery_Project.pojo.Order
 import com.Delivery_Project.pojo.User
 import com.Delivery_Project.retrofit.InterfaceAPI
 import com.Delivery_Project.ui.ui.activity.CookActivity
-import com.Delivery_Project.ui.ui.activity.DishDescriptionActivity
+import com.Delivery_Project.ui.ui.activity.CookOrderDescription
+import com.Delivery_Project.ui.ui.activity.DeliveryActivity
 import com.Delivery_Project.utility.SharedPreferencesUtility
-import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.google.gson.JsonArray
 import com.google.gson.JsonParser
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -31,36 +29,41 @@ import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
-import retrofit2.Retrofit
+import java.io.Serializable
 
-class AvailableCookOrderAdapter:RecyclerView.Adapter<OrderViewHolder>() {
+class TakenDeliveryOrderAdapter : RecyclerView.Adapter<DeliveryTakenViewHolder>() {
     var orders = mutableListOf<Order>()
 
-    fun setDishListByStatus(orders: List<Order>,  status: Int) {
-        var ordersByStatus = orders.filter {p -> p.Status == status}
-        this.orders = ordersByStatus.toMutableList()
+    fun setDishListByStatusAndEmployee(orders: List<Order>, status: Int, employee: User) {
+        var ordersByStatusAndEmployee = orders.filter {p -> p.Status == status && p.CurrentEmployee == employee}
+        this.orders = ordersByStatusAndEmployee.toMutableList()
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DeliveryTakenViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = CookOrderItemBinding.inflate(inflater, parent, false)
-        return OrderViewHolder(binding)
+        val binding = DeliveryOrderTakenItemBinding.inflate(inflater, parent, false)
+        return DeliveryTakenViewHolder(binding)
     }
     @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: DeliveryTakenViewHolder, position: Int) {
         val order = orders[position]
         holder.binding.cookOrderId.text = "Order ID: " + order.Id.toString()
         holder.binding.cookNumberOfDishes.text = "Number of dishes: " + order.Dishes.size.toString()
         val context = holder.itemView.context
         val user = SharedPreferencesUtility.getUser(context)
-        holder.binding.cookTakeOrder.setOnClickListener { v: View -> Unit
-            putMethod(order.Id,2, user!!)
-            val intent = Intent(context, CookActivity::class.java)
+        holder.binding.cookReadyOrderTakenOrder.setOnClickListener { v: View -> Unit
+            putMethod(order.Id,5, user!!)
+            val intent = Intent(context, DeliveryActivity::class.java)
             intent.putExtra("User",user)
             ContextCompat.startActivity(context, intent, null)
-         }
         }
+        holder.binding.cookShowOrder.setOnClickListener {v: View -> Unit
+            val intent = Intent(context, CookOrderDescription::class.java)
+            intent.putExtra("Dishes", order.Dishes)
+            ContextCompat.startActivity(context, intent, null)
+        }
+    }
 
     override fun getItemCount(): Int {
         return orders.size
@@ -103,6 +106,6 @@ class AvailableCookOrderAdapter:RecyclerView.Adapter<OrderViewHolder>() {
         }
     }
 }
-class OrderViewHolder(val binding: CookOrderItemBinding) : RecyclerView.ViewHolder(binding.root) {
+class DeliveryTakenViewHolder(val binding: DeliveryOrderTakenItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
 }

@@ -26,14 +26,14 @@ data class User (
 enum class UserRole(val Role: Int){
     Regulars(3),
     Cooks(4),
-    Deliverymens(5);
+    Deliveries(5);
 
     companion object{
         fun fromInt(givenInt:Int):UserRole{
           return when (givenInt){
               Regulars.Role -> Regulars
               Cooks.Role -> Cooks
-              Deliverymens.Role -> Deliverymens
+              Deliveries.Role -> Deliveries
               else -> throw Exception("Invalid role $givenInt , available ids are ${values().map{it.Role}}")
           }
         }

@@ -32,6 +32,7 @@ class CookOrderDescriptionAdapter(): RecyclerView.Adapter<OrderDescriptionHolder
     override fun onBindViewHolder(holder: OrderDescriptionHolder, position: Int) {
         val dish = dishList[position]
         holder.binding.cookOrderDescriptionName.text = dish.Name
+        holder.binding.cookOrderDescriptionCost.text = "${dish.Cost} $"
         Glide.with(holder.itemView.context).load(dish.ImageUrl)
             .into(holder.binding.cookOrderDescriptionImage)
     }

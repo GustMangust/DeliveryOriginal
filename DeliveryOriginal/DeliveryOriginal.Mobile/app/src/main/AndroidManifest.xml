@@ -44,6 +44,11 @@
 
         </activity>
         <activity
+            android:name=".ui.ui.activity.DeliveryActivity"
+            android:exported="true">
+
+        </activity>
+        <activity
             android:name=".ui.ui.activity.CheckoutActivity"
             android:exported="false" />
         <activity
