@@ -169,3 +169,11 @@ textarea {
         padding: 5px 0 !important;
     }
 }
+
+.dashboard-menu-item {
+    height: 30px;
+    width: 35px;
+    font-size: 20px;
+    color: #000000;
+    cursor: pointer;
+}

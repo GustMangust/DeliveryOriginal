@@ -18,8 +18,18 @@
                 </div>
             </div>
         </div>
-        <div id="order-list-container">
-            @{ Html.RenderPartial("_OrderList", new ViewDataDictionary(Model.Orders)); }
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div id="dashboardNavigation" class="col-xs-2 col-sm-2 col-md-2 no-side-padding">
+                <div class="icon-bar">
+                    <a class="glyphicon glyphicon-eye-close dashboard-menu-item" data-toggle="tooltip" data-placement="left" title="New" onclick="leftSideMenuClickHandler(filter = @Convert.ToInt32(DashboardOrderFilter.New))"></a>
+                    <a class="glyphicon glyphicon-eye-open dashboard-menu-item" data-toggle="tooltip" data-placement="left" title="Active" onclick="leftSideMenuClickHandler(filter = @Convert.ToInt32(DashboardOrderFilter.Active))"></a>
+                    <a class="glyphicon glyphicon-folder-open dashboard-menu-item" data-toggle="tooltip" data-placement="left" title="Declined" onclick="leftSideMenuClickHandler(filter = @Convert.ToInt32(DashboardOrderFilter.Declined), isActive = false)"></a>
+                    <a class="glyphicon glyphicon-th-list dashboard-menu-item" data-toggle="tooltip" data-placement="left" title="All" onclick="leftSideMenuClickHandler(filter = @Convert.ToInt32(DashboardOrderFilter.All))"></a>
+                </div>
+            </div>
+            <div id="order-list-container" class="col-xs-10 col-sm-10 col-md-10 no-side-padding">
+                @{ Html.RenderPartial("_OrderList", new ViewDataDictionary(Model.Orders)); }
+            </div>
         </div>
     </div>
     <div class="right-side-container col-xs-12 col-md-8">
@@ -33,6 +43,8 @@
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <script>
     $('#byIdSort').addClass('arrowDown-sort-icon');
+    let currentOrderBy = @Convert.ToInt32(Model.OrderOrderBy);
+    let currentFilterBy = @Convert.ToInt32(Model.DashboardOrderFilter);
 
     function sortClickHandler(event, orderBy) {
         var element = $('#' + event.target.id);
@@ -71,18 +83,19 @@
     }
 
     function loadOrdersListWithSort(orderBy) {
-        let ordersListWithSortUrl = '@Url.Action("RenderOrdersListWithSort", "Order")';
+        let ordersListWithSortUrl = '@Url.Action("RenderOrdersListWithSortAndFilter", "Order")';
 
         $.ajax({
             type: 'GET',
             url: ordersListWithSortUrl,
-            data: '&defaultOrderId=' + orderBy + '&orderBy=' + orderBy,
+            data: '&orderBy=' + orderBy + '&filterBy=' + currentFilterBy,
             success: function (data, textstatus) {
                 $('#order-list-container').empty();
                 $('#order-list-container').append(data);
 
                 let selectedOrderId = $('#orderDetailsIdValue')?.html()?.slice(1, 2);
-                $(`#_${selectedOrderId}`).addClass('order-list-item-container-selected');
+                $(`#_${selectedOrderId}`)?.addClass('order-list-item-container-selected');
+                currentOrderBy = orderBy;
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert(errorThrown);
@@ -96,6 +109,27 @@
             $(this).removeClass('arrowUp-sort-icon');
             $(this).removeClass('default-sort-icon');
             $(this).addClass('default-sort-icon');
+        });
+    }
+
+    function leftSideMenuClickHandler(filterBy) {
+        let ordersListWithSortUrl = '@Url.Action("RenderOrdersListWithSortAndFilter", "Order")';
+
+        $.ajax({
+            type: 'GET',
+            url: ordersListWithSortUrl,
+            data: '&orderBy=' + currentOrderBy + '&filterBy=' + filterBy,
+            success: function (data, textstatus) {
+                $('#order-list-container').empty();
+                $('#order-list-container').append(data);
+
+                let selectedOrderId = $('#orderDetailsIdValue')?.html()?.slice(1, 2);
+                $(`#_${selectedOrderId}`)?.addClass('order-list-item-container-selected');
+                currentFilterBy = filterBy;
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert(errorThrown);
+            }
         });
     }
 </script>

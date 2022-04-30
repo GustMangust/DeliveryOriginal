@@ -31,6 +31,14 @@ namespace DeliveryOriginal.Admin.Models
         OrderStatusDesc = 4
     }
 
+    public enum DashboardOrderFilter
+    {
+        All = 0,
+        New = 1,
+        Active = 2,
+        Declined = 3
+    }
+
     public enum OrderStatus
     {
         [Display(Name = "New")]

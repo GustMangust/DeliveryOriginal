@@ -23,7 +23,9 @@ namespace DeliveryOriginal.Admin.Controllers
             return View();
         }
 
-        public async Task<ActionResult> OrderDashboard(int? defaultOrderId, OrderOrderBy orderBy = OrderOrderBy.OrderNumberDesc)
+        public async Task<ActionResult> OrderDashboard(int? defaultOrderId, 
+                                                       OrderOrderBy orderBy = OrderOrderBy.OrderNumberDesc, 
+                                                       DashboardOrderFilter filterBy = DashboardOrderFilter.All)
         {
             var orders = await UnitOfWork.OrderRepository.GetAll();
 
@@ -35,7 +37,8 @@ namespace DeliveryOriginal.Admin.Controllers
             {
                 Orders = dashboardOrders,
                 SelectedOrder = defaultOrderId.HasValue ? dashboardOrders?.Where(order => order.Id == defaultOrderId)?.FirstOrDefault() : null,
-                OrderOrderBy = orderBy
+                OrderOrderBy = orderBy,
+                DashboardOrderFilter = filterBy
             };
 
             return View(model);
@@ -89,12 +92,13 @@ namespace DeliveryOriginal.Admin.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> RenderOrdersListWithSort(OrderOrderBy orderBy)
+        public async Task<ActionResult> RenderOrdersListWithSortAndFilter(OrderOrderBy orderBy, DashboardOrderFilter filterBy)
         {
             var orders = await UnitOfWork.OrderRepository.GetAll();
 
             var dashboardOrders = GetDashboardOrders(orders);
 
+            dashboardOrders = FilterDashboardOrder(dashboardOrders, filterBy);
             dashboardOrders = SortDashboardOrder(dashboardOrders, orderBy);
 
             return PartialView("_OrderList", dashboardOrders);
@@ -121,6 +125,25 @@ namespace DeliveryOriginal.Admin.Controllers
             return dashboardOrders;
         }
 
+        private List<OrderDetailsVM> FilterDashboardOrder(List<OrderDetailsVM> dashboardOrders, DashboardOrderFilter filterBy)
+        {
+            switch (filterBy)
+            {
+                case DashboardOrderFilter.New:
+                    dashboardOrders = dashboardOrders.Where(order => order.Status == OrderStatus.New).ToList();
+                    break;
+                case DashboardOrderFilter.Active:
+                    dashboardOrders = dashboardOrders.Where(order => order.Status != OrderStatus.Declined && order.Status != OrderStatus.New).ToList();
+                    break;
+                case DashboardOrderFilter.Declined:
+                    dashboardOrders = dashboardOrders.Where(order => order.Status == OrderStatus.Declined).ToList();
+                    break;
+                case DashboardOrderFilter.All:
+                default:
+                    break;
+            }
+            return dashboardOrders;
+        }
         private OrderDetailsVM GetDashboardOrder(Order order)
         {
             var dashboardOrder = new OrderDetailsVM

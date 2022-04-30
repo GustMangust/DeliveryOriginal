@@ -1,12 +1,12 @@
 ﻿@using DeliveryOriginal.Admin.Models
 @model List<OrderDetailsVM>
 
-<div id="order-list-inner-container" class="col-xs-12 col-sm-12 col-md-12">
+<div id="order-list-inner-container" class="bordered-content col-xs-12 col-sm-12 col-md-12">
     @if (Model != null && Model.Count > 0)
     {
         foreach (OrderDetailsVM order in Model)
         {
-            <div class="bordered-content">
+            <div>
                 @{ Html.RenderPartial("_OrderListItem", new ViewDataDictionary(order)); }
             </div>
         }

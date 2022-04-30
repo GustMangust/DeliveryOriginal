@@ -9,6 +9,7 @@ namespace DeliveryOriginal.Admin.Models
         public DateTime? SubmittedAt { get; set; }
         public OrderStatus Status { get; set; }
         public string Address { get; set; }
+        public string PhoneNumber { get; set; }
         public virtual User Customer { get; set; }
         public virtual User CurrentEmployee { get; set; }
         public virtual ICollection<Dish> Dishes { get; set; }
@@ -24,5 +25,6 @@ namespace DeliveryOriginal.Admin.Models
         public List<OrderDetailsVM> Orders { get; set; }
         public OrderDetailsVM SelectedOrder { get; set; }
         public OrderOrderBy OrderOrderBy { get; set; }
+        public DashboardOrderFilter DashboardOrderFilter { get; set; }
     }
 }
