@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">DeliveryOriginal.Mobile</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="signed_in_as">Signed in as:</string>
+    <string name="order_id">Order id:</string>
+    <string name="number_of_dishes">Number of dishes:</string>
+    <string name="ready">Ready</string>
 </resources>
