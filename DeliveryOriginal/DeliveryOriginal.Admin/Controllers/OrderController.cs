@@ -9,7 +9,6 @@ using System.Web.Mvc;
 
 namespace DeliveryOriginal.Admin.Controllers
 {
-    [CustomAuthorize(Role = RoleGroup.Regulars)]
     public class OrderController : Controller
     {
         protected readonly IUnitOfWork UnitOfWork;
@@ -18,11 +17,13 @@ namespace DeliveryOriginal.Admin.Controllers
             UnitOfWork = new UnitOfWork();
         }
 
+        [CustomAuthorize(RoleGroup.Administrators, RoleGroup.SystemAdministrators, RoleGroup.AnalyticsAdministrators, RoleGroup.SuperAdministrator)]
         public ActionResult Index()
         {
             return View();
         }
 
+        [CustomAuthorize(RoleGroup.Administrators, RoleGroup.SuperAdministrator)]
         public async Task<ActionResult> OrderDashboard(int? defaultOrderId, 
                                                        OrderOrderBy orderBy = OrderOrderBy.OrderNumberDesc, 
                                                        DashboardOrderFilter filterBy = DashboardOrderFilter.All)
@@ -45,6 +46,7 @@ namespace DeliveryOriginal.Admin.Controllers
         }
 
         [HttpGet]
+        [CustomAuthorize(RoleGroup.Administrators, RoleGroup.SuperAdministrator)]
         public async Task<ActionResult> RenderDashboardOrderDetailsPartial(int? orderId = null)
         {
             if (orderId.HasValue)
@@ -62,6 +64,7 @@ namespace DeliveryOriginal.Admin.Controllers
         }
 
         [HttpGet]
+        [CustomAuthorize(RoleGroup.Administrators, RoleGroup.SuperAdministrator)]
         public async Task<string> AcceptOrder(int orderId)
         {
             var order = await UnitOfWork.OrderRepository.Get(orderId);
@@ -77,6 +80,7 @@ namespace DeliveryOriginal.Admin.Controllers
         }
 
         [HttpGet]
+        [CustomAuthorize(RoleGroup.Administrators, RoleGroup.SuperAdministrator)]
         public async Task<string> DeclineOrder(int orderId)
         {
             var order = await UnitOfWork.OrderRepository.Get(orderId);
@@ -92,6 +96,7 @@ namespace DeliveryOriginal.Admin.Controllers
         }
 
         [HttpGet]
+        [CustomAuthorize(RoleGroup.Administrators, RoleGroup.SuperAdministrator)]
         public async Task<ActionResult> RenderOrdersListWithSortAndFilter(OrderOrderBy orderBy, DashboardOrderFilter filterBy)
         {
             var orders = await UnitOfWork.OrderRepository.GetAll();
@@ -154,7 +159,8 @@ namespace DeliveryOriginal.Admin.Controllers
                 Customer = order.Customer,
                 Dishes = order.Dishes,
                 Status = order.Status,
-                SubmittedAt = order.SubmittedAt
+                SubmittedAt = order.SubmittedAt,
+                PhoneNumber = order.PhoneNumber
             };
             if (dashboardOrder?.Dishes != null)
             {
@@ -180,7 +186,8 @@ namespace DeliveryOriginal.Admin.Controllers
                     Customer = order.Customer,
                     Dishes = order.Dishes,
                     Status = order.Status,
-                    SubmittedAt = order.SubmittedAt
+                    SubmittedAt = order.SubmittedAt,
+                    PhoneNumber = order.PhoneNumber
                 };
                 if (dashboardOrder?.Dishes != null)
                 {

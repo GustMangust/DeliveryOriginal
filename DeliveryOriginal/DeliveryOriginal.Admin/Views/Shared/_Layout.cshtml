@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using DeliveryOriginal.Admin.Models
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -16,15 +18,27 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("DeliveryOriginal", "OrderDashboard", "Order", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("DeliveryOriginal", "Index", "Order", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Order Dashboard", "OrderDashboard", "Order")</li>
-                    <li>@Html.ActionLink("Dish Managment", "Index", "Dish")</li>
-                    <li>@Html.ActionLink("Category Managment", "Index", "Category")</li>
-                    <li>@Html.ActionLink("User Managment", "Index", "User")</li>
-                    <li>@Html.ActionLink("Analytics Panel", "Index", "Analytics")</li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole(RoleGroup.Administrators.ToString()) || User.IsInRole(RoleGroup.SuperAdministrator.ToString()))
+                        {
+                            <li>@Html.ActionLink("Order Dashboard", "OrderDashboard", "Order")</li>
+                            <li>@Html.ActionLink("Dish Managment", "Index", "Dish")</li>
+                            <li>@Html.ActionLink("Category Managment", "Index", "Category")</li>
+                        }
+                        if (User.IsInRole(RoleGroup.SystemAdministrators.ToString()) || User.IsInRole(RoleGroup.SuperAdministrator.ToString()))
+                        {
+                            <li>@Html.ActionLink("User Managment", "Index", "User")</li>
+                        }
+                        if (User.IsInRole(RoleGroup.AnalyticsAdministrators.ToString()) || User.IsInRole(RoleGroup.SuperAdministrator.ToString()))
+                        {
+                            <li>@Html.ActionLink("Analytics Panel", "Index", "Analytics")</li>
+                        }
+                    }
                 </ul>
             </div>
         </div>

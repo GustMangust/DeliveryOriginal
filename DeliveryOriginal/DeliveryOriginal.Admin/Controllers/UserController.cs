@@ -1,4 +1,5 @@
-﻿using DeliveryOriginal.Admin.Core.Identity;
+﻿using DeliveryOriginal.Admin.Core.Helpers;
+using DeliveryOriginal.Admin.Core.Identity;
 using DeliveryOriginal.Admin.Core.Interfaces;
 using DeliveryOriginal.Admin.Models;
 using System.Threading.Tasks;
@@ -6,7 +7,7 @@ using System.Web.Mvc;
 
 namespace DeliveryOriginal.Admin.Controllers
 {
-    [CustomAuthorize(Role = RoleGroup.Regulars)]
+    [CustomAuthorize(RoleGroup.SystemAdministrators, RoleGroup.SuperAdministrator)]
     public class UserController : Controller
     {
         protected readonly IUnitOfWork UnitOfWork;
@@ -33,6 +34,7 @@ namespace DeliveryOriginal.Admin.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateUser(User user)
         {
+            user.Password = CryptographyHelper.SHA512(user.Password);
             await UnitOfWork.UserRepository.Insert(user);
 
             return RedirectToAction("Index");

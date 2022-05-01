@@ -12,6 +12,7 @@ using System.Web.Security;
 
 namespace DeliveryOriginal.Admin.Controllers
 {
+    [AllowAnonymous]
     public class AccountController : Controller
     {
         protected readonly IUnitOfWork UnitOfWork;
@@ -73,7 +74,7 @@ namespace DeliveryOriginal.Admin.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("OrderDashboard", "Order");
+                        return RedirectToAction("Index", "Order");
                     }
                 }
             }

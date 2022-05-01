@@ -24,7 +24,7 @@ namespace DeliveryOriginal.Admin.Core.Identity
 
         public bool IsInRole(string role)
         {
-            throw new NotImplementedException();
+            return IsInRole((RoleGroup) Enum.Parse(typeof(RoleGroup), role));
         }
 
         public bool IsInRole(RoleGroup role)

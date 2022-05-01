@@ -19,7 +19,9 @@ namespace DeliveryOriginal.Admin.Models
         [Display(Name = "Cooks")]
         Cooks = 4,
         [Display(Name = "Deliverymens")]
-        Deliverymens = 5
+        Deliverymens = 5,
+        [Display(Name = "Super Administrator")]
+        SuperAdministrator = 6
     }
 
     public enum OrderOrderBy

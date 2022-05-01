@@ -1,17 +1,14 @@
-﻿@{
-    ViewBag.Title = "Analytics";
-}
-<div>
-    <h2>@ViewBag.Title.</h2>
-    <h3>@ViewBag.Message</h3>
-    <!--Table and divs that hold the pie charts-->
-    <table class="columns">
-        <tr>
-            <td><div id="piechart_div" style="border: 1px solid #ccc"></div></td>
-            <td><div id="barchart_div" style="border: 1px solid #ccc"></div></td>
-        </tr>
-    </table>
-    <p>Analytics Dashboard</p>
+﻿@using DeliveryOriginal.Admin.Models
+@model AnalyticsVM
+
+<div class="col-xs-12 col-sm-12 col-md-12">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div id="piechart_div" class="col-xs-6 col-sm-6 col-md-6"></div>
+        <div id="barchart_div" class="col-xs-6 col-sm-6 col-md-6"></div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div id="linechart_div" class="col-xs-12 col-sm-12 col-md-12"></div>
+    </div>
 </div>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -51,5 +48,23 @@
         };
         var barchart = new google.visualization.BarChart(document.getElementById('barchart_div'));
         barchart.draw(data, barchart_options);
+
+        var linedata = google.visualization.arrayToDataTable([
+            ['Year', 'Sales'],
+            ['2013', 1000],
+            ['2014', 1170],
+            ['2015', 660],
+            ['2016', 1030]
+        ]);
+
+        var linechart_options = {
+            title: 'Company Performance',
+            height: 400,
+            curveType: 'function',
+            legend: { position: 'bottom' }
+        };
+
+        var linechart = new google.visualization.LineChart(document.getElementById('linechart_div'));
+        linechart.draw(linedata, linechart_options);
     }
 </script>
