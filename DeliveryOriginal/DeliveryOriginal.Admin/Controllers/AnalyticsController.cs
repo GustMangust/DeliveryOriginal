@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Globalization;
+using Newtonsoft.Json;
 
 namespace DeliveryOriginal.Admin.Controllers
 {
@@ -21,16 +22,16 @@ namespace DeliveryOriginal.Admin.Controllers
         {
             var orders = await UnitOfWork.OrderRepository.GetAll();
 
-            var ordersByMonth = orders.GroupBy(x => (object)(new { Month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(x.SubmittedAt.Value.Month) }))
-                                      .ToDictionary(g => g.Key, g => g.Count());
-            var ordersIncomeByMonth = orders.GroupBy(x => (object)(new { Month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(x.SubmittedAt.Value.Month) }))
+            var ordersIncomeByMonth = orders.GroupBy(x => CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(x.SubmittedAt.Value.Month))
                                             .ToDictionary(g => g.Key, (g) => { return g.Sum(order => order.Dishes.Sum(d => d.Cost));
             });
 
+            var topDishes = await UnitOfWork.DishRepository.GetTopDishes();
+
             var model = new AnalyticsVM
             {
-                OrdersByMonth = ordersByMonth,
-                OrdersIncomeByMonth = ordersIncomeByMonth
+                OrdersIncomeByMonthJSON = JsonConvert.SerializeObject(ordersIncomeByMonth),
+                TopDishesJSON = JsonConvert.SerializeObject(topDishes)
             };
 
             return View(model);

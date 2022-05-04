@@ -16,4 +16,10 @@ namespace DeliveryOriginal.Admin.Models
     {
         public int CategoryId { get; set; }
     }
+
+    public class TopDishVM
+    {
+        public string Name { get; set; }
+        public int Value { get; set; }
+    }
 }

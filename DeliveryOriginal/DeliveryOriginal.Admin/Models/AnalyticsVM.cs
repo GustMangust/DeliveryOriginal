@@ -7,7 +7,7 @@ namespace DeliveryOriginal.Admin.Models
 {
     public class AnalyticsVM
     {
-        public Dictionary<object, int> OrdersByMonth { get; set; }
-        public Dictionary<object, decimal> OrdersIncomeByMonth { get; set; }
+        public string OrdersIncomeByMonthJSON { get; set; }
+        public string TopDishesJSON { get; set; }
     }
 }

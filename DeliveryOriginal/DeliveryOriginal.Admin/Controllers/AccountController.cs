@@ -136,6 +136,7 @@ namespace DeliveryOriginal.Admin.Controllers
             return View(model);
         }
 
+        [HttpGet]
         public ActionResult LogOut()
         {
             HttpCookie cookie = new HttpCookie("sc", "");

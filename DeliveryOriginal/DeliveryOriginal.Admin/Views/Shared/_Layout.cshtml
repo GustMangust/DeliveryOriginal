@@ -21,25 +21,28 @@
                 @Html.ActionLink("DeliveryOriginal", "Index", "Order", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        if (User.IsInRole(RoleGroup.Administrators.ToString()) || User.IsInRole(RoleGroup.SuperAdministrator.ToString()))
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <ul class="nav navbar-nav">
+                        @if (User.IsInRole(RoleGroup.Administrators.ToString()) || User.IsInRole(RoleGroup.SuperAdministrator.ToString()))
                         {
                             <li>@Html.ActionLink("Order Dashboard", "OrderDashboard", "Order")</li>
                             <li>@Html.ActionLink("Dish Managment", "Index", "Dish")</li>
                             <li>@Html.ActionLink("Category Managment", "Index", "Category")</li>
                         }
-                        if (User.IsInRole(RoleGroup.SystemAdministrators.ToString()) || User.IsInRole(RoleGroup.SuperAdministrator.ToString()))
+                        @if (User.IsInRole(RoleGroup.SystemAdministrators.ToString()) || User.IsInRole(RoleGroup.SuperAdministrator.ToString()))
                         {
                             <li>@Html.ActionLink("User Managment", "Index", "User")</li>
                         }
-                        if (User.IsInRole(RoleGroup.AnalyticsAdministrators.ToString()) || User.IsInRole(RoleGroup.SuperAdministrator.ToString()))
+                        @if (User.IsInRole(RoleGroup.AnalyticsAdministrators.ToString()) || User.IsInRole(RoleGroup.SuperAdministrator.ToString()))
                         {
                             <li>@Html.ActionLink("Analytics Panel", "Index", "Analytics")</li>
                         }
-                    }
-                </ul>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>@Html.ActionLink("LogOut", "LogOut", "Account")</li>
+                    </ul>
+                }
             </div>
         </div>
     </div>
