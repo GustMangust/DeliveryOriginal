@@ -9,16 +9,32 @@ namespace DeliveryOriginal.Admin.Core.Identity
 {
     public class CustomAuthorizeAttribute : AuthorizeAttribute
     {
+        public CustomAuthorizeAttribute(params RoleGroup[] roles) : base()
+        {
+            AuthorizeRoles = roles;
+        }
+
         protected virtual CustomPrincipal CurrentUser
         {
             get { return HttpContext.Current.User as CustomPrincipal; }
         }
 
         public RoleGroup Role { get; set; }
+        public RoleGroup[] AuthorizeRoles { get; set; }
 
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            return ((CurrentUser != null && !CurrentUser.IsInRole(Role)) || CurrentUser == null) ? false : true;
+            if (CurrentUser != null)
+            {
+                foreach (var role in AuthorizeRoles)
+                {
+                    if (CurrentUser.IsInRole(role))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return (CurrentUser != null && CurrentUser.IsInRole(Role)) ? true : false;
         }
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)

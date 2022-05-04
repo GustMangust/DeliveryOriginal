@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace DeliveryOriginal.Admin.Controllers
 {
-    [CustomAuthorize(Role = RoleGroup.Regulars)]
+    [CustomAuthorize(RoleGroup.Administrators, RoleGroup.SuperAdministrator)]
     public class DishController : Controller
     {
         protected readonly IUnitOfWork UnitOfWork;

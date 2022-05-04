@@ -263,6 +263,7 @@
     <Compile Include="Core\Identity\CustomPrincipal.cs" />
     <Compile Include="Core\Interfaces\IRepository.cs" />
     <Compile Include="Core\Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Models\AnalyticsVM.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Dish.cs" />
     <Compile Include="Models\Enums.cs" />

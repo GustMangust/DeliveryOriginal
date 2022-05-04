@@ -17,7 +17,7 @@ namespace DeliveryOriginal.Admin
         public IRepository<User> UserRepository => _userRepository ?? (_userRepository = new UserRepository());
 
         private DishRepository _dishRepository;
-        public IRepository<Dish> DishRepository => _dishRepository ?? (_dishRepository = new DishRepository());
+        public DishRepository DishRepository => _dishRepository ?? (_dishRepository = new DishRepository());
 
         private CategoryRepository _categoryRepository;
         public IRepository<Category> CategoryRepository => _categoryRepository ?? (_categoryRepository = new CategoryRepository());

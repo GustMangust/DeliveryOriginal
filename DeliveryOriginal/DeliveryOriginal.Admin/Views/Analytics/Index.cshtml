@@ -1,20 +1,20 @@
-﻿@{
-    ViewBag.Title = "Analytics";
-}
-<div>
-    <h2>@ViewBag.Title.</h2>
-    <h3>@ViewBag.Message</h3>
-    <!--Table and divs that hold the pie charts-->
-    <table class="columns">
-        <tr>
-            <td><div id="piechart_div" style="border: 1px solid #ccc"></div></td>
-            <td><div id="barchart_div" style="border: 1px solid #ccc"></div></td>
-        </tr>
-    </table>
-    <p>Analytics Dashboard</p>
+﻿@using DeliveryOriginal.Admin.Models
+@model AnalyticsVM
+
+<div class="col-xs-12 col-sm-12 col-md-12">
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div id="piechart_div" class="chart"></div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div id="barchart_div" class="chart"></div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div id="linechart_div" class="chart col-xs-12 col-sm-12 col-md-12"></div>
+    </div>
 </div>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
     // Load Charts and the corechart and barchart packages.
     google.charts.load('current', { 'packages': ['corechart'] });
@@ -24,32 +24,58 @@
 
     function drawChart() {
 
-        var data = new google.visualization.DataTable();
+        let data = new google.visualization.DataTable();
         data.addColumn('string', 'Topping');
         data.addColumn('number', 'Slices');
-        data.addRows([
-            ['Mushrooms', 3],
-            ['Onions', 1],
-            ['Olives', 1],
-            ['Zucchini', 1],
-            ['Pepperoni', 2]
-        ]);
 
-        var piechart_options = {
-            title: 'Pie Chart: How Much Pizza I Ate Last Night',
-            width: 400,
-            height: 300
+        let arrayOfTopDishes = JSON.parse('@Html.Raw(Model.TopDishesJSON)');
+        for (let i = 0; i < arrayOfTopDishes.length; i++) {
+            data.addRow([arrayOfTopDishes[i].Name, arrayOfTopDishes[i].Value ]);
+        }
+
+        // Pie Graphic Logic
+
+        let piechart_options = {
+            title: 'Pie Chart: Top Dishes'
         };
-        var piechart = new google.visualization.PieChart(document.getElementById('piechart_div'));
+
+        let piechart = new google.visualization.PieChart(document.getElementById('piechart_div'));
         piechart.draw(data, piechart_options);
 
-        var barchart_options = {
-            title: 'Barchart: How Much Pizza I Ate Last Night',
-            width: 400,
-            height: 300,
+        // Bar Graphic Logic
+
+        let barchart_options = {
+            title: 'Barchart: Top Dishes',
             legend: 'none'
         };
-        var barchart = new google.visualization.BarChart(document.getElementById('barchart_div'));
+        let barchart = new google.visualization.BarChart(document.getElementById('barchart_div'));
         barchart.draw(data, barchart_options);
+
+        // Line Graphic Logic
+
+        let lineArray = [ ['Month', 'Sales'] ];
+        let arrayOfOrdersIncomeByMonth = JSON.parse('@Html.Raw(Model.OrdersIncomeByMonthJSON)');
+        let ordersIncomeByMonthKeys = Object.keys(arrayOfOrdersIncomeByMonth);
+        for (let i = 0; i < ordersIncomeByMonthKeys.length; i++) {
+            lineArray.push([ ordersIncomeByMonthKeys[i], arrayOfOrdersIncomeByMonth[ordersIncomeByMonthKeys[i]] ]);
+        }
+
+        let linedata = google.visualization.arrayToDataTable(lineArray);
+
+        let linechart_options = {
+            title: 'Company Performance',
+            curveType: 'function',
+            legend: { position: 'bottom' },
+            hAxis: {
+                direction: -1
+            }
+        };
+
+        let linechart = new google.visualization.LineChart(document.getElementById('linechart_div'));
+        linechart.draw(linedata, linechart_options);
     }
+
+    $(window).resize(function () {
+        drawChart();
+    });
 </script>

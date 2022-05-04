@@ -78,5 +78,15 @@ namespace DeliveryOriginal.Admin.Core.Repositories
                 return JsonConvert.DeserializeObject<List<Dish>>(responseString);
             }
         }
+
+        public async Task<List<TopDishVM>> GetTopDishes()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                var apiRoute = DeliveryOriginalSettings.ApiUrl + "Dish/GetTopDishes";
+                var responseString = await client.GetStringAsync(apiRoute);
+                return JsonConvert.DeserializeObject<List<TopDishVM>>(responseString);
+            }
+        }
     }
 }
