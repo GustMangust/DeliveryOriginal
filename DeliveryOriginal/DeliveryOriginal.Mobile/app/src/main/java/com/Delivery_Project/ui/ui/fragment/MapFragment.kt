@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -71,12 +72,10 @@ class MapFragment : Fragment() {
                 return true
             }
         }
-
-
-                myWebView.settings.javaScriptEnabled = true
-                myWebView.settings.allowContentAccess = true
-                myWebView.settings.domStorageEnabled = true
-                myWebView.settings.useWideViewPort = true
+        myWebView.settings.javaScriptEnabled = true
+        myWebView.settings.allowContentAccess = true
+        myWebView.settings.domStorageEnabled = true
+        myWebView.settings.useWideViewPort = true
 
         val activity = activity as DeliveryActivity
         val user = activity.getUser()
@@ -85,19 +84,24 @@ class MapFragment : Fragment() {
 
         viewModel.orderList.observe(viewLifecycleOwner, Observer {
             getString(ArrayList(it).filter { it?.CurrentEmployee?.Id == user.Id && it.Status == 4 } as ArrayList)
-            val origin = getAddressFromLocation(GeoPoint(SharedPreferencesUtility.getLatitude(requireContext()).toDouble(),SharedPreferencesUtility.getLongitude(requireContext()).toDouble()))
-            val destination = getAddressFromLocation(GeoPoint(geopointList.last()?.latitude!!,geopointList.last()?.longitude!!))
-            var url = "https://www.google.com/maps/dir/?api=1&origin=" +
-                    "$origin" +
-                    "&destination=$destination&travelmode=driving"
-            for(i in 0 until (geopointList.size-1)){
-                if(i==0){
-                    url += "&waypoints="
+            if(!geopointList.isEmpty()){
+
+                val origin = getAddressFromLocation(GeoPoint(SharedPreferencesUtility.getLatitude(requireContext()).toDouble(),SharedPreferencesUtility.getLongitude(requireContext()).toDouble()))
+                val destination = getAddressFromLocation(GeoPoint(geopointList.last()?.latitude!!,geopointList.last()?.longitude!!))
+                var url = "https://www.google.com/maps/dir/?api=1&origin=" +
+                        "$origin" +
+                        "&destination=$destination&travelmode=driving"
+                for(i in 0 until (geopointList.size-1)){
+                    if(i==0){
+                        url += "&waypoints="
+                    }
+                    val address = getAddressFromLocation(GeoPoint(geopointList.get(i)?.latitude!!,geopointList.get(i)?.longitude!!))
+                    url += "$address%7C"
                 }
-                val address = getAddressFromLocation(GeoPoint(geopointList.get(i)?.latitude!!,geopointList.get(i)?.longitude!!))
-                url += "$address%7C"
+                myWebView.loadUrl(url)
+            } else {
+                Toast.makeText(requireContext(), "You have no correct orders",Toast.LENGTH_SHORT).show()
             }
-            myWebView.loadUrl(url)
         })
         viewModel.errorMessage.observe(viewLifecycleOwner, Observer {
         })
@@ -108,11 +112,16 @@ class MapFragment : Fragment() {
 
     fun getString(orderList : ArrayList<Order>){
         for(order in orderList){
-            geopointList.add(getLocationFromAddress(order.Address)!!)
+            val location = getLocationFromAddress(order.Address)
+            if(location == null){
+                Toast.makeText(requireContext(), "Order address with Id:${order.Id} is incorrect",Toast.LENGTH_SHORT).show()
+            } else {
+                geopointList.add(location!!)
+            }
         }
-            Collections.swap(geopointList, 0, 1)
-        sortLocations(geopointList,SharedPreferencesUtility.getLatitude(requireContext()).toDouble(), SharedPreferencesUtility.getLongitude(requireContext()).toDouble())
-
+        if(!geopointList.isEmpty()){
+            sortLocations(geopointList,SharedPreferencesUtility.getLatitude(requireContext()).toDouble(), SharedPreferencesUtility.getLongitude(requireContext()).toDouble())
+        }
     }
 
     fun getLocationFromAddress(strAddress: String?): GeoPoint? {
@@ -121,7 +130,7 @@ class MapFragment : Fragment() {
         var p1: GeoPoint? = null
         try {
             address = coder.getFromLocationName(strAddress, 5)
-            if (address == null) {
+            if (address == null || address.isEmpty()) {
                 return null
             }
             val location: Address = address[0]
