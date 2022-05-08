@@ -9,6 +9,8 @@ import com.Delivery_Project.model.CartModel
 import com.Delivery_Project.pojo.Category
 import com.Delivery_Project.pojo.Dish
 import java.lang.Exception
+import java.math.BigDecimal
+import java.math.RoundingMode
 
 class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
@@ -44,7 +46,7 @@ class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME,
                 + DESCRIPTION + " TEXT,"
                 + CATEGORY_ID + " INTEGER,"
                 + COST + " REAL,"
-                + "FOREIGN KEY($CATEGORY_ID) REFERENCES category(id))" )
+                + "FOREIGN KEY($CATEGORY_ID) REFERENCES category(id) on delete cascade)" )
 
         val createCartTable = ("CREATE TABLE " + " IF NOT EXISTS "+ CART +  "("
                 + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -54,8 +56,8 @@ class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME,
                 + DESCRIPTION + " TEXT,"
                 + CATEGORY_ID + " INTEGER,"
                 + COST + " REAL" + ","
-                + "FOREIGN KEY($DISH_ID) REFERENCES dish(id),"
-                + "FOREIGN KEY($CATEGORY_ID) REFERENCES category(id)" + ")" )
+                + "FOREIGN KEY($DISH_ID) REFERENCES dish(id) on delete cascade,"
+                + "FOREIGN KEY($CATEGORY_ID) REFERENCES category(id) on delete cascade" + ")" )
 
         db?.execSQL(createCartTable)
         db?.execSQL(createCategoryTable)
@@ -161,8 +163,10 @@ class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME,
         }else {
             amount = -1.0
         }
+        val decimal = BigDecimal(amount).setScale(2,RoundingMode.HALF_EVEN).toDouble()
+
         cursor.close()
-        return amount
+        return decimal
     }
 
 
@@ -277,6 +281,12 @@ class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME,
         db.execSQL("DELETE FROM $DISH")
 
         insertDishes(dishList);
+    }
+
+    fun deleteRemovedDishes(){
+        val db = this.writableDatabase
+
+        db.execSQL("delete from $CART where id in (select id from cart where id not in (select cart.id from cart inner join dish on dish.id = cart.dishId))")
     }
 
     fun updateCategories(categoryList: ArrayList<Category>){
