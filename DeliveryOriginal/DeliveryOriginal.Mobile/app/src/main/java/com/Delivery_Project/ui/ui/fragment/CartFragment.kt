@@ -54,6 +54,7 @@ class CartFragment : Fragment() {
         var user = activity.getUser();
 
         databaseHelper = DatabaseHelper(requireContext())
+        databaseHelper.deleteRemovedDishes()
         var orderList = databaseHelper.getAllOrders(requireContext())
         recyclerView = requireView().findViewById(R.id.recyclerviewOrders)
 
