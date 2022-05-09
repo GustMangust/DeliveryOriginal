@@ -8,9 +8,11 @@ namespace DeliveryOriginal.Admin.Models
         private string _password;
         private string _confirmPassword;
         [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 4)]
         [Display(Name = "Login")]
         public string Login { get; set; }
         [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 1)]
         [Display(Name = "Full Name")]
         public string FullName { get; set; }
 
