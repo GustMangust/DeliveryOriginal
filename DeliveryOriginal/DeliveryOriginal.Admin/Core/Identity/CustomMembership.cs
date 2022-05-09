@@ -13,14 +13,21 @@ namespace DeliveryOriginal.Admin.Core.Identity
 
         public override bool ValidateUser(string login, string password)
         {
-            if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
+            try
+            {
+                if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
+                {
+                    return false;
+                }
+
+                var user = Task.Run(() => UnitOfWork.UserRepository.GetAll())?.Result?.Where(u => u.Login == login && u.Password == password)?.FirstOrDefault();
+
+                return (user != null) ? true : false;
+            }
+            catch (Exception ex)
             {
                 return false;
             }
-
-            var user = Task.Run(() => UnitOfWork.UserRepository.GetAll())?.Result?.Where(u => u.Login == login && u.Password == password)?.FirstOrDefault();
-
-            return (user != null) ? true : false;
         }
 
         public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out MembershipCreateStatus status)

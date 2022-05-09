@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace DeliveryOriginal.Admin.Models
 {
@@ -24,23 +20,6 @@ namespace DeliveryOriginal.Admin.Models
         SuperAdministrator = 6
     }
 
-    public enum OrderOrderBy
-    {
-        ResetOrder = 0,
-        OrderNumberAsc = 1,
-        OrderNumberDesc = 2,
-        OrderStatusAsc = 3,
-        OrderStatusDesc = 4
-    }
-
-    public enum DashboardOrderFilter
-    {
-        All = 0,
-        New = 1,
-        Active = 2,
-        Declined = 3
-    }
-
     public enum OrderStatus
     {
         [Display(Name = "New")]
@@ -57,5 +36,22 @@ namespace DeliveryOriginal.Admin.Models
         Delivered = 5,
         [Display(Name = "Declined")]
         Declined = 6
+    }
+
+    public enum OrderOrderBy
+    {
+        ResetOrder = 0,
+        OrderNumberAsc = 1,
+        OrderNumberDesc = 2,
+        OrderStatusAsc = 3,
+        OrderStatusDesc = 4
+    }
+
+    public enum DashboardOrderFilter
+    {
+        All = 0,
+        New = 1,
+        Active = 2,
+        Declined = 3
     }
 }

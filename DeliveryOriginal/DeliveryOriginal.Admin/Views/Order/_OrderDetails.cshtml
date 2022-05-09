@@ -21,6 +21,11 @@
                                 <label>Address:</label>
                                 <span>@Html.DisplayFor(m => m.Address)</span>
                             </div>
+
+                            <div class="col-xs-12 col-sm-12 col-md-12 no-padding-left no-padding-right text-left">
+                                <label>Customer Name:</label>
+                                <span>@Html.DisplayFor(m => m.Customer.FullName)</span>
+                            </div>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6 no-padding-left">
                             <div class="col-xs-12 col-sm-12 col-md-12 no-padding-right text-left">
@@ -32,10 +37,15 @@
                                 <label>Status:</label>
                                 <span id="details-status-@Model.Id" class="details-status">@Model.Status.GetDisplayName()</span>
                             </div>
+
+                            <div class="col-xs-12 col-sm-12 col-md-12 no-padding-right text-left">
+                                <label>Phone Number:</label>
+                                <span>@Html.DisplayFor(m => m.PhoneNumber)</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12 no-padding-left no-padding-right empty-line"></div>
-                    <div class="col-md-12">
+                    <label class="col-xs-12 col-sm-12 col-md-12 text-left">Ordered Dishes:</label>
+                    <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <tr>
@@ -66,7 +76,6 @@
                             </table>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12 no-padding-left no-padding-right overflow-ellipsis">Other Information</div>
                 </div>
                 @if (Model.Status == OrderStatus.New)
                 {

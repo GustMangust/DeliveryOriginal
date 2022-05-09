@@ -88,6 +88,26 @@ textarea {
     margin-bottom: 10px;
 }
 
+.validation-summary-errors {
+    background-color: #ffbcce;
+    border: 1px solid #d61146;
+    color: #000000;
+    font-weight: normal;
+    font-size: 14px;
+    padding: 4px;
+    margin-bottom: 15px;
+}
+
+.validation-summary-errors ul {
+    list-style: disc;
+    margin-bottom: .1em;
+}
+
+.validation-summary-errors li {
+    list-style: disc;
+    margin-bottom: .2em;
+}
+
 /*#region DishLogo*/
 #dishLogoContainer {
     display: inline-block;

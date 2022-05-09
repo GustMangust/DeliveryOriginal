@@ -252,6 +252,7 @@
     <Compile Include="Core\Helpers\CryptographyHelper.cs" />
     <Compile Include="Core\Helpers\ImageResizer.cs" />
     <Compile Include="Core\Helpers\MediaStorageHelper.cs" />
+    <Compile Include="Core\Validators\CustomRequestValidator.cs" />
     <Compile Include="DeliveryOriginalSettings.cs" />
     <Compile Include="Core\Extensions\EnumExtensions.cs" />
     <Compile Include="Global.asax.cs">
@@ -269,7 +270,6 @@
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\Order.cs" />
-    <Compile Include="Models\OrderedDish.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

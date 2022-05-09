@@ -1,6 +1,7 @@
 ﻿using DeliveryOriginal.Admin.Core.Helpers;
 using DeliveryOriginal.Admin.Core.Identity;
 using DeliveryOriginal.Admin.Core.Interfaces;
+using DeliveryOriginal.Admin.Core.Validators;
 using DeliveryOriginal.Admin.Models;
 using System;
 using System.IO;
@@ -61,7 +62,7 @@ namespace DeliveryOriginal.Admin.Controllers
                     }
                     catch (Exception ex)
                     {
-                        return View("Error", ex);
+                        throw new DeliveryOriginalMvcException($"{ex}");
                     }
                 }
             } 
@@ -109,7 +110,7 @@ namespace DeliveryOriginal.Admin.Controllers
                     }
                     catch (Exception ex)
                     {
-                        return View("Error", ex);
+                        throw new DeliveryOriginalMvcException($"{ex}");
                     }
                 }
             }

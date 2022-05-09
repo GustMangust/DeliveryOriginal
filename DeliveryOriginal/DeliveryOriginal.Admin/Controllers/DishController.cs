@@ -1,6 +1,7 @@
 ﻿using DeliveryOriginal.Admin.Core.Helpers;
 using DeliveryOriginal.Admin.Core.Identity;
 using DeliveryOriginal.Admin.Core.Interfaces;
+using DeliveryOriginal.Admin.Core.Validators;
 using DeliveryOriginal.Admin.Models;
 using System;
 using System.IO;
@@ -66,12 +67,14 @@ namespace DeliveryOriginal.Admin.Controllers
                     }
                     catch (Exception ex)
                     {
-                        return View("Error", ex);
+                        throw new DeliveryOriginalMvcException($"{ex}");
                     }
                 }
             } 
             else
             {
+                SelectList categories = new SelectList(await UnitOfWork.CategoryRepository.GetAll(), "Id", "Name", newDish.Category.Id);
+                ViewBag.Categories = categories;
                 return View();
             }
 
@@ -119,7 +122,7 @@ namespace DeliveryOriginal.Admin.Controllers
                     }
                     catch (Exception ex)
                     {
-                        return View("Error", ex);
+                        throw new DeliveryOriginalMvcException($"{ex}");
                     }
                 }
             }

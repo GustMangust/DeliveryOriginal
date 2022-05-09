@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace DeliveryOriginal.Admin.Core.Helpers
+﻿namespace DeliveryOriginal.Admin.Core.Helpers
 {
     public static class CryptographyHelper
     {

@@ -29,18 +29,18 @@ namespace DeliveryOriginal.Admin.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult Login(string ReturnUrl = "")
+        public ActionResult Login(string returnUrl = "")
         {
             if (User.Identity.IsAuthenticated)
             {
                 return LogOut();
             }
-            ViewBag.ReturnUrl = ReturnUrl;
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
         [HttpPost]
-        public ActionResult Login(LoginViewModel model, string ReturnUrl = "")
+        public ActionResult Login(LoginViewModel model, string returnUrl = "")
         {
             if (ModelState.IsValid)
             {
@@ -68,9 +68,9 @@ namespace DeliveryOriginal.Admin.Controllers
                         Response.Cookies.Add(faCookie);
                     }
 
-                    if (Url.IsLocalUrl(ReturnUrl))
+                    if (Url.IsLocalUrl(returnUrl))
                     {
-                        return Redirect(ReturnUrl);
+                        return Redirect(returnUrl);
                     }
                     else
                     {
