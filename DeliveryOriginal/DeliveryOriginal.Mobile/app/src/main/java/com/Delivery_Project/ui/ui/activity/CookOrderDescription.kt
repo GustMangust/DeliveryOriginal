@@ -9,6 +9,7 @@ import com.Delivery_Project.adapter.CookOrderDescriptionAdapter
 import com.Delivery_Project.adapter.DishAdapter
 import com.Delivery_Project.databinding.ActivityCookOrderDesriptionBinding
 import com.Delivery_Project.pojo.Dish
+import com.Delivery_Project.pojo.User
 
 class CookOrderDescription: AppCompatActivity() {
     private lateinit var binding: ActivityCookOrderDesriptionBinding
@@ -19,10 +20,16 @@ class CookOrderDescription: AppCompatActivity() {
         binding = ActivityCookOrderDesriptionBinding.inflate(layoutInflater)
         val dishList = intent.getSerializableExtra("Dishes") as ArrayList<Dish>
         val phoneNumber = intent.getSerializableExtra("PhoneNumber") as String
+        val address = intent.getSerializableExtra("Address") as String
+        val customer = intent.getSerializableExtra("Customer") as User
+        val totalCost = intent.getSerializableExtra("TotalCost") as Int
         setContentView(R.layout.activity_cook_order_desription)
         binding.recyclerviewCookOrderDescription.adapter = adapter
         setContentView(binding.root)
         binding.phoneOrderDescription.text = "Phone number: $phoneNumber"
+        binding.addressOrderDescription.text = "Address: $address"
+        binding.customerOrderDescription.text = "Customer: ${customer.FullName}"
+        binding.costOrderDescription.text = "Cost: $totalCost"
         adapter.setItems(dishList)
     }
 }

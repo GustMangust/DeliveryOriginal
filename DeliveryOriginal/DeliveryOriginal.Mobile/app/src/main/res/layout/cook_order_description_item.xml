@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="180dp"
-    android:layout_height="220dp"
+    android:layout_height="210dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="8dp"
@@ -16,56 +16,45 @@
 
         <ImageView
             android:id="@+id/cook_order_description_image"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:background="@android:color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:background="@drawable/round_bg"
             android:scaleType="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias=".1" />
-
-        <View
-            android:id="@+id/view"
-            android:layout_width="match_parent"
-            android:layout_height="1.5dp"
-            android:layout_marginTop="9dp"
-            android:background="#ffffff"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cook_order_description_image" />
+            app:layout_constraintVertical_bias="0"/>
 
         <TextView
             android:id="@+id/cook_order_description_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/lobster"
-            android:text="Category name"
+            android:layout_width="160dp"
+            android:layout_height="40dp"
+            android:text="Dish name"
             android:textColor="@color/white"
-            android:textSize="11sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view"
-            app:layout_constraintVertical_bias=".3" />
+            app:layout_constraintTop_toBottomOf="@+id/cook_order_description_image"
+            app:layout_constraintVertical_bias=".15"
+            app:layout_constraintHorizontal_bias="0.5"/>
 
         <TextView
             android:id="@+id/cook_order_description_cost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/lobster"
             android:text="Price"
             android:textColor="@color/white"
-            android:textSize="11sp"
-
+            android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cook_order_description_name"
-            app:layout_constraintVertical_bias=".4" />
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintHorizontal_bias="0.9" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

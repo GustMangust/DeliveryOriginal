@@ -59,9 +59,13 @@ class TakenDeliveryOrderAdapter : RecyclerView.Adapter<DeliveryTakenViewHolder>(
             ContextCompat.startActivity(context, intent, null)
         }
         holder.binding.cookShowOrder.setOnClickListener {v: View -> Unit
+            var finalCost = order.Dishes.sumBy { it.Cost.toInt() }
             val intent = Intent(context, CookOrderDescription::class.java)
             intent.putExtra("Dishes", order.Dishes)
             intent.putExtra("PhoneNumber", order.PhoneNumber)
+            intent.putExtra("Customer", order.Customer)
+            intent.putExtra("Address", order.Address)
+            intent.putExtra("TotalCost", finalCost)
             ContextCompat.startActivity(context, intent, null)
         }
     }

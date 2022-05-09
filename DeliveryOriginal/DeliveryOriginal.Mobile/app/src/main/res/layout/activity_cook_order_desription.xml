@@ -16,17 +16,62 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.1"
-        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintHorizontal_bias="0.095"
         android:text="Phone:"
         android:textColor="@color/white"
         android:textSize="14sp"
         android:textStyle="bold"
         />
 
+    <TextView
+        android:id="@+id/address_order_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Address:"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerviewCookOrderDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phone_order_description"
+        app:layout_constraintVertical_bias="0.1" />
+
+    <TextView
+        android:id="@+id/customer_order_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Customer:"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerviewCookOrderDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/address_order_description"
+        app:layout_constraintVertical_bias="0.1" />
+
+    <TextView
+        android:id="@+id/cost_order_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cost:"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerviewCookOrderDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.092"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customer_order_description"
+        app:layout_constraintVertical_bias="0.1" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerviewCookOrderDescription"
         android:layout_width="match_parent"
-        android:layout_height="470dp"
+        android:layout_height="450dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

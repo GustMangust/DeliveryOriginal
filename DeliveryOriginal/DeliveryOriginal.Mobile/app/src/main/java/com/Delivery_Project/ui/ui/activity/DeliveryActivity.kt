@@ -23,6 +23,7 @@ import com.Delivery_Project.pojo.User
 import com.Delivery_Project.ui.ui.fragment.*
 import com.Delivery_Project.utility.SharedPreferencesUtility
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.tabs.TabLayout
 import java.util.*
@@ -56,7 +57,7 @@ class DeliveryActivity: AppCompatActivity() {
     fun getLocation() {
         if (checkPermissions()) {
             if (isLocationEnabled()) {
-                mFusedLocationClient.lastLocation.addOnCompleteListener(this) { task  ->
+                mFusedLocationClient.getCurrentLocation(PRIORITY_HIGH_ACCURACY, null).addOnCompleteListener(this) { task  ->
                     val location: Location? = task.result
                     if (location != null) {
                         SharedPreferencesUtility.saveLocation(location,this)

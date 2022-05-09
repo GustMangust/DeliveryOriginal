@@ -21,9 +21,12 @@ class Constants {
             const val COST : String  = "cost"
             const val CATEGORY : String  = "category"
             const val DISH : String  = "dish"
+            const val LOGIN_REQUIRED_REGISTRATION : String = "Login required!"
+            const val PASSWORD_REQUIRED_REGISTRATION : String = "Password must be 8 characters long!"
+            const val FULL_NAME_REQUIRED_REGISTRATION : String = "Full must be 4 characters long!"
+            const val PASSWORD_REPEAT_MATCHES_REGISTRATION : String = "Password does not match!"
             const val LOGIN_REQUIRED : String = "Login required!"
             const val PASSWORD_REQUIRED : String = "Password required!"
-            const val FULL_NAME_REQUIRED : String = "Full name required!"
             const val COST_DOLLAR = " $"
         }
     }
