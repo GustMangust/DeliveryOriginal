@@ -3,11 +3,13 @@ package com.Delivery_Project.ui.ui.activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import com.Delivery_Project.R
 import com.Delivery_Project.constants.Constants
 import com.Delivery_Project.constants.Constants.SharedPreferences.Companion.FIRST_STATUS
 import com.Delivery_Project.database.DatabaseHelper
@@ -50,6 +52,44 @@ class CheckoutActivity : AppCompatActivity() {
             val street = binding.Street.text.toString().trim()
             val house = binding.House.text.toString().trim()
             val apartment = binding.Apartment.text.toString().trim()
+            val cityElement = findViewById<EditText>(R.id.city)
+            val streetElement = findViewById<EditText>(R.id.Street)
+            val houseElement = findViewById<EditText>(R.id.House)
+            val apartmentElement = findViewById<EditText>(R.id.Apartment)
+            val phoneNumberElement = findViewById<EditText>(R.id.phone)
+
+            if (phoneNumber.isEmpty()) {
+                phoneNumberElement.error =
+                    Constants.SharedPreferences.PHONE_NUMBER_REQUIRED
+                phoneNumberElement.requestFocus()
+                return@setOnClickListener
+            }
+            if (city.isEmpty()) {
+                cityElement.error =
+                    Constants.SharedPreferences.CITY_REQUIRED
+                cityElement.requestFocus()
+                return@setOnClickListener
+            }
+            if (street.isEmpty()) {
+                streetElement.error =
+                    Constants.SharedPreferences.STREET_REQUIRED
+                streetElement.requestFocus()
+                return@setOnClickListener
+            }
+            if (house.isEmpty()) {
+                houseElement.error =
+                    Constants.SharedPreferences.HOUSE_REQUIRED
+                houseElement.requestFocus()
+                return@setOnClickListener
+            }
+
+            if (apartment.isEmpty()) {
+                apartmentElement.error =
+                    Constants.SharedPreferences.APARTMENT_REQUIRED
+                apartmentElement.requestFocus()
+                return@setOnClickListener
+            }
+
             val currentEmployee: User ?= null
             val customer: User = user
             val address  = "$city, $street $house, $apartment"

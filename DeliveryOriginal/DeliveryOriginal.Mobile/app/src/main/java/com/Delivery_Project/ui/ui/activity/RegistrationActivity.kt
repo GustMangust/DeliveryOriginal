@@ -33,41 +33,41 @@ class RegistrationActivity : AppCompatActivity() {
         }
 
         var registrationButton = binding.registerBtn.setOnClickListener {
-            val login_element = findViewById<EditText>(R.id.login_registration)
-            val full_name_element = findViewById<EditText>(R.id.full_name)
-            val password_element = findViewById<EditText>(R.id.password)
-            val repeat_password_element = findViewById<EditText>(R.id.repeat_password)
+            val loginElement = findViewById<EditText>(R.id.login_registration)
+            val fullNameElement = findViewById<EditText>(R.id.full_name)
+            val passwordElement = findViewById<EditText>(R.id.password)
+            val repeatPasswordElement = findViewById<EditText>(R.id.repeat_password)
             val login = binding.loginRegistration.text.toString().trim()
-            val full_name = binding.fullName.text.toString().trim()
+            val fullName = binding.fullName.text.toString().trim()
             val password = binding.password.text.toString().trim()
-            val repeat_password = binding.repeatPassword.text.toString().trim()
-            val role: Int = 3
-            if (full_name.isEmpty()) {
-                full_name_element.error = FULL_NAME_REQUIRED_REGISTRATION
-                full_name_element.requestFocus()
+            val repeatPassword = binding.repeatPassword.text.toString().trim()
+
+            if (login.isEmpty() || login.length < 4) {
+                loginElement.error = LOGIN_REQUIRED_REGISTRATION
+                loginElement.requestFocus()
+                return@setOnClickListener
+            }
+
+            if (fullName.isEmpty()) {
+                fullNameElement.error = FULL_NAME_REQUIRED_REGISTRATION
+                fullNameElement.requestFocus()
                 return@setOnClickListener
             }
             if (password.isEmpty() || password.length < 8) {
-                password_element.error = PASSWORD_REQUIRED_REGISTRATION
-                password_element.requestFocus()
+                passwordElement.error = PASSWORD_REQUIRED_REGISTRATION
+                passwordElement.requestFocus()
                 return@setOnClickListener
             }
 
-            if (login.isEmpty() || login.length < 4) {
-                repeat_password_element.error = LOGIN_REQUIRED_REGISTRATION
-                repeat_password_element.requestFocus()
-                return@setOnClickListener
-            }
-
-            if(repeat_password != password){
-                repeat_password_element.error = PASSWORD_REPEAT_MATCHES_REGISTRATION
-                repeat_password_element.requestFocus()
+            if(repeatPassword != password){
+                repeatPasswordElement.error = PASSWORD_REPEAT_MATCHES_REGISTRATION
+                repeatPasswordElement.requestFocus()
                 return@setOnClickListener
             }
             viewModel = ViewModelProvider(this, UserViewModelFactory(UserRepository(retrofitService))).get(
                 UserViewModel::class.java)
 
-            viewModel.checkUser(login, password, full_name, this)
+            viewModel.checkUser(login, password, fullName, this)
         }
     }
 }

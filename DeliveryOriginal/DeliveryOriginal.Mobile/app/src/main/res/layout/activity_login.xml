@@ -53,7 +53,7 @@
         android:maxLength="100"
         android:drawableLeft="@drawable/ic_baseline_account_circle_24"
         android:drawablePadding="19dp"
-        android:hint="@string/full_name"
+        android:hint="@string/login"
         android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
