@@ -61,6 +61,7 @@ class TakenDeliveryOrderAdapter : RecyclerView.Adapter<DeliveryTakenViewHolder>(
         holder.binding.cookShowOrder.setOnClickListener {v: View -> Unit
             val intent = Intent(context, CookOrderDescription::class.java)
             intent.putExtra("Dishes", order.Dishes)
+            intent.putExtra("PhoneNumber", order.PhoneNumber)
             ContextCompat.startActivity(context, intent, null)
         }
     }

@@ -6,15 +6,33 @@
     android:layout_height="match_parent"
     tools:context=".ui.ui.activity.MainActivity"
     android:background="@color/mediumGray">
+
+    <TextView
+        android:id="@+id/phone_order_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerviewCookOrderDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1"
+        app:layout_constraintHorizontal_bias="0.1"
+        android:text="Phone:"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerviewCookOrderDescription"
-        app:spanCount="2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-
-        tools:listitem="@layout/cook_order_description_item"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="470dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:spanCount="2"
+        tools:listitem="@layout/cook_order_description_item" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,11 +1,13 @@
 package com.Delivery_Project.adapter
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.Delivery_Project.constants.Constants.SharedPreferences.Companion.COST_DOLLAR
 import com.Delivery_Project.databinding.DishItemBinding
 import com.Delivery_Project.pojo.Dish
 import com.Delivery_Project.ui.ui.activity.DishDescriptionActivity
@@ -23,11 +25,11 @@ class RandomDishAdapter : RecyclerView.Adapter<RandomDishViewHolder>() {
         val binding = DishItemBinding.inflate(inflater, parent, false)
         return RandomDishViewHolder(binding)
     }
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: RandomDishViewHolder, position: Int) {
         val dishes = dishes[position]
         holder.binding.dishName.text = dishes.Name
-        var cost = " $"
-        holder.binding.dishCost.text = dishes.Cost.toString() + cost
+        holder.binding.dishCost.text = dishes.Cost.toString() + COST_DOLLAR
         Glide.with(holder.itemView.context).load(dishes.ImageUrl).into(holder.binding.dishImage)
         holder.binding.dishImage.setOnClickListener() {
                 v: View -> Unit

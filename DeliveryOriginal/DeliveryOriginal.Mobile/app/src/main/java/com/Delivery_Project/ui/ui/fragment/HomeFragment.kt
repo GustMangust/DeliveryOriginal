@@ -10,6 +10,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.Delivery_Project.R
 import com.Delivery_Project.adapter.RandomDishAdapter
+import com.Delivery_Project.constants.Constants
+import com.Delivery_Project.constants.Constants.SharedPreferences.Companion.HOME_TAG
 import com.Delivery_Project.database.DatabaseHelper
 import com.Delivery_Project.databinding.FragmentHomeBinding
 import com.Delivery_Project.factory.DishViewModelFactory
@@ -26,7 +28,6 @@ import com.Delivery_Project.viewModel.RandomDishViewModel
 
 
 class HomeFragment : Fragment() {
-    private val TAG = "HomeActivity"
     private lateinit var binding: FragmentHomeBinding
     lateinit var viewModel: RandomDishViewModel
     private val interfaceAPI = InterfaceAPI.getInstance()
@@ -47,47 +48,19 @@ class HomeFragment : Fragment() {
 
         if(ConnectionUtility.isOnline(requireContext())) {
             viewModel.randomDishList.observe(viewLifecycleOwner, Observer {
-                Log.d(TAG, "onCreate: $it")
+                Log.d(HOME_TAG, "onCreate: $it")
                 adapter.setRandomDishList(it)
             })
             viewModel.errorMessage.observe(viewLifecycleOwner, Observer {
             })
             viewModel.getRandomDish()
         }
-        updateDatabase()
+        viewModel.updateDatabase(requireContext(), this)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-    }
-
-    private fun updateDatabase(){
-        val interfaceAPI = InterfaceAPI.getInstance()
-        if(ConnectionUtility.isOnline(requireContext())) {
-            val db = DatabaseHelper(requireContext())
-            val dishViewModel =
-                ViewModelProvider(this, DishViewModelFactory(DishRepository(interfaceAPI))).get(
-                    DishViewModel::class.java
-                )
-            dishViewModel.dishList.observe(viewLifecycleOwner, Observer {
-                db.updateDishes(ArrayList(it))
-            })
-            dishViewModel.errorMessage.observe(viewLifecycleOwner, Observer {
-            })
-            dishViewModel.getDish()
-
-            val menuViewModel =
-                ViewModelProvider(this, MenuViewModelFactory(MenuRepository(interfaceAPI))).get(
-                    MenuViewModel::class.java
-                )
-            menuViewModel.categoryList.observe(viewLifecycleOwner, Observer {
-                db.updateCategories(ArrayList(it))
-            })
-            menuViewModel.errorMessage.observe(viewLifecycleOwner, Observer {
-            })
-            menuViewModel.getCategory()
-        }
     }
 }

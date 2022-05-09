@@ -18,6 +18,7 @@ import androidx.core.app.ActivityCompat
 import androidx.viewpager.widget.ViewPager
 import com.Delivery_Project.R
 import com.Delivery_Project.adapter.CookViewPagerAdapter
+import com.Delivery_Project.constants.Constants
 import com.Delivery_Project.pojo.User
 import com.Delivery_Project.ui.ui.fragment.*
 import com.Delivery_Project.utility.SharedPreferencesUtility
@@ -28,7 +29,7 @@ import java.util.*
 
 class DeliveryActivity: AppCompatActivity() {
     private lateinit var user: User
-    private val permissionId = 2
+
     lateinit var mFusedLocationClient: FusedLocationProviderClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,6 +78,7 @@ class DeliveryActivity: AppCompatActivity() {
             LocationManager.NETWORK_PROVIDER
         )
     }
+
     private fun checkPermissions(): Boolean {
         if (ActivityCompat.checkSelfPermission(
                 this,
@@ -98,7 +100,7 @@ class DeliveryActivity: AppCompatActivity() {
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION
             ),
-            permissionId
+            Constants.SharedPreferences.PERMISSION_ID
         )
     }
     @SuppressLint("MissingSuperCall")
@@ -107,7 +109,7 @@ class DeliveryActivity: AppCompatActivity() {
         permissions: Array<String>,
         grantResults: IntArray
     ) {
-        if (requestCode == permissionId) {
+        if (requestCode == Constants.SharedPreferences.PERMISSION_ID) {
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                 getLocation()
             }

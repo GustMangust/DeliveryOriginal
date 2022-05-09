@@ -6,6 +6,9 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.Delivery_Project.R
+import com.Delivery_Project.constants.Constants
+import com.Delivery_Project.constants.Constants.SharedPreferences.Companion.FULL_NAME_REQUIRED
+import com.Delivery_Project.constants.Constants.SharedPreferences.Companion.PASSWORD_REQUIRED
 import com.Delivery_Project.databinding.ActivityRegistrationBinding
 import com.Delivery_Project.factory.UserViewModelFactory
 import com.Delivery_Project.repository.UserRepository
@@ -37,17 +40,17 @@ class RegistrationActivity : AppCompatActivity() {
             val repeat_password = binding.repeatPassword.text.toString().trim()
             val role: Int = 3
             if (full_name.isEmpty()) {
-                full_name_element.error = "Full name required!"
+                full_name_element.error = FULL_NAME_REQUIRED
                 full_name_element.requestFocus()
                 return@setOnClickListener
             }
             if (password.isEmpty()) {
-                password_element.error = "Password required!"
+                password_element.error = PASSWORD_REQUIRED
                 password_element.requestFocus()
                 return@setOnClickListener
             }
             if (repeat_password.isEmpty()) {
-                repeat_password_element.error = "Password required!"
+                repeat_password_element.error = PASSWORD_REQUIRED
                 repeat_password_element.requestFocus()
                 return@setOnClickListener
             }

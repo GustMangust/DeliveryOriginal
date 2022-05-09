@@ -24,7 +24,6 @@ import com.Delivery_Project.viewModel.MenuViewModel
 
 
 class MenuFragment : Fragment() {
-    private val TAG = "MenuActivity"
     private lateinit var binding: FragmentMenuBinding
     lateinit var viewModel: MenuViewModel
     private val categoryAPI = InterfaceAPI.getInstance()
@@ -36,37 +35,8 @@ class MenuFragment : Fragment() {
         binding = FragmentMenuBinding.inflate(layoutInflater, container, false)
         viewModel = ViewModelProvider(this, MenuViewModelFactory(MenuRepository(categoryAPI))).get(MenuViewModel::class.java)
         binding.recyclerview.adapter = adapter
-        updateDatabase()
+        viewModel.updateDatabase(requireContext(), this)
         adapter.setCategoryList(databaseHelper.getAllCategories())
         return binding.root
     }
-
-    private fun updateDatabase(){
-        val interfaceAPI = InterfaceAPI.getInstance()
-        if(ConnectionUtility.isOnline(requireContext())) {
-            val db = DatabaseHelper(requireContext())
-            val dishViewModel =
-                ViewModelProvider(this, DishViewModelFactory(DishRepository(interfaceAPI))).get(
-                    DishViewModel::class.java
-                )
-            dishViewModel.dishList.observe(this as LifecycleOwner, Observer {
-                db.updateDishes(ArrayList(it))
-            })
-            dishViewModel.errorMessage.observe(this as LifecycleOwner, Observer {
-            })
-            dishViewModel.getDish()
-
-            val menuViewModel =
-                ViewModelProvider(this, MenuViewModelFactory(MenuRepository(interfaceAPI))).get(
-                    MenuViewModel::class.java
-                )
-            menuViewModel.categoryList.observe(this as LifecycleOwner, Observer {
-                db.updateCategories(ArrayList(it))
-            })
-            menuViewModel.errorMessage.observe(this as LifecycleOwner, Observer {
-            })
-            menuViewModel.getCategory()
-        }
-    }
-
 }

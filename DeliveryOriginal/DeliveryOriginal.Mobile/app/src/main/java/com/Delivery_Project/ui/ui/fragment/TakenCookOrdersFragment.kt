@@ -12,6 +12,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.Delivery_Project.R
 import com.Delivery_Project.adapter.AvailableCookOrderAdapter
 import com.Delivery_Project.adapter.TakenCookOrderAdapter
+import com.Delivery_Project.constants.Constants
+import com.Delivery_Project.constants.Constants.SharedPreferences.Companion.TAKEN_COOK_ORDERS_TAG
 import com.Delivery_Project.databinding.FragmentAvailableCookOrdersBinding
 import com.Delivery_Project.databinding.FragmentTakenCookOrdersBinding
 import com.Delivery_Project.factory.OrderViewModelFactory
@@ -23,7 +25,6 @@ import com.Delivery_Project.utility.SharedPreferencesUtility
 import com.Delivery_Project.viewModel.OrderViewModel
 
 class TakenCookOrdersFragment : Fragment() {
-    private val TAG = "HomeActivity"
     private lateinit var binding: FragmentTakenCookOrdersBinding
     lateinit var viewModel: OrderViewModel
     private val interfaceAPI = InterfaceAPI.getInstance()
@@ -49,7 +50,7 @@ class TakenCookOrdersFragment : Fragment() {
             OrderViewModel::class.java)
         binding.recyclerviewTakenCookOrders.adapter = adapter
         viewModel.orderList.observe(viewLifecycleOwner, Observer {
-            Log.d(TAG, "onCreate: $it")
+            Log.d(TAKEN_COOK_ORDERS_TAG, "onCreate: $it")
             adapter.setDishListByStatusAndEmployee(it, 2, user)
         })
         viewModel.errorMessage.observe(viewLifecycleOwner, Observer {

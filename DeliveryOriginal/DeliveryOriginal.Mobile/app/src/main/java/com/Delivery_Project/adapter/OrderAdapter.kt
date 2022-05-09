@@ -1,14 +1,24 @@
 package com.Delivery_Project.adapter
 
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentOnAttachListener
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.Delivery_Project.R
+import com.Delivery_Project.constants.Constants
+import com.Delivery_Project.constants.Constants.SharedPreferences.Companion.COST_DOLLAR
 import com.Delivery_Project.database.DatabaseHelper
 import com.Delivery_Project.databinding.OrderItemBinding
 import com.Delivery_Project.model.CartModel
@@ -31,13 +41,24 @@ class OrderAdapter(context: Context, view: View): RecyclerView.Adapter<OrderAdap
         return OrderViewHolder(binding)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
         val db = DatabaseHelper(context);
 
         val order = cartList[position]
         holder.binding.orderName.text = order.name
-        holder.binding.orderCost.text = order.cost.toString()
+        holder.binding.orderCost.text = order.cost.toString() + COST_DOLLAR
         holder.binding.orderAmount.text = db.amountIdenticalDishes(order).toString()
+
+        holder.binding.removeOrder.setOnClickListener {
+            db.deleteDish(order.dishId)
+            var navController = (holder.itemView.context as FragmentActivity).findNavController(R.id.nav_host_fragment_content_main)
+            navController.run {
+                popBackStack()
+                navigate(R.id.nav_cart)
+            }
+
+        }
 
         holder.binding.increaseAmount.setOnClickListener() {
             db.insertOrder(order)
@@ -67,7 +88,7 @@ class OrderAdapter(context: Context, view: View): RecyclerView.Adapter<OrderAdap
 
     fun setTotalCost(db: DatabaseHelper){
         var totalCost: TextView = view.findViewById(R.id.total_cost)
-        totalCost.text = db.getTotalCost().toString()
+        totalCost.text = db.getTotalCost().toString() + COST_DOLLAR
 
     }
 }
