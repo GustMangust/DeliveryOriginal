@@ -23,6 +23,7 @@
         <entry key="..\:/Unic/CP DB/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/drawable/sheet_bg.xml" value="0.22135416666666666" />
         <entry key="..\:/Unic/CP DB/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/drawable/side_nav_bar.xml" value="0.22135416666666666" />
         <entry key="..\:/Unic/CP DB/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/activity_checkout.xml" value="0.20471014492753623" />
+        <entry key="..\:/Unic/CP DB/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/activity_cook.xml" value="0.20471014492753623" />
         <entry key="..\:/Unic/CP DB/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/activity_cook_order_desription.xml" value="0.33" />
         <entry key="..\:/Unic/CP DB/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/activity_delivery.xml" value="0.20520833333333333" />
         <entry key="..\:/Unic/CP DB/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/activity_dish_description.xml" value="0.25" />
@@ -35,16 +36,18 @@
         <entry key="..\:/Unic/CP DB/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/category_item.xml" value="0.1" />
         <entry key="..\:/Unic/CP DB/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/content_main.xml" value="0.20520833333333333" />
         <entry key="..\:/Unic/CP DB/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/cook_order_description_item.xml" value="0.6151419558359621" />
-        <entry key="..\:/Unic/CP DB/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/cook_order_item.xml" value="0.1" />
+        <entry key="..\:/Unic/CP DB/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/cook_order_item.xml" value="0.16" />
+        <entry key="..\:/Unic/CP DB/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/cook_order_taken_item.xml" value="0.20471014492753623" />
         <entry key="..\:/Unic/CP DB/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/delivery_order_item.xml" value="0.20520833333333333" />
         <entry key="..\:/Unic/CP DB/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/delivery_order_taken_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Unic/CP DB/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/dish_item.xml" value="0.5" />
+        <entry key="..\:/Unic/CP DB/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/fragment_available_cook_orders.xml" value="0.20471014492753623" />
         <entry key="..\:/Unic/CP DB/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/fragment_available_delivery_orders.xml" value="0.20520833333333333" />
         <entry key="..\:/Unic/CP DB/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/fragment_cart.xml" value="0.20520833333333333" />
         <entry key="..\:/Unic/CP DB/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/fragment_home.xml" value="0.20520833333333333" />
         <entry key="..\:/Unic/CP DB/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/fragment_menu.xml" value="0.2" />
         <entry key="..\:/Unic/CP DB/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/fragment_taken_cook_orders.xml" value="0.20471014492753623" />
-        <entry key="..\:/Unic/CP DB/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/fragment_taken_delivery_orders.xml" value="0.36666666666666664" />
+        <entry key="..\:/Unic/CP DB/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/fragment_taken_delivery_orders.xml" value="0.16" />
         <entry key="..\:/Unic/CP DB/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/nav_header_main.xml" value="0.20520833333333333" />
         <entry key="..\:/Unic/CP DB/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/order_item.xml" value="0.20520833333333333" />
         <entry key="..\:/Unic/CP DB/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/menu/activity_main_drawer.xml" value="0.20520833333333333" />

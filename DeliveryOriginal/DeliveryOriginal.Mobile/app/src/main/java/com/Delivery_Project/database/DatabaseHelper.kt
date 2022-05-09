@@ -28,7 +28,7 @@ import java.math.RoundingMode
 class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     override fun onCreate(db: SQLiteDatabase?) {
-        val createCategoryTable = ("CREATE TABLE " + " IF NOT EXISTS "+ CART +  "("
+        val createCategoryTable = ("CREATE TABLE " + " IF NOT EXISTS "+ CATEGORY +  "("
                 + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + NAME + " TEXT,"
                 + IMAGE + " TEXT)")

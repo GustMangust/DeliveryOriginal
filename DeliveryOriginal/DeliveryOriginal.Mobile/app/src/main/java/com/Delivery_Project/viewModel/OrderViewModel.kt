@@ -94,9 +94,9 @@ class OrderViewModel constructor(private val repository: OrderRepository): ViewM
         val status = databaseHelper.insertOrder(order)
 
         if(status > -1){
-            Toast.makeText(context, "Order added!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Dish added!", Toast.LENGTH_SHORT).show()
         }else{
-            Toast.makeText(context, "Order not added!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Dish not added!", Toast.LENGTH_SHORT).show()
         }
     }
 }

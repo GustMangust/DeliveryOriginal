@@ -9,7 +9,6 @@ class Constants {
             const val TAKEN_COOK_ORDERS_TAG : String  = "TakenCookOrdersFragment"
             const val AVAILABLE_COOK_ORDERS_TAG : String  = "AvailableCookOrdersFragment"
             const val TAKEN_DELIVERY_ORDERS_TAG : String  = "TakenDeliveryOrdersFragment"
-
             const val HOME_TAG = "HomeFragment"
             const val DATABASE_VERSION: Int = 3
             const val DATABASE_NAME : String  = "orders.db"

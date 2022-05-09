@@ -6,8 +6,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.Delivery_Project.R
 import com.Delivery_Project.databinding.CookOrderItemBinding
 import com.Delivery_Project.databinding.CookOrderTakenItemBinding
 import com.Delivery_Project.pojo.Dish
@@ -16,10 +22,12 @@ import com.Delivery_Project.pojo.User
 import com.Delivery_Project.retrofit.InterfaceAPI
 import com.Delivery_Project.ui.ui.activity.CookActivity
 import com.Delivery_Project.ui.ui.activity.CookOrderDescription
+import com.Delivery_Project.ui.ui.fragment.TakenCookOrdersFragment
 import com.Delivery_Project.utility.SharedPreferencesUtility
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonParser
+import io.grpc.InternalChannelz.id
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -52,13 +60,17 @@ class TakenCookOrderAdapter : RecyclerView.Adapter<OrderTakenViewHolder>() {
         val user = SharedPreferencesUtility.getUser(context)
         holder.binding.cookReadyOrderTakenOrder.setOnClickListener { v: View -> Unit
             putMethod(order.Id,3, user!!)
-            val intent = Intent(context, CookActivity::class.java)
-            intent.putExtra("User",user)
-            ContextCompat.startActivity(context, intent, null)
+            orders.remove(order)
+            notifyDataSetChanged()
         }
         holder.binding.cookShowOrder.setOnClickListener {v: View -> Unit
+            var finalCost = order.Dishes.sumByDouble { it.Cost }
             val intent = Intent(context, CookOrderDescription::class.java)
             intent.putExtra("Dishes", order.Dishes)
+            intent.putExtra("PhoneNumber", order.PhoneNumber)
+            intent.putExtra("Customer", order.Customer)
+            intent.putExtra("Address", order.Address)
+            intent.putExtra("TotalCost", finalCost)
             ContextCompat.startActivity(context, intent, null)
         }
     }

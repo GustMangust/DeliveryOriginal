@@ -119,4 +119,7 @@ class DeliveryActivity: AppCompatActivity() {
     fun getUser() : User{
         return user
     }
+
+    override fun onBackPressed() {
+    }
 }

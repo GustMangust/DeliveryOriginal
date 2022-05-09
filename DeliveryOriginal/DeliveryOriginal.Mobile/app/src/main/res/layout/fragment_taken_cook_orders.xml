@@ -20,7 +20,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/lobster"
         android:text="@string/signed_in_as"
         android:textColor="@color/white"
         android:textSize="20sp"
@@ -36,7 +35,6 @@
         android:id="@+id/currentCookTakenOrder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/lobster"
         android:text="1200"
         android:textColor="@color/white"
         android:textSize="20sp"
