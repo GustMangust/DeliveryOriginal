@@ -42,15 +42,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
+
     <EditText
-        android:id="@+id/full_name_checkout"
+        android:id="@+id/phone"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:backgroundTint="#CCCCCC"
-        android:drawableLeft="@drawable/ic_baseline_account_circle_24"
+        android:maxLines="1"
+        android:maxLength="100"
+        android:drawableLeft="@drawable/ic_baseline_local_phone_24"
         android:drawablePadding="19dp"
-        android:hint="@string/CheckoutName"
+        android:hint="@string/PhoneNumber"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,27 +62,13 @@
         app:layout_constraintWidth_percent=".8" />
 
     <EditText
-        android:id="@+id/phone"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:backgroundTint="#CCCCCC"
-        android:drawableLeft="@drawable/ic_baseline_local_phone_24"
-        android:drawablePadding="19dp"
-        android:hint="@string/PhoneNumber"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/full_name_checkout"
-        app:layout_constraintWidth_percent=".8" />
-
-    <EditText
         android:id="@+id/city"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:backgroundTint="#CCCCCC"
+        android:maxLines="1"
+        android:maxLength="100"
         android:drawableLeft="@drawable/ic_baseline_location_city_24"
         android:drawablePadding="19dp"
         android:hint="@string/city"
@@ -97,6 +86,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:backgroundTint="#CCCCCC"
+        android:maxLines="1"
+        android:maxLength="100"
         android:drawableLeft="@drawable/ic_baseline_location_city_24"
         android:drawablePadding="19dp"
         android:hint="@string/street"
@@ -116,6 +107,8 @@
         android:drawableLeft="@drawable/ic_baseline_location_city_24"
         android:drawablePadding="19dp"
         android:layout_marginTop="30dp"
+        android:maxLines="1"
+        android:maxLength="100"
         android:hint="@string/house"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
@@ -130,6 +123,8 @@
         android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:backgroundTint="#CCCCCC"
+        android:maxLines="1"
+        android:maxLength="100"
         android:drawableLeft="@drawable/ic_baseline_location_city_24"
         android:drawablePadding="19dp"
         android:layout_marginTop="30dp"

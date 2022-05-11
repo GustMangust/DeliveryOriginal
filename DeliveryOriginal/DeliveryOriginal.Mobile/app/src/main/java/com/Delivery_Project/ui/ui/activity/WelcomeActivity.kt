@@ -22,8 +22,4 @@ class WelcomeActivity : AppCompatActivity() {
     fun register(view: android.view.View) {
         startActivity( Intent(this, RegistrationActivity::class.java) );
     }
-
-    /*fun sign_in(view: android.view.View) {
-        startActivity( Intent(this, LoginActivity::class.java) );
-    }*/
 }

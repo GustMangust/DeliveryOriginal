@@ -33,4 +33,7 @@ class CookActivity: AppCompatActivity() {
     fun getUser() : User{
         return user;
     }
+
+    override fun onBackPressed() {
+    }
 }

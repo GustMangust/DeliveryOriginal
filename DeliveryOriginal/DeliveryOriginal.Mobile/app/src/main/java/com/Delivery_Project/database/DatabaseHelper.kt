@@ -5,6 +5,19 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.Delivery_Project.constants.Constants
+import com.Delivery_Project.constants.Constants.SharedPreferences.Companion.CART
+import com.Delivery_Project.constants.Constants.SharedPreferences.Companion.CATEGORY
+import com.Delivery_Project.constants.Constants.SharedPreferences.Companion.CATEGORY_ID
+import com.Delivery_Project.constants.Constants.SharedPreferences.Companion.COST
+import com.Delivery_Project.constants.Constants.SharedPreferences.Companion.DATABASE_NAME
+import com.Delivery_Project.constants.Constants.SharedPreferences.Companion.DATABASE_VERSION
+import com.Delivery_Project.constants.Constants.SharedPreferences.Companion.DESCRIPTION
+import com.Delivery_Project.constants.Constants.SharedPreferences.Companion.DISH
+import com.Delivery_Project.constants.Constants.SharedPreferences.Companion.DISH_ID
+import com.Delivery_Project.constants.Constants.SharedPreferences.Companion.ID
+import com.Delivery_Project.constants.Constants.SharedPreferences.Companion.IMAGE
+import com.Delivery_Project.constants.Constants.SharedPreferences.Companion.NAME
 import com.Delivery_Project.model.CartModel
 import com.Delivery_Project.pojo.Category
 import com.Delivery_Project.pojo.Dish
@@ -13,25 +26,6 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
-
-    companion object{
-
-        private val DATABASE_VERSION = 3
-        private const val  DATABASE_NAME = "orders.db"
-
-        private const val  CART = "cart"
-        private const val DISH_ID = "dishId"
-        private const val ID = "id"
-        private const val  NAME = "name"
-        private const val IMAGE = "imageUrl"
-        private const val DESCRIPTION = "description"
-        private const val CATEGORY_ID = "categoryId"
-        private const val COST = "cost"
-
-        private const val CATEGORY = "category"
-
-        private const val  DISH = "dish"
-    }
 
     override fun onCreate(db: SQLiteDatabase?) {
         val createCategoryTable = ("CREATE TABLE " + " IF NOT EXISTS "+ CATEGORY +  "("
@@ -295,5 +289,9 @@ class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME,
         db.execSQL("DELETE FROM $CATEGORY")
 
         insertCategories(categoryList)
+    }
+    fun deleteDish(dishId: Int){
+        val db = this.writableDatabase
+        db.execSQL("delete from $CART where $DISH_ID = $dishId")
     }
 }

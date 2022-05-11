@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/mediumGray"
-    tools:context=".ui.ui.activity.MainActivity">
+    tools:context=".ui.ui.activity.MainActivity"
+    android:tag="cart_tag"
+    >
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerviewOrders"
@@ -20,7 +22,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/lobster"
         android:text="Total cost"
         android:textColor="@color/white"
         android:textSize="20sp"
@@ -36,7 +37,6 @@
         android:id="@+id/total_cost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/lobster"
         android:text="1200"
         android:textColor="@color/white"
         android:textSize="20sp"

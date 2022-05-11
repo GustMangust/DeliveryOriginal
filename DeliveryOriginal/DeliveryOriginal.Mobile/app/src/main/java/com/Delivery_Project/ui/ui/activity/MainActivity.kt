@@ -43,7 +43,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         nameBinding = NavHeaderMainBinding.inflate(layoutInflater)
@@ -67,11 +66,7 @@ class MainActivity : AppCompatActivity() {
     fun getUser() : User{
         return user;
     }
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main, menu)
-        return true
-    }
-
+ 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
@@ -108,5 +103,9 @@ class MainActivity : AppCompatActivity() {
             })
             menuViewModel.getCategory()
         }
+    }
+
+    override fun onBackPressed() {
+
     }
 }

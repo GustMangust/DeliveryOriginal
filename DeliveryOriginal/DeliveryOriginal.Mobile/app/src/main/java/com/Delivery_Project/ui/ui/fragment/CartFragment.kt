@@ -1,5 +1,6 @@
 package com.Delivery_Project.ui.ui.fragment
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,6 +17,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.Delivery_Project.R
 import com.Delivery_Project.adapter.OrderAdapter
+import com.Delivery_Project.constants.Constants
+import com.Delivery_Project.constants.Constants.SharedPreferences.Companion.COST_DOLLAR
 import com.Delivery_Project.database.DatabaseHelper
 import com.Delivery_Project.factory.DishViewModelFactory
 import com.Delivery_Project.factory.MenuViewModelFactory
@@ -75,8 +78,12 @@ class CartFragment : Fragment() {
         var checkoutBtn = requireView().findViewById<Button>(R.id.orderCheckout);
         checkoutBtn.setOnClickListener {
             if(!dishList.isEmpty()){
+                val finalDishList = arrayListOf<Dish>()
+                for(item in databaseHelper.getAllOrders(requireContext())){
+                    finalDishList.add(item.convertToDish())
+                }
                 val intent = Intent(context, CheckoutActivity::class.java)
-                intent.putExtra("Dishes",dishList)
+                intent.putExtra("Dishes",finalDishList)
                 intent.putExtra("User", user)
                 ContextCompat.startActivity(requireContext(), intent, null)
             } else {
@@ -86,9 +93,10 @@ class CartFragment : Fragment() {
 
 
     }
+    @SuppressLint("SetTextI18n")
     fun setTotalCost(){
         var totalCost: TextView = requireView().findViewById(R.id.total_cost)
-        totalCost.text = databaseHelper.getTotalCost().toString()
+        totalCost.text = databaseHelper.getTotalCost().toString() + COST_DOLLAR
     }
 
 }

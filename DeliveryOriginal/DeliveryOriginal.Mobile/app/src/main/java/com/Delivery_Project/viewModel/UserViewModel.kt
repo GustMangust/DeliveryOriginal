@@ -68,18 +68,15 @@ class UserViewModel constructor(private val repository: UserRepository): ViewMod
         if(login.isEmpty() || password.isEmpty()){
             Toast.makeText(context, "Fill in all fields!" , Toast.LENGTH_LONG).show()
         }else{
-            newUser = list!!.firstOrNull { p -> p.Login == login && p.Password == password }
+            newUser = list.firstOrNull { p -> p.Login == login && p.Password == password }
         }
         return newUser
     }
 
     fun getActivity(login: String, password: String,list: List<User>, context: Context){
         val user = validateUser(login, password, list, context)
-        if(user!=null){
-
+        if (user?.Role == 3 || user?.Role == 4 || user?.Role == 5 && user!=null){
             SharedPreferencesUtility.saveUser(user,context)
-
-
             when(UserRole.fromInt(user.Role)){
                 UserRole.Regulars -> {
                     val regularIntent = Intent(context, MainActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -99,8 +96,37 @@ class UserViewModel constructor(private val repository: UserRepository): ViewMod
 
                 else -> throw IllegalStateException()
             }
-        } else {
-            Toast.makeText(context, "User is not found!", Toast.LENGTH_LONG).show()
+     }
+        else{
+            Toast.makeText(context, "User not found!", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    fun getLoggedUser(context: Context){
+        val user = SharedPreferencesUtility.getUser(context)
+
+        if(user != null){
+            SharedPreferencesUtility.saveUser(user,context)
+
+            when(UserRole.fromInt(user.Role)){
+                UserRole.Regulars -> {
+                    val regularIntent = Intent(context, MainActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    regularIntent.putExtra("User",user)
+                    ContextCompat.startActivity(context, regularIntent, null)
+                }
+                UserRole.Cooks->{
+                    val cookIntent = Intent(context, CookActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    cookIntent.putExtra("User",user)
+                    ContextCompat.startActivity(context, cookIntent, null)
+                }
+                UserRole.Deliveries->{
+                    val deliveryIntent = Intent(context, DeliveryActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    deliveryIntent.putExtra("User",user)
+                    ContextCompat.startActivity(context, deliveryIntent, null)
+                }
+
+                else -> throw IllegalStateException()
+            }
         }
     }
 }

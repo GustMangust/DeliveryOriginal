@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.location.Location
 import com.Delivery_Project.constants.Constants
+import com.Delivery_Project.constants.Constants.SharedPreferences.Companion.FILE_NAME
 import com.Delivery_Project.pojo.User
 import com.google.gson.Gson
 import org.json.JSONObject
@@ -11,7 +12,7 @@ import org.json.JSONObject
 class SharedPreferencesUtility(){
     companion object{
         fun saveLocation(location: Location?, context: Context){
-            val sharedPreferences: SharedPreferences = context.getSharedPreferences(Constants.SharedPreferences.fileName,Context.MODE_PRIVATE)
+            val sharedPreferences: SharedPreferences = context.getSharedPreferences(FILE_NAME,Context.MODE_PRIVATE)
 
             val editor:SharedPreferences.Editor =  sharedPreferences.edit()
 
@@ -21,7 +22,7 @@ class SharedPreferencesUtility(){
             editor.apply()
         }
         fun getLatitude(context: Context) : String{
-            val sharedPreferences: SharedPreferences = context.getSharedPreferences(Constants.SharedPreferences.fileName,Context.MODE_PRIVATE)
+            val sharedPreferences: SharedPreferences = context.getSharedPreferences(FILE_NAME,Context.MODE_PRIVATE)
 
             val gson = Gson()
 
@@ -31,14 +32,14 @@ class SharedPreferencesUtility(){
             return locationString!!
         }
         fun getLongitude(context: Context) : String{
-            val sharedPreferences: SharedPreferences = context.getSharedPreferences(Constants.SharedPreferences.fileName,Context.MODE_PRIVATE)
+            val sharedPreferences: SharedPreferences = context.getSharedPreferences(FILE_NAME,Context.MODE_PRIVATE)
 
             val locationString = sharedPreferences.getString("Longitude", null.toString())
 
             return locationString!!
         }
         fun saveUser(user:User, context: Context){
-            val sharedPreferences: SharedPreferences = context.getSharedPreferences(Constants.SharedPreferences.fileName,Context.MODE_PRIVATE)
+            val sharedPreferences: SharedPreferences = context.getSharedPreferences(FILE_NAME,Context.MODE_PRIVATE)
 
             val editor:SharedPreferences.Editor =  sharedPreferences.edit()
 
@@ -48,7 +49,7 @@ class SharedPreferencesUtility(){
         }
 
         fun getUser(context: Context) : User?{
-            val sharedPreferences: SharedPreferences = context.getSharedPreferences(Constants.SharedPreferences.fileName,Context.MODE_PRIVATE)
+            val sharedPreferences: SharedPreferences = context.getSharedPreferences(FILE_NAME,Context.MODE_PRIVATE)
 
             val gson = Gson()
 
@@ -60,7 +61,7 @@ class SharedPreferencesUtility(){
         }
 
         fun deleteUser(context: Context){
-            val sharedPreferences: SharedPreferences = context.getSharedPreferences(Constants.SharedPreferences.fileName,Context.MODE_PRIVATE)
+            val sharedPreferences: SharedPreferences = context.getSharedPreferences(FILE_NAME,Context.MODE_PRIVATE)
 
             val editor:SharedPreferences.Editor =  sharedPreferences.edit()
 

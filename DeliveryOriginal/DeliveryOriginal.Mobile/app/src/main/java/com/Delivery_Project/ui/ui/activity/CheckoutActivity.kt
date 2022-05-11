@@ -3,16 +3,26 @@ package com.Delivery_Project.ui.ui.activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
+import com.Delivery_Project.R
+import com.Delivery_Project.constants.Constants
+import com.Delivery_Project.constants.Constants.SharedPreferences.Companion.FIRST_STATUS
 import com.Delivery_Project.database.DatabaseHelper
 import com.Delivery_Project.databinding.ActivityCheckoutBinding
+import com.Delivery_Project.factory.OrderViewModelFactory
 import com.Delivery_Project.pojo.Dish
 import com.Delivery_Project.pojo.User
+import com.Delivery_Project.repository.OrderRepository
 import com.Delivery_Project.retrofit.InterfaceAPI
+import com.Delivery_Project.retrofit.InterfaceAPI.Companion.interfaceAPI
 import com.Delivery_Project.utility.ConnectionUtility
+import com.Delivery_Project.viewModel.DishViewModel
+import com.Delivery_Project.viewModel.OrderViewModel
 import com.google.gson.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -37,21 +47,58 @@ class CheckoutActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         var checkoutBtn = binding.checkoutBtn.setOnClickListener {
-            val name = binding.fullNameCheckout.text.toString().trim()
             val phoneNumber = binding.phone.text.toString().trim()
             val city = binding.city.text.toString().trim()
             val street = binding.Street.text.toString().trim()
             val house = binding.House.text.toString().trim()
             val apartment = binding.Apartment.text.toString().trim()
-            val status = 0
+            val cityElement = findViewById<EditText>(R.id.city)
+            val streetElement = findViewById<EditText>(R.id.Street)
+            val houseElement = findViewById<EditText>(R.id.House)
+            val apartmentElement = findViewById<EditText>(R.id.Apartment)
+            val phoneNumberElement = findViewById<EditText>(R.id.phone)
+
+            if (phoneNumber.isEmpty()) {
+                phoneNumberElement.error =
+                    Constants.SharedPreferences.PHONE_NUMBER_REQUIRED
+                phoneNumberElement.requestFocus()
+                return@setOnClickListener
+            }
+            if (city.isEmpty()) {
+                cityElement.error =
+                    Constants.SharedPreferences.CITY_REQUIRED
+                cityElement.requestFocus()
+                return@setOnClickListener
+            }
+            if (street.isEmpty()) {
+                streetElement.error =
+                    Constants.SharedPreferences.STREET_REQUIRED
+                streetElement.requestFocus()
+                return@setOnClickListener
+            }
+            if (house.isEmpty()) {
+                houseElement.error =
+                    Constants.SharedPreferences.HOUSE_REQUIRED
+                houseElement.requestFocus()
+                return@setOnClickListener
+            }
+
+            if (apartment.isEmpty()) {
+                apartmentElement.error =
+                    Constants.SharedPreferences.APARTMENT_REQUIRED
+                apartmentElement.requestFocus()
+                return@setOnClickListener
+            }
+
             val currentEmployee: User ?= null
             val customer: User = user
             val address  = "$city, $street $house, $apartment"
             val sdf = SimpleDateFormat("yyyy-MM-dd hh:mm")
+            val viewModel: OrderViewModel = ViewModelProvider(this, OrderViewModelFactory(
+                OrderRepository(interfaceAPI!!))).get(OrderViewModel::class.java)
             val currentDate = sdf.format(Date())
-
             if(ConnectionUtility.isOnline(this)){
-                requestOrder(currentDate, status, address, phoneNumber, customer,dishes)
+                viewModel.requestOrder(currentDate, FIRST_STATUS, address, phoneNumber, customer,dishes)
                 cartHelper = DatabaseHelper(this)
                 val intent = Intent(this, MainActivity::class.java)
                 intent.putExtra("User", user)
@@ -61,44 +108,7 @@ class CheckoutActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "Check your internet connection!", Toast.LENGTH_LONG).show()
             }
-
         }
     }
-    private fun requestOrder(dateTime: String, status: Int, address: String, phoneNumber:String, customer: User,  dishes: ArrayList<Dish>){
-        val jsonObject = JSONObject()
-        val jsonDish =  Gson().toJsonTree(dishes) as JsonArray
-        val jsonCustomer = Gson().toJsonTree(customer)
 
-        jsonObject.put("PhoneNumber", phoneNumber)
-        jsonObject.put("SubmittedAt", dateTime)
-        jsonObject.put("Status", status)
-        jsonObject.put("Address", address)
-        jsonObject.put("Customer", jsonCustomer)
-        jsonObject.put("CurrentEmployee", null)
-        jsonObject.put("Dishes", jsonDish)
-        val jsonObjectString = jsonObject.toString()
-
-        Log.d("Pretty Printed JSON :", jsonObjectString.toString())
-
-        val requestBody = jsonObjectString.toRequestBody("application/json".toMediaTypeOrNull())
-
-        CoroutineScope(Dispatchers.IO).launch {
-            val response = InterfaceAPI.getInstance().addOrder(requestBody)
-
-            withContext(Dispatchers.Main) {
-                if (response.isSuccessful) {
-                    val gson = GsonBuilder().setPrettyPrinting().create()
-                    val prettyJson = gson.toJson(
-                        JsonParser.parseString(
-                            response.code().toString()
-                        )
-                    )
-                    Log.d("Pretty Printed JSON :", prettyJson)
-
-                } else {
-                    Log.e("RETROFIT_ERROR", response.code().toString())
-                }
-            }
-        }
-    }
 }

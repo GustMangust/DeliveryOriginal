@@ -7,7 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.Delivery_Project.R
 import com.Delivery_Project.databinding.CookOrderItemBinding
 import com.Delivery_Project.databinding.CookOrderTakenItemBinding
 import com.Delivery_Project.databinding.DeliveryOrderTakenItemBinding
@@ -54,13 +57,17 @@ class TakenDeliveryOrderAdapter : RecyclerView.Adapter<DeliveryTakenViewHolder>(
         val user = SharedPreferencesUtility.getUser(context)
         holder.binding.cookReadyOrderTakenOrder.setOnClickListener { v: View -> Unit
             putMethod(order.Id,5, user!!)
-            val intent = Intent(context, DeliveryActivity::class.java)
-            intent.putExtra("User",user)
-            ContextCompat.startActivity(context, intent, null)
+            orders.remove(order)
+            notifyDataSetChanged()
         }
         holder.binding.cookShowOrder.setOnClickListener {v: View -> Unit
+            var finalCost = order.Dishes.sumByDouble { it.Cost }
             val intent = Intent(context, CookOrderDescription::class.java)
             intent.putExtra("Dishes", order.Dishes)
+            intent.putExtra("PhoneNumber", order.PhoneNumber)
+            intent.putExtra("Customer", order.Customer)
+            intent.putExtra("Address", order.Address)
+            intent.putExtra("TotalCost", finalCost)
             ContextCompat.startActivity(context, intent, null)
         }
     }

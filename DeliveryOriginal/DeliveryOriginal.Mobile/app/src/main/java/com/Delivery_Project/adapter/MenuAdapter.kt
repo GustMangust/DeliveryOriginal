@@ -32,7 +32,7 @@ class MenuAdapter : RecyclerView.Adapter<MenuViewHolder>() {
         val category = categories[position]
         holder.binding.name.text = category.Name
         Glide.with(holder.itemView.context).load(category.ImageUrl).into(holder.binding.categoryImage)
-        holder.binding.innerConstraint.setOnClickListener {
+        holder.binding.categoryImage.setOnClickListener {
             v: View -> Unit
             val context = holder.itemView.context
             val intent = Intent(context, DishesActivity::class.java)

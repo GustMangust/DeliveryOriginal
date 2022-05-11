@@ -29,8 +29,6 @@ import java.util.*
 
 
 class MapFragment : Fragment() {
-
-    private val TAG = "HomeActivity"
     private lateinit var binding: FragmentMapsBinding
     lateinit var viewModel: OrderViewModel
     private val interfaceAPI = InterfaceAPI.getInstance()
@@ -49,12 +47,7 @@ class MapFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view: View  = inflater.inflate(R.layout.fragment_maps, container, false)
-
-
         binding = FragmentMapsBinding.inflate(layoutInflater, container, false)
-        //val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-
-        //mapFragment.getMapAsync(this)
         return binding.root
     }
 
@@ -85,7 +78,6 @@ class MapFragment : Fragment() {
         viewModel.orderList.observe(viewLifecycleOwner, Observer {
             getString(ArrayList(it).filter { it?.CurrentEmployee?.Id == user.Id && it.Status == 4 } as ArrayList)
             if(!geopointList.isEmpty()){
-
                 val origin = getAddressFromLocation(GeoPoint(SharedPreferencesUtility.getLatitude(requireContext()).toDouble(),SharedPreferencesUtility.getLongitude(requireContext()).toDouble()))
                 val destination = getAddressFromLocation(GeoPoint(geopointList.last()?.latitude!!,geopointList.last()?.longitude!!))
                 var url = "https://www.google.com/maps/dir/?api=1&origin=" +
@@ -95,6 +87,7 @@ class MapFragment : Fragment() {
                     if(i==0){
                         url += "&waypoints="
                     }
+                    val asd = GeoPoint(geopointList.get(i)?.latitude!!,geopointList.get(i)?.longitude!!);
                     val address = getAddressFromLocation(GeoPoint(geopointList.get(i)?.latitude!!,geopointList.get(i)?.longitude!!))
                     url += "$address%7C"
                 }
@@ -112,14 +105,14 @@ class MapFragment : Fragment() {
 
     fun getString(orderList : ArrayList<Order>){
         for(order in orderList){
-            val location = getLocationFromAddress(order.Address)
+            val location = getLocationFromAddress(order.Address.substring(0,order.Address.indexOfLast { x->x==',' }))
             if(location == null){
                 Toast.makeText(requireContext(), "Order address with Id:${order.Id} is incorrect",Toast.LENGTH_SHORT).show()
             } else {
                 geopointList.add(location!!)
             }
         }
-        if(!geopointList.isEmpty()){
+        if(geopointList.size >= 2){
             sortLocations(geopointList,SharedPreferencesUtility.getLatitude(requireContext()).toDouble(), SharedPreferencesUtility.getLongitude(requireContext()).toDouble())
         }
     }
@@ -177,12 +170,5 @@ class MapFragment : Fragment() {
         Collections.sort(locations, comp)
         return ArrayList(locations)
     }
-/*
-    override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
-        val sqw = LatLng(-34.0,151.0)
-
-        mMap.addMarker(MarkerOptions().position(sqw))
-    }*/
 
 }
