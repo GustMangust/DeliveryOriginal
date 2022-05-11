@@ -87,6 +87,7 @@ class MapFragment : Fragment() {
                     if(i==0){
                         url += "&waypoints="
                     }
+                    val asd = GeoPoint(geopointList.get(i)?.latitude!!,geopointList.get(i)?.longitude!!);
                     val address = getAddressFromLocation(GeoPoint(geopointList.get(i)?.latitude!!,geopointList.get(i)?.longitude!!))
                     url += "$address%7C"
                 }
@@ -104,7 +105,7 @@ class MapFragment : Fragment() {
 
     fun getString(orderList : ArrayList<Order>){
         for(order in orderList){
-            val location = getLocationFromAddress(order.Address)
+            val location = getLocationFromAddress(order.Address.substring(0,order.Address.indexOfLast { x->x==',' }))
             if(location == null){
                 Toast.makeText(requireContext(), "Order address with Id:${order.Id} is incorrect",Toast.LENGTH_SHORT).show()
             } else {

@@ -78,8 +78,12 @@ class CartFragment : Fragment() {
         var checkoutBtn = requireView().findViewById<Button>(R.id.orderCheckout);
         checkoutBtn.setOnClickListener {
             if(!dishList.isEmpty()){
+                val finalDishList = arrayListOf<Dish>()
+                for(item in databaseHelper.getAllOrders(requireContext())){
+                    finalDishList.add(item.convertToDish())
+                }
                 val intent = Intent(context, CheckoutActivity::class.java)
-                intent.putExtra("Dishes",dishList)
+                intent.putExtra("Dishes",finalDishList)
                 intent.putExtra("User", user)
                 ContextCompat.startActivity(requireContext(), intent, null)
             } else {
