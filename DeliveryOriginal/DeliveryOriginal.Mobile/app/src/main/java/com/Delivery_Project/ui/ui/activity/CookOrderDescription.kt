@@ -6,27 +6,27 @@ import android.os.PersistableBundle
 import android.provider.SyncStateContract
 import androidx.appcompat.app.AppCompatActivity
 import com.Delivery_Project.R
-import com.Delivery_Project.adapter.CookOrderDescriptionAdapter
 import com.Delivery_Project.adapter.DishAdapter
+import com.Delivery_Project.adapter.UserOrderDescriptionAdapter
 import com.Delivery_Project.constants.Constants
-import com.Delivery_Project.databinding.ActivityCookOrderDesriptionBinding
+import com.Delivery_Project.databinding.ActivityUserOrderDesriptionBinding
 import com.Delivery_Project.pojo.Dish
 import com.Delivery_Project.pojo.User
 
-class CookOrderDescription: AppCompatActivity() {
-    private lateinit var binding: ActivityCookOrderDesriptionBinding
-    private val adapter = CookOrderDescriptionAdapter()
+class UserOrderDescription: AppCompatActivity() {
+    private lateinit var binding: ActivityUserOrderDesriptionBinding
+    private val adapter = UserOrderDescriptionAdapter()
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityCookOrderDesriptionBinding.inflate(layoutInflater)
+        binding = ActivityUserOrderDesriptionBinding.inflate(layoutInflater)
         val dishList = intent.getSerializableExtra("Dishes") as ArrayList<Dish>
         val phoneNumber = intent.getSerializableExtra("PhoneNumber").toString()
         val address = intent.getSerializableExtra("Address") as String
         val customer = intent.getSerializableExtra("Customer") as User
         val totalCost = intent.getSerializableExtra("TotalCost") as Double
-        setContentView(R.layout.activity_cook_order_desription)
-        binding.recyclerviewCookOrderDescription.adapter = adapter
+        setContentView(R.layout.activity_user_order_desription)
+        binding.recyclerviewUserOrderDescription.adapter = adapter
         setContentView(binding.root)
         binding.phoneOrderDescription.text = "Phone number: $phoneNumber"
         binding.addressOrderDescription.text = "Address: $address"

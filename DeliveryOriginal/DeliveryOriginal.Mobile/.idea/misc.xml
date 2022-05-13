@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/activity_user_order_desription.xml" value="0.18645833333333334" />
+        <entry key="..\:/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/delivery_order_taken_item.xml" value="0.18645833333333334" />
+        <entry key="..\:/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/fragment_available_delivery_orders.xml" value="0.18645833333333334" />
+        <entry key="..\:/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/fragment_maps.xml" value="0.176" />
+        <entry key="..\:/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/fragment_taken_cook_orders.xml" value="0.18645833333333334" />
+        <entry key="..\:/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/layout/fragment_taken_delivery_orders.xml" value="0.13020833333333334" />
         <entry key="..\:/Unic/CP DB/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.22135416666666666" />
         <entry key="..\:/Unic/CP DB/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/drawable/bg_display.xml" value="0.22135416666666666" />
         <entry key="..\:/Unic/CP DB/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal/DeliveryOriginal.Mobile/app/src/main/res/drawable/bottom_sheet_bg.xml" value="0.22135416666666666" />

@@ -14,7 +14,7 @@
         android:background="@drawable/round_bg">
 
         <TextView
-            android:id="@+id/cookOrderId"
+            android:id="@+id/userOrderId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/order_id"
@@ -29,7 +29,7 @@
             app:layout_constraintVertical_bias=".2" />
 
         <TextView
-            android:id="@+id/cookNumberOfDishes"
+            android:id="@+id/userNumberOfDishes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/number_of_dishes"

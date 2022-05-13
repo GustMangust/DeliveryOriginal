@@ -52,13 +52,13 @@ class AvailableDeliveryOrdersFragment : Fragment() {
         binding = FragmentAvailableDeliveryOrdersBinding.inflate(layoutInflater, container, false)
         val activity = activity as  DeliveryActivity
          val user = activity.getUser()
-        binding.currentCook.text = user.Login
-        binding.cookLogout.setOnClickListener {
+        binding.currentUser.text = user.Login
+        binding.currentUserLogout.setOnClickListener {
             logout()
         }
         viewModel = ViewModelProvider(this, OrderViewModelFactory(OrderRepository(interfaceAPI))).get(
             OrderViewModel::class.java)
-        binding.recyclerviewAvailableCookOrders.adapter = adapter
+        binding.recyclerviewAvailableOrders.adapter = adapter
         viewModel.orderList.observe(viewLifecycleOwner, Observer {
                 Log.d(TAG, "onCreate: $it")
                 adapter.setDishListByStatus(it, 3)

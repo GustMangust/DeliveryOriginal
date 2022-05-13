@@ -14,7 +14,7 @@
         android:background="@drawable/round_bg">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cook_order_taken_layout"
+            android:id="@+id/user_order_taken_layout"
             android:layout_width="250dp"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -24,7 +24,7 @@
             app:layout_constraintHorizontal_bias="0">
 
             <TextView
-                android:id="@+id/cookOrderId"
+                android:id="@+id/userOrderId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/order_id"
@@ -39,7 +39,7 @@
                 app:layout_constraintVertical_bias=".2" />
 
             <TextView
-                android:id="@+id/cookNumberOfDishes"
+                android:id="@+id/userNumberOfDishes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/number_of_dishes"
@@ -57,7 +57,7 @@
 
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/cookReadyOrderTakenOrder"
+            android:id="@+id/userReadyOrderTakenOrder"
             android:layout_width="110dp"
             android:layout_height="35dp"
             android:text="@string/ready"
@@ -72,7 +72,7 @@
             app:layout_constraintVertical_bias=".2" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/cookShowOrder"
+            android:id="@+id/userShowOrder"
             android:layout_width="110dp"
             android:layout_height="35dp"
             android:background="@drawable/button_bg"
@@ -83,7 +83,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cookReadyOrderTakenOrder" />
+            app:layout_constraintTop_toBottomOf="@+id/userReadyOrderTakenOrder" />
 
 
 

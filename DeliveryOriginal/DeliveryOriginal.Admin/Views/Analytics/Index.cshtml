@@ -25,8 +25,8 @@
     function drawChart() {
 
         let data = new google.visualization.DataTable();
-        data.addColumn('string', 'Topping');
-        data.addColumn('number', 'Slices');
+        data.addColumn('string', 'Name');
+        data.addColumn('number', 'Value');
 
         let arrayOfTopDishes = JSON.parse('@Html.Raw(Model.TopDishesJSON)');
         for (let i = 0; i < arrayOfTopDishes.length; i++) {

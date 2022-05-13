@@ -127,10 +127,7 @@ class MapFragment : Fragment() {
                 return null
             }
             val location: Address = address[0]
-            p1 = GeoPoint(
-                (location.getLatitude()),
-                (location.getLongitude())
-            )
+            p1 = GeoPoint(location.latitude, location.longitude)
             return p1
         } catch (e: IOException) {
             e.printStackTrace()

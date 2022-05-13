@@ -14,7 +14,7 @@ import com.Delivery_Project.model.CartModel
 import com.Delivery_Project.pojo.Dish
 import com.bumptech.glide.Glide
 
-class CookOrderDescriptionAdapter(): RecyclerView.Adapter<OrderDescriptionHolder>() {
+class UserOrderDescriptionAdapter(): RecyclerView.Adapter<OrderDescriptionHolder>() {
     private var dishList = mutableListOf<Dish>()
 
 

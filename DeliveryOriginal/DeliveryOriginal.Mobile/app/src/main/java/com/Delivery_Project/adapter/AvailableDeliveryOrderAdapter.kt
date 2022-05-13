@@ -52,8 +52,8 @@ class AvailableDeliveryOrderAdapter:RecyclerView.Adapter<DeliveryViewHolder>() {
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: DeliveryViewHolder, position: Int) {
         val order = orders[position]
-        holder.binding.cookOrderId.text = "Order ID: " + order.Id.toString()
-        holder.binding.cookNumberOfDishes.text = "Number of dishes: " + order.Dishes.size.toString()
+        holder.binding.userOrderId.text = "Order ID: " + order.Id.toString()
+        holder.binding.userNumberOfDishes.text = "Number of dishes: " + order.Dishes.size.toString()
         val context = holder.itemView.context
         val user = SharedPreferencesUtility.getUser(context)
         holder.binding.cookTakeOrder.setOnClickListener { v: View -> Unit

@@ -21,7 +21,7 @@ import com.Delivery_Project.pojo.Order
 import com.Delivery_Project.pojo.User
 import com.Delivery_Project.retrofit.InterfaceAPI
 import com.Delivery_Project.ui.ui.activity.CookActivity
-import com.Delivery_Project.ui.ui.activity.CookOrderDescription
+import com.Delivery_Project.ui.ui.activity.UserOrderDescription
 import com.Delivery_Project.ui.ui.fragment.TakenCookOrdersFragment
 import com.Delivery_Project.utility.SharedPreferencesUtility
 import com.google.gson.Gson
@@ -54,18 +54,18 @@ class TakenCookOrderAdapter : RecyclerView.Adapter<OrderTakenViewHolder>() {
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: OrderTakenViewHolder, position: Int) {
         val order = orders[position]
-        holder.binding.cookOrderId.text = "Order ID: " + order.Id.toString()
-        holder.binding.cookNumberOfDishes.text = "Number of dishes: " + order.Dishes.size.toString()
+        holder.binding.userOrderId.text = "Order ID: " + order.Id.toString()
+        holder.binding.userNumberOfDishes.text = "Number of dishes: " + order.Dishes.size.toString()
         val context = holder.itemView.context
         val user = SharedPreferencesUtility.getUser(context)
-        holder.binding.cookReadyOrderTakenOrder.setOnClickListener { v: View -> Unit
+        holder.binding.userReadyOrderTakenOrder.setOnClickListener { v: View -> Unit
             putMethod(order.Id,3, user!!)
             orders.remove(order)
             notifyDataSetChanged()
         }
-        holder.binding.cookShowOrder.setOnClickListener {v: View -> Unit
+        holder.binding.userShowOrder.setOnClickListener {v: View -> Unit
             var finalCost = order.Dishes.sumByDouble { it.Cost }
-            val intent = Intent(context, CookOrderDescription::class.java)
+            val intent = Intent(context, UserOrderDescription::class.java)
             intent.putExtra("Dishes", order.Dishes)
             intent.putExtra("PhoneNumber", order.PhoneNumber)
             intent.putExtra("Customer", order.Customer)

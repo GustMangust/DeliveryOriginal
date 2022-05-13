@@ -7,20 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.FragmentActivity
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.Delivery_Project.R
-import com.Delivery_Project.databinding.CookOrderItemBinding
-import com.Delivery_Project.databinding.CookOrderTakenItemBinding
 import com.Delivery_Project.databinding.DeliveryOrderTakenItemBinding
-import com.Delivery_Project.pojo.Dish
 import com.Delivery_Project.pojo.Order
 import com.Delivery_Project.pojo.User
 import com.Delivery_Project.retrofit.InterfaceAPI
-import com.Delivery_Project.ui.ui.activity.CookActivity
-import com.Delivery_Project.ui.ui.activity.CookOrderDescription
-import com.Delivery_Project.ui.ui.activity.DeliveryActivity
+import com.Delivery_Project.ui.ui.activity.UserOrderDescription
 import com.Delivery_Project.utility.SharedPreferencesUtility
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -32,7 +24,6 @@ import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
-import java.io.Serializable
 
 class TakenDeliveryOrderAdapter : RecyclerView.Adapter<DeliveryTakenViewHolder>() {
     var orders = mutableListOf<Order>()
@@ -51,18 +42,18 @@ class TakenDeliveryOrderAdapter : RecyclerView.Adapter<DeliveryTakenViewHolder>(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: DeliveryTakenViewHolder, position: Int) {
         val order = orders[position]
-        holder.binding.cookOrderId.text = "Order ID: " + order.Id.toString()
-        holder.binding.cookNumberOfDishes.text = "Number of dishes: " + order.Dishes.size.toString()
+        holder.binding.userOrderId.text = "Order ID: " + order.Id.toString()
+        holder.binding.userNumberOfDishes.text = "Number of dishes: " + order.Dishes.size.toString()
         val context = holder.itemView.context
         val user = SharedPreferencesUtility.getUser(context)
-        holder.binding.cookReadyOrderTakenOrder.setOnClickListener { v: View -> Unit
+        holder.binding.userReadyOrderTakenOrder.setOnClickListener { v: View -> Unit
             putMethod(order.Id,5, user!!)
             orders.remove(order)
             notifyDataSetChanged()
         }
-        holder.binding.cookShowOrder.setOnClickListener {v: View -> Unit
+        holder.binding.userShowOrder.setOnClickListener {v: View -> Unit
             var finalCost = order.Dishes.sumByDouble { it.Cost }
-            val intent = Intent(context, CookOrderDescription::class.java)
+            val intent = Intent(context, UserOrderDescription::class.java)
             intent.putExtra("Dishes", order.Dishes)
             intent.putExtra("PhoneNumber", order.PhoneNumber)
             intent.putExtra("Customer", order.Customer)
