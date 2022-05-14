@@ -33,7 +33,7 @@
             android:value="AIzaSyBBHrjCIfyjbSXNpMlahZR9MYus_EPD3tc" />
 
         <activity
-            android:name=".ui.ui.activity.CookOrderDescription"
+            android:name=".ui.ui.activity.UserOrderDescription"
             android:exported="true" />
         <activity
             android:name=".ui.ui.activity.CookActivity"

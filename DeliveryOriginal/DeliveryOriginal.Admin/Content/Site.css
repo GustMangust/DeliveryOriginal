@@ -180,6 +180,10 @@ textarea {
     min-height: 450px;
 }
 
+.list-delete-button {
+    cursor: pointer;
+}
+
 @media (max-width: 1200px) {
     .arrowUp-sort-icon {
         width: 95%;
