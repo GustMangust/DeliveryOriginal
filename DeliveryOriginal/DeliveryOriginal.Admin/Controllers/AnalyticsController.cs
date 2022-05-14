@@ -22,7 +22,7 @@ namespace DeliveryOriginal.Admin.Controllers
         {
             var orders = await UnitOfWork.OrderRepository.GetAll();
 
-            var ordersIncomeByMonth = orders.GroupBy(x => CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(x.SubmittedAt.Value.Month))
+            var ordersIncomeByMonth = orders.Where(x => x.Status == OrderStatus.Delivered).GroupBy(x => CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(x.SubmittedAt.Value.Month))
                                             .ToDictionary(g => g.Key, (g) => { return g.Sum(order => order.Dishes.Sum(d => d.Cost));
             });
 
