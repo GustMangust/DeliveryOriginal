@@ -377,13 +377,13 @@ app.post("/Category/Add", jsonParser, async function (req, res) {
     
     try{
         
-        const {Name} = req.body;
+        const {Name, ImageUrl} = req.body;
         
         const client = getClient();
         
         console.log(Name)
         
-        await client.query(`select insertCategory($1)`,[Name]);
+        await client.query(`select insertCategory($1,$2)`,[Name, ImageUrl]);
         
         await client.end();
 
@@ -400,11 +400,11 @@ app.put("/Category/Update", jsonParser, async function (req, res) {
     
     try{
 
-        const {Id, Name} = req.body;
+        const {Id, Name, ImageUrl} = req.body;
     
         const client = getClient();
         
-        await client.query(`select updateCategory($1,$2)`,[Id, Name]);
+        await client.query(`select updateCategory($1,$2)`,[Id, Name, ImageUrl]);
 
         await client.end();
 
